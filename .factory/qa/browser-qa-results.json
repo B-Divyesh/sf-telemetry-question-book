@@ -1,0 +1,659 @@
+{
+  "generatedAt": "2026-08-28T16:03:59.479Z",
+  "bases": {
+    "local": {
+      "desktop": [
+        {
+          "path": "/",
+          "status": 200,
+          "title": "Telemetry Question Book — answer telemetry safely",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/demo",
+          "status": 200,
+          "title": "Demo — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/demo",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/book",
+          "status": 200,
+          "title": "My book — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/book",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/privacy",
+          "status": 200,
+          "title": "Privacy — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/privacy",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/terms",
+          "status": 200,
+          "title": "Terms — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/terms",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/snapshot#broken",
+          "status": 200,
+          "title": "Answer snapshot — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/snapshot",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/not-a-route",
+          "status": 200,
+          "title": "Not found — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/404",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        }
+      ],
+      "mobile": [
+        {
+          "path": "/",
+          "status": 200,
+          "title": "Telemetry Question Book — answer telemetry safely",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/demo",
+          "status": 200,
+          "title": "Demo — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/demo",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/book",
+          "status": 200,
+          "title": "My book — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/book",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/privacy",
+          "status": 200,
+          "title": "Privacy — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/privacy",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/terms",
+          "status": 200,
+          "title": "Terms — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/terms",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/snapshot#broken",
+          "status": 200,
+          "title": "Answer snapshot — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/snapshot",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/not-a-route",
+          "status": 200,
+          "title": "Not found — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/404",
+          "origins": [
+            "http://127.0.0.1:4173"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        }
+      ],
+      "keyboardAndMotion": {
+        "firstFocus": {
+          "text": "Skip to main content",
+          "rect": {
+            "x": 12,
+            "y": 12,
+            "width": 224.65625,
+            "height": 48.796875,
+            "top": 12,
+            "right": 236.65625,
+            "bottom": 60.796875,
+            "left": 12
+          },
+          "outline": "rgb(217, 111, 50) solid 4px"
+        },
+        "demoFocus": {
+          "text": "Try it with sample data",
+          "outline": "rgb(217, 111, 50) solid 4px"
+        },
+        "restoredFocus": "Make answer snapshot",
+        "animationDuration": "1e-05s",
+        "undersizedTargets": [
+          {
+            "text": "Telemetry Question Book home",
+            "width": 38,
+            "height": 38
+          },
+          {
+            "text": "Demo",
+            "width": 31.3,
+            "height": 48
+          },
+          {
+            "text": "Privacy",
+            "width": 67.4,
+            "height": 24.8
+          },
+          {
+            "text": "Terms",
+            "width": 48.2,
+            "height": 24.8
+          }
+        ]
+      }
+    },
+    "live": {
+      "desktop": [
+        {
+          "path": "/",
+          "status": 200,
+          "title": "Telemetry Question Book — answer telemetry safely",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/demo",
+          "status": 200,
+          "title": "Demo — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/demo",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/book",
+          "status": 200,
+          "title": "My book — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/book",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/privacy",
+          "status": 200,
+          "title": "Privacy — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/privacy",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/terms",
+          "status": 200,
+          "title": "Terms — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/terms",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/snapshot#broken",
+          "status": 200,
+          "title": "Answer snapshot — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/snapshot",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/not-a-route",
+          "status": 200,
+          "title": "Not found — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 1440,
+          "innerWidth": 1440,
+          "canonical": "https://telemetry-question-book.sociobot.in/404",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        }
+      ],
+      "mobile": [
+        {
+          "path": "/",
+          "status": 200,
+          "title": "Telemetry Question Book — answer telemetry safely",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/demo",
+          "status": 200,
+          "title": "Demo — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/demo",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/book",
+          "status": 200,
+          "title": "My book — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/book",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/privacy",
+          "status": 200,
+          "title": "Privacy — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/privacy",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/terms",
+          "status": 200,
+          "title": "Terms — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/terms",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/snapshot#broken",
+          "status": 200,
+          "title": "Answer snapshot — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/snapshot",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        },
+        {
+          "path": "/not-a-route",
+          "status": 200,
+          "title": "Not found — Telemetry Question Book",
+          "lang": "en",
+          "h1": 1,
+          "main": 1,
+          "missingAlt": 0,
+          "scrollWidth": 390,
+          "innerWidth": 390,
+          "canonical": "https://telemetry-question-book.sociobot.in/404",
+          "origins": [
+            "https://telemetry-question-book.sociobot.in"
+          ],
+          "consoleErrors": [],
+          "pageErrors": [],
+          "serious": []
+        }
+      ],
+      "keyboardAndMotion": {
+        "firstFocus": {
+          "text": "Skip to main content",
+          "rect": {
+            "x": 12,
+            "y": 12,
+            "width": 224.65625,
+            "height": 48.796875,
+            "top": 12,
+            "right": 236.65625,
+            "bottom": 60.796875,
+            "left": 12
+          },
+          "outline": "rgb(217, 111, 50) solid 4px"
+        },
+        "demoFocus": {
+          "text": "Try it with sample data",
+          "outline": "rgb(217, 111, 50) solid 4px"
+        },
+        "restoredFocus": "Make answer snapshot",
+        "animationDuration": "1e-05s",
+        "undersizedTargets": [
+          {
+            "text": "Telemetry Question Book home",
+            "width": 38,
+            "height": 38
+          },
+          {
+            "text": "Demo",
+            "width": 31.3,
+            "height": 48
+          },
+          {
+            "text": "Privacy",
+            "width": 67.4,
+            "height": 24.8
+          },
+          {
+            "text": "Terms",
+            "width": 48.2,
+            "height": 24.8
+          }
+        ]
+      }
+    }
+  },
+  "workflows": {
+    "local": {
+      "csvError": "The CSV is missing source, sourceUrl, value, unit, threshold, comparison, observedAt, freshMinutes. Use the template and import again.",
+      "templateDownloadObserved": true,
+      "redactedUrlLength": 351,
+      "unredactedUrlLength": 439,
+      "dialogFocus": {
+        "inDialog": true,
+        "label": "Close snapshot dialog"
+      },
+      "storageBefore": {
+        "real": true,
+        "demo": true
+      },
+      "storageAfter": {
+        "real": true,
+        "demo": null
+      },
+      "backFocus": {
+        "tag": "H1",
+        "text": "Answer recurring telemetry questions safely"
+      },
+      "consoleErrors": [],
+      "pageErrors": []
+    },
+    "live": {
+      "csvError": "The CSV is missing source, sourceUrl, value, unit, threshold, comparison, observedAt, freshMinutes. Use the template and import again.",
+      "templateDownloadObserved": true,
+      "redactedUrlLength": 373,
+      "unredactedUrlLength": 461,
+      "dialogFocus": {
+        "inDialog": true,
+        "label": "Close snapshot dialog"
+      },
+      "storageBefore": {
+        "real": true,
+        "demo": true
+      },
+      "storageAfter": {
+        "real": true,
+        "demo": null
+      },
+      "backFocus": {
+        "tag": "H1",
+        "text": "Answer recurring telemetry questions safely"
+      },
+      "consoleErrors": [],
+      "pageErrors": []
+    }
+  }
+}

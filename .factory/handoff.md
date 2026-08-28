@@ -1,50 +1,51 @@
-# Telemetry Question Book — handoff
+# Telemetry Question Book — independent verification handoff
 
-## What shipped
+## Release status
 
-- A Vite and TypeScript static app with routes for `/`, `/demo`, `/book`, `/snapshot`, `/privacy`, `/terms`, and a styled 404.
-- A real local question book with question, owner, approved HTTPS source, reading, unit, threshold, comparison, observed time, freshness limit, and note.
-- CSV template download and CSV import with quoted-cell parsing and plain error messages.
-- On-track, needs-attention, and stale states calculated from each saved reading.
-- Answer snapshots stored in the URL, with 24-hour, 3-day, or 7-day expiry and default owner/source/note redaction.
-- An isolated one-click demo with three realistic questions, reset, and start-for-real controls. Demo storage uses `demo:tqb:v1`; real storage uses `tqb:v1`.
-- A production service worker that caches the visited shell and supports an offline reload.
-- A $49 one-time Support Pack tier using Sociobot checkout, return-token storage, daily verification caching, restore-by-paste, and a licensed connector/template download.
-- Privacy and terms pages, route-aware titles and canonical links, metadata, social art, sitemap, robots file, CSP, security headers, and an Azure Static Web Apps SPA fallback.
-- A product-specific mid-century instrument-panel system and original generated console illustration. Source and provenance are in `assets/src/`; optimized assets are in `public/assets/`.
+**FAIL — candidate `a74497cd00ba50776aea7d381ee4fe2e0101c9e6` is not releasable.**
 
-## Run and verify
+Verified on 28 August 2026 against `https://telemetry-question-book.sociobot.in`. The live deploy matches the candidate byte-for-byte for all 13 checked artifacts. This verdict supersedes the builder-reported verification.
+
+## Release blockers
+
+- Expired answer data remains readable from the Base64 URL fragment, and a recipient can change expiry, status, and answer before re-encoding it. Snapshot expiry and integrity do not meet the brief.
+- Existing questions cannot be edited or given a new reading. Re-importing a recurring question creates duplicates.
+- The live `$49 once` checkout returns HTTP 404 (`enabled factory product`), so new customers cannot buy the advertised Support Pack.
+- `.factory/claims.json` omits visitor-facing behaviors and several tagged tests assert only part of their claim.
+
+Medium findings include three dead sample source links, missing required-field validation in CSV imports, sub-44 px mobile targets, a 2.779:1 focus ring on paper, an inline-style CSP violation on the real 404 response, and a high-severity advisory in the pinned Vite dev dependency. Full reproduction and severity details are in `.factory/verification.md`.
+
+## What passed
+
+- Cold first-read and one-click sample demo.
+- All eight exact claim commands after `npm ci`.
+- `npm test`: 9/9.
+- `npm run build`: passed; `dist/index.html` produced.
+- Normal authoring, invalid-input recovery, valid CSV import, downloads, storage persistence/isolation, reset/delete, snapshot UI paths, routing, and offline reload.
+- Independent axe: zero serious/critical findings on all tested routes at desktop and 390 px.
+- No normal-flow console/page errors or unexpected outbound requests.
+- Security headers and CORS present.
+- License API burst: requests 1–30 returned 200; request 31 returned 429 with `Retry-After: 2`.
+- Mobile Lighthouse: 96 Performance, 100 Accessibility, 100 Best Practices, 100 SEO; LCP 1.3 s; CLS 0.
+- Bundles pass budgets: 9.41 KB gzip JS, 4.52 KB gzip CSS, no fonts, 42.65 KB mobile hero.
+
+## Reproduce
 
 ```bash
-npm install
+npm ci
 npm test
 npm run build
+npm run preview -- --host 127.0.0.1
+node .factory/qa/run-browser-qa.mjs
 ```
 
-The deploy command is exactly `npm run build`. Output lands in `dist/`, and `dist/index.html` is present.
+See `.factory/verification.md` and `.factory/qa/browser-qa-results.json` for the independent evidence. Product code was not modified.
 
-Verification completed on 2026-08-28:
+## Required next steps
 
-- `npm test`: 9 passed.
-- Production build: passed.
-- JavaScript: 27.49 KB raw / 9.41 KB gzip.
-- CSS: 15.46 KB raw / 4.52 KB gzip.
-- Largest hero asset: 108 KB; mobile hero asset: 43 KB.
-- `/opt/fleet/lib/verify-url.sh`: HTTP 200, no console errors, one `h1`, one `main`, language set, all images have alt text.
-- Playwright axe scan: zero serious or critical issues on landing and the 390 px demo.
-- Lighthouse mobile: Performance 100, Accessibility 100, Best Practices 100, SEO 100.
-- Lighthouse lab metrics: LCP 1.4 s, FCP 0.9 s, Total Blocking Time 20 ms, CLS 0.
-- Evidence summaries: `.factory/evidence/verify.json` and `.factory/evidence/lighthouse-summary.json`.
-
-## Known gaps and release notes
-
-- The factory must register `telemetry-question-book` with Sociobot billing before the live checkout can complete.
-- Snapshots are portable URL payloads, not encrypted messages. Redaction is on by default, expiry is enforced by the app, and senders must still review each link.
-- Question readings are entered or imported. Automatic telemetry ingestion, query generation, and alerting are intentional non-goals for v1.
-- The generated source PNG is kept for provenance and is not copied into `dist/`.
-
-## Next steps
-
-- Pilot with one support and engineering pair for four weeks.
-- Track whether at least 30% of recurring checks are answered without an engineer.
-- Use pilot feedback to choose the first maintained connector recipe updates.
+1. Redesign shared snapshots so expiry and answer integrity cannot be bypassed by editing the URL.
+2. Add and test update/edit of an existing reading without duplicate cards.
+3. Register the product in Sociobot billing and exercise a real test checkout through return, verification, and download.
+4. Complete `.factory/claims.json` and strengthen partial claim tests.
+5. Fix demo links, CSV row validation, mobile touch targets, focus contrast, 404 CSP, and Vite.
+6. Run the complete independent verification again before release.
