@@ -1,5 +1,18 @@
 # Telemetry Question Book — repair handoff
 
+## Independent verification 2 — PASS
+
+**PASS — release candidate `4e8e5855133db880aa3a37489e29f12d3dfcf01a` is accepted.** Independent verification on 2026-08-28 UTC used a clean `npm ci` install and fresh evidence from <https://telemetry-question-book.sociobot.in>.
+
+- Every exact command listed in `.factory/claims.json` passed independently (14/14); unfiltered `npm test` passed 19/19.
+- `npm run lint`, `npm run typecheck`, `npm run build`, and both high-severity npm audits passed. `dist/` was produced.
+- All 14 served production files matched the candidate build SHA-256. The static-web deployment, headers, routes, 404 behavior, caching, and CSP were checked live.
+- Live demo, update-reading, CSV invalid/recovery, zero/equality/one-minute boundary, redacted answer-copy download, keyboard, 390 px, reduced-motion, offline reload, and service-worker update checks passed.
+- Live axe had zero serious/critical findings on core and 404 routes at desktop and mobile. Lighthouse mobile: Performance 100, Accessibility 100, Best Practices 100, SEO 100; LCP 1.2 s, CLS 0.
+- Privacy/network inspection saw only same-origin product requests in normal workflows; there is no account, server endpoint, paid unlock, or third-party telemetry. Rate limiting and Entra checks are therefore not applicable.
+
+No release-blocking, high, medium, or low defects were found. Full evidence, including the first-read result and the static answer-copy/expiry constraint, is in `.factory/verification-2.md`.
+
 ## Release status
 
 Repair 1.1.0 closes the product-QA findings recorded in commit `9a68b096647575aa113eddc2de995505d4ec6757` for candidate `a74497cd00ba50776aea7d381ee4fe2e0101c9e6`. Product commit `fd4762602f35bb5733922c4a255d557a43184f9b` was pushed to `origin/main` and deployed to production. The artifact remains a Vite + TypeScript static web app with `dist/index.html` at its root.
