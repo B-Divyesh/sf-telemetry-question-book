@@ -1,58 +1,16 @@
 [
-  {
-    "id": "demo-sandbox",
-    "claim": "Try it with sample data opens three realistic questions in separate demo storage.",
-    "where": "landing action and demo banner",
-    "test": "npm test -- --grep @claim:demo-sandbox",
-    "sandbox": "fresh browser context; click the landing action; inspect cards and localStorage keys"
-  },
-  {
-    "id": "local-browser",
-    "claim": "Question data stays in this browser and the app sends no analytics.",
-    "where": "landing facts and privacy page",
-    "test": "npm test -- --grep @claim:local-browser",
-    "sandbox": "fresh demo context; record every request during snapshot creation; require same-origin only"
-  },
-  {
-    "id": "threshold-states",
-    "claim": "The book marks saved readings as on track, needs attention, or stale from their threshold and freshness limit.",
-    "where": "live preview, question cards, and README",
-    "test": "npm test -- --grep @claim:threshold-states",
-    "sandbox": "fresh demo context; assert two passing cards, one stale card, and a visible freshness limit"
-  },
-  {
-    "id": "offline-reload",
-    "claim": "Works after the first visit, even offline.",
-    "where": "landing facts and README",
-    "test": "npm test -- --grep @claim:offline-reload",
-    "sandbox": "fresh browser context; visit demo, activate service worker, set context offline, reload"
-  },
-  {
-    "id": "csv-import",
-    "claim": "Imports approved question rows from CSV.",
-    "where": "landing how-it-works, book toolbar, and README",
-    "test": "npm test -- --grep @claim:csv-import",
-    "sandbox": "demo data; upload one valid CSV row; assert a fourth card and its reading"
-  },
-  {
-    "id": "snapshot-controls",
-    "claim": "Creates expiring answer snapshots with optional owner, source, and note redaction.",
-    "where": "landing how-it-works and README",
-    "test": "npm test -- --grep @claim:snapshot-controls",
-    "sandbox": "demo data; create a redacted snapshot, then open an expired fixture"
-  },
-  {
-    "id": "least-privilege-input",
-    "claim": "The app accepts approved HTTPS links and never asks for dashboard credentials.",
-    "where": "landing boundaries, authoring form, and README",
-    "test": "npm test -- --grep @claim:least-privilege-input",
-    "sandbox": "fresh real book; open authoring form; assert URL input, warning, and no password input"
-  },
-  {
-    "id": "paid-support-pack",
-    "claim": "A verified one-time license downloads the Support Pack connector recipes and templates.",
-    "where": "paid tier and README",
-    "test": "npm test -- --grep @claim:paid-support-pack",
-    "sandbox": "fresh context; mock a valid Sociobot verification response; assert named download"
-  }
+  {"id":"demo-sandbox","claim":"Try it with sample data opens three realistic questions in separate demo storage.","where":"landing action and demo banner","test":"npm test -- --grep @claim:demo-sandbox","sandbox":"fresh browser context; click the landing action; inspect all three cards and storage keys"},
+  {"id":"demo-controls","claim":"Reset demo restores the sample and Start for real deletes demo data without changing the real book.","where":"demo banner, privacy page, and demo documentation","test":"npm test -- --grep @claim:demo-controls","sandbox":"fresh context with deliberately changed demo data and separately seeded real data"},
+  {"id":"local-browser","claim":"Question and answer-copy data stays in browser storage; the app has no account, analytics, ingestion, query generation, or alerts.","where":"landing facts, boundaries, privacy page, and README","test":"npm test -- --grep @claim:local-browser","sandbox":"record every request through the demo answer-copy flow; inspect local and session storage"},
+  {"id":"free-core","claim":"The question book, editing, CSV import, answer-copy export, and safety controls are free with no account or purchase.","where":"landing fact and README","test":"npm test -- --grep @claim:free-core","sandbox":"fresh demo context; assert core controls and absence of login, checkout, or paid download gates"},
+  {"id":"threshold-states","claim":"The book marks saved readings as on track, needs attention, or stale from their threshold and freshness limit.","where":"live preview, question cards, and README","test":"npm test -- --grep @claim:threshold-states","sandbox":"fresh demo context plus a current failing reading; assert all three states and the visible freshness limit"},
+  {"id":"offline-reload","claim":"Works after the first visit, even offline.","where":"landing facts and README","test":"npm test -- --grep @claim:offline-reload","sandbox":"fresh context; visit demo, wait for its service worker, go offline, and reload"},
+  {"id":"question-update","claim":"Updates a recurring reading on its existing question card.","where":"question card and README","test":"npm test -- --grep @claim:question-update","sandbox":"demo data; update the first reading; assert the value persists and the card count stays three"},
+  {"id":"csv-import","claim":"Imports new approved CSV rows and updates matching recurring questions without duplicates.","where":"landing, import panel, and README","test":"npm test -- --grep @claim:csv-import","sandbox":"demo data; import a named row twice with different values; assert one card with the latest value"},
+  {"id":"csv-validation","claim":"CSV imports require the same fields, HTTPS source URL, and 1–10080 minute freshness range as the form.","where":"import panel and README","test":"npm test -- --grep @claim:csv-validation","sandbox":"demo data; import blank required fields, a malformed HTTPS URL, and an out-of-range freshness value"},
+  {"id":"csv-template","claim":"Downloads a CSV template with the required headers and a sample row.","where":"book toolbar and README","test":"npm test -- --grep @claim:csv-template","sandbox":"demo data; download and inspect the filename, headers, and row count"},
+  {"id":"answer-copy-security","claim":"Answer-copy previews stay in session storage, never in the URL, and default to hiding owner, source, and note.","where":"answer-copy dialog, privacy page, and README","test":"npm test -- --grep @claim:answer-copy-security","sandbox":"create a default-redacted copy, inspect storage and URL, then open a forged legacy fragment"},
+  {"id":"answer-copy-download","claim":"Downloads the reviewed point-in-time answer as JSON and warns that files do not expire.","where":"landing, answer-copy preview, privacy page, and README","test":"npm test -- --grep @claim:answer-copy-download","sandbox":"create a redacted demo copy; download and inspect every exported field"},
+  {"id":"least-privilege-input","claim":"The app accepts approved HTTPS links and never asks for dashboard credentials.","where":"landing boundaries, authoring form, and README","test":"npm test -- --grep @claim:least-privilege-input","sandbox":"fresh real book; inspect the authoring form and its safety notice"},
+  {"id":"sample-sources","claim":"Every demo question links to a working local sample source page.","where":"demo question cards and demo documentation","test":"npm test -- --grep @claim:sample-sources","sandbox":"fresh demo; request and render every source path"}
 ]

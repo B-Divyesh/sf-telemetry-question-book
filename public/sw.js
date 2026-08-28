@@ -1,5 +1,5 @@
-const CACHE = 'tqb-shell-v2';
-const CORE = ['/assets/question-console-960.webp', '/favicon.svg'];
+const CACHE = 'tqb-shell-v3';
+const CORE = ['/assets/question-console-960.webp', '/favicon.svg', '/404.css'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
