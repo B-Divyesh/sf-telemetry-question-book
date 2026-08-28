@@ -1,83 +1,39 @@
-# Telemetry Question Book — repair handoff
+# Telemetry Question Book — adversarial review 1 handoff
 
-## Independent verification 2 — PASS
+## Outcome
 
-**PASS — release candidate `4e8e5855133db880aa3a37489e29f12d3dfcf01a` is accepted.** Independent verification on 2026-08-28 UTC used a clean `npm ci` install and fresh evidence from <https://telemetry-question-book.sociobot.in>.
+**FAIL.** The full review is in `.factory/review-1.md` for work order `telemetry-question-book-review-1`.
 
-- Every exact command listed in `.factory/claims.json` passed independently (14/14); unfiltered `npm test` passed 19/19.
-- `npm run lint`, `npm run typecheck`, `npm run build`, and both high-severity npm audits passed. `dist/` was produced.
-- All 14 served production files matched the candidate build SHA-256. The static-web deployment, headers, routes, 404 behavior, caching, and CSP were checked live.
-- Live demo, update-reading, CSV invalid/recovery, zero/equality/one-minute boundary, redacted answer-copy download, keyboard, 390 px, reduced-motion, offline reload, and service-worker update checks passed.
-- Live axe had zero serious/critical findings on core and 404 routes at desktop and mobile. Lighthouse mobile: Performance 100, Accessibility 100, Best Practices 100, SEO 100; LCP 1.2 s, CLS 0.
-- Privacy/network inspection saw only same-origin product requests in normal workflows; there is no account, server endpoint, paid unlock, or third-party telemetry. Rate limiting and Entra checks are therefore not applicable.
+This review changed no product code. It found 19 issues: three blocking, four major, and twelve minor. The principal blockers are that no realistic sample card appears in the initial 390 × 844 demo viewport, demo answer copies use the real session-storage namespace and lose the demo banner, and the brief's expiring shareable snapshot remains unimplemented.
 
-No release-blocking, high, medium, or low defects were found. Full evidence, including the first-read result and the static answer-copy/expiry constraint, is in `.factory/verification-2.md`.
+## What was done
 
-## Release status
+- Opened the deployed site cold in fresh 390 × 844 and 1440 × 900 Chromium contexts and recorded the pre-scroll interpretation.
+- Audited every landing-page and README copy string with word counts, terminology, jargon, heading, and action checks.
+- Exercised demo entry, editing, reset, Start for real, answer-copy creation, storage separation, request logging, and offline reload live.
+- Ran every exact command from `.factory/claims.json` independently in a fresh clone.
+- Cross-checked live claims against the landing page and README and inspected the tagged tests for assertion completeness.
+- Read the brief, design, demo contract, prior handoff, and both prior verification reports; rechecked every earlier defect live and in source.
+- Crawled routes and links; checked status codes, titles, metadata, canonical URLs, 404 behavior, focus on navigation/back, mobile overflow, and the visual identity.
+- Ran live axe scans at both viewports and checked privacy/network behavior.
+- Confirmed that AI is neither used nor warranted because the brief explicitly forbids LLM-generated explanations.
 
-Repair 1.1.0 closes the product-QA findings recorded in commit `9a68b096647575aa113eddc2de995505d4ec6757` for candidate `a74497cd00ba50776aea7d381ee4fe2e0101c9e6`. Product commit `fd4762602f35bb5733922c4a255d557a43184f9b` was pushed to `origin/main` and deployed to production. The artifact remains a Vite + TypeScript static web app with `dist/index.html` at its root.
+## Verification
 
-## Repairs
+Run from a fresh clone after `npm ci`:
 
-- Removed unsigned Base64 answer data from URL fragments. Answer-copy previews now use session storage, default to redacting owner, source, and note, and ignore and remove legacy or forged fragments. JSON exports state plainly that downloaded files do not expire or provide access control.
-- Added **Update reading** with a prefilled editor. Saving keeps the card ID and count. CSV imports now update a case-insensitive matching question instead of creating a duplicate.
-- Removed the unavailable Support Pack sale, checkout link, license storage, and verification calls. The advertised checkout returned 404 and this repository has no authority or tooling to register billing products.
-- Expanded `.factory/claims.json` from 8 partial claims to 14 complete claims. Each exact command has one tagged observable test.
-- Replaced the three dead `example.com` demo links with explicit same-product sample-source routes.
-- Applied one validation path to the form and CSV import: required fields, length limits, valid HTTPS URL, numeric values, comparison, date, and a whole-number freshness range of 1–10,080 minutes.
-- Raised header and footer targets to at least 44 × 44 CSS px and replaced the low-contrast focus ring with a cream inner ring and dark-brown outer ring.
-- Moved 404 styles into `/404.css`, added a meta CSP fallback, and changed SWA routing to explicit known routes. Unknown routes and missing assets now return the styled document with HTTP 404.
-- Updated Vite from 7.1.3 to 7.3.6 and added ESLint. Both production and development audits now report zero vulnerabilities.
-- Removed immutable one-year caching from non-hashed illustrations, bumped the shell cache to `tqb-shell-v3`, fixed repeated “at,” and made the demo count reflect its actual cards.
-
-## Verification evidence
-
-Run from `/work/repo` on 28 August 2026 with Node 22.23.2, npm 10.9.8, Playwright 1.58.2, and Chromium 1208:
-
-- `npm ci`: passed from the lockfile; 105 packages installed.
-- `npm audit --audit-level=high`: zero vulnerabilities.
-- `npm audit --omit=dev`: zero vulnerabilities.
-- `npm run lint`: passed.
-- `npm run typecheck`: passed.
-- `npm test`: 19/19 passed in 21.9 seconds after a production build.
-- Every exact command in `.factory/claims.json`: passed independently, one matching test each.
-- `npm run build`: passed. Output: JS 27.26 KB raw / 9.21 KB gzip; CSS 15.81 KB raw / 4.57 KB gzip; no fonts; mobile hero 42.65 KB; largest hero 108.34 KB.
-- `.factory/qa/run-browser-qa.mjs` against local production output: all routes at 1440 × 900 and 390 × 844 had one `h1`, one `main`, no missing alt text, no overflow, no console/page errors, and zero serious/critical axe findings. Keyboard dialog focus restored, reduced motion was `0.00001s`, and no target was below 44 px.
-- Azure SWA emulator: all eight declared routes returned 200; `/not-a-route` and `/missing.png` returned the styled 404 with HTTP 404. Normal routes had the configured CSP, `nosniff`, referrer, permissions, and HSTS headers.
-- Offline/update regression: the visited demo reloaded offline with three cards; a fresh worker removed `tqb-shell-v2`, activated `tqb-shell-v3`, and had no waiting worker.
-- Privacy regression: landing, editing, and answer-copy flow requested only the product origin. Real, demo, and preview data remained in `tqb:v1`, `demo:tqb:v1`, and `tqb:snapshot-preview` respectively.
-- Live mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.2 s, CLS 0, TBT 0 ms.
-- Updated first-read evidence: `.factory/qa/first-read-desktop.webp` and `.factory/qa/first-read-mobile.webp`.
-
-## Deployment and live identity
-
-- Deployed with `/opt/fleet/lib/deploy-static.sh telemetry-question-book dist`; Azure deployment ID `d7bb6cde-c8a7-4639-90cc-72d47e431405` succeeded.
-- Azure resource: `sf-telemetry-question-book`, Standard SKU, Central US; default host `zealous-stone-0dc817310.7.azurestaticapps.net`.
-- Custom domain `telemetry-question-book.sociobot.in` reports `Ready`. TLS certificate CN matches the domain and is valid from 28 August 2026 through 28 February 2027.
-- GitHub `main` and local HEAD both resolved to `fd4762602f35bb5733922c4a255d557a43184f9b` after push.
-- SHA-256 matched for all 14 public build artifacts: HTML, CSS, JS, both 404 assets, three WebP files, service worker, manifest, robots, sitemap, favicon, and apple-touch icon.
-- Live route policy: `/`, `/demo`, `/book`, `/privacy`, `/terms`, `/snapshot`, and all three sample sources return 200. `/not-a-route` and `/missing.png` return the styled HTTP 404.
-- Live headers: same-origin-only CSP, HSTS, `nosniff`, strict-origin referrer policy, and camera/microphone/geolocation denial. Hashed CSS/JS are one-year immutable; illustrations revalidate after one day; HTML and the service worker revalidate after 30 seconds.
-- `/opt/fleet/lib/verify-url.sh`: HTTP 200, 851 ms load, no console errors, title/lang/main/alt/button checks passed.
-- Live desktop and 390 px browser QA repeated every route and both workflows with the same results as local. All crawled links returned 200.
-- Fresh live offline check installed only `tqb-shell-v3`, reloaded three demo cards offline, and showed the offline notice. The edit and answer-copy flow contacted only the product origin.
-
-## Scope decisions and known gaps
-
-The brief asked for expiring shareable snapshots, but enforceable recipient expiry and integrity require a trusted server. A static file containing its own data or key can always be copied or changed. This repair ships the closest honest static behavior: redacted point-in-time downloads with no URL payload and an explicit non-expiry warning. Add expiring links only after an approved opaque-token service exists.
-
-The brief also proposed one-time monetization. The live Sociobot checkout returned 404, and repository rules forbid changing billing infrastructure here. The unavailable tier is no longer advertised. Restore it only after the product is registered and a real checkout-through-verification test passes.
-
-No AI feature was added because the brief explicitly forbids generated explanations and the core job does not need a model.
-
-## Run and deploy
-
-```bash
-npm ci
-npm run lint
-npm test
-npm run build
-/opt/fleet/lib/deploy-static.sh telemetry-question-book dist
+```text
+14/14 exact .factory/claims.json commands passed
+npm test                                      PASS (19/19)
+npm run lint                                  PASS
+npm run typecheck                             PASS
+npm run build                                 PASS
+npm audit --audit-level=high                  PASS (0 vulnerabilities)
+npm audit --omit=dev --audit-level=high       PASS (0 vulnerabilities)
 ```
 
-Production URL: `https://telemetry-question-book.sociobot.in`
+Build output: JS 27.26 kB raw / 9.21 kB gzip; CSS 15.81 kB raw / 4.57 kB gzip. `dist/index.html` was produced. All 14 deployable public artifacts matched production by SHA-256. Live axe found no serious or critical violations on the tested routes at 390 × 844 or 1440 × 900. Live offline reload retained all three demo cards, and the request log contained only the product origin.
+
+## Known gaps and next steps
+
+Resolve F-1-1 through F-1-19 in `.factory/review-1.md`, starting with the three blocking findings. The next review must rerun the entire checklist from fresh browser contexts rather than checking only the diff.
