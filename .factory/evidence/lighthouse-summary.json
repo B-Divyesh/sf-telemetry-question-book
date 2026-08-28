@@ -1,0 +1,17 @@
+{
+  "run_date": "2026-08-28",
+  "url": "http://127.0.0.1:4173/",
+  "mode": "mobile",
+  "scores": {
+    "performance": 100,
+    "accessibility": 100,
+    "best_practices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "largest_contentful_paint": "1.4 s",
+    "first_contentful_paint": "0.9 s",
+    "total_blocking_time": "20 ms",
+    "cumulative_layout_shift": 0
+  }
+}

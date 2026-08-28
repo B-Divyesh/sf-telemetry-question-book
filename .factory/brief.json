@@ -1,0 +1,11 @@
+{
+  "slug": "telemetry-question-book",
+  "title": "Telemetry Question Book",
+  "summary": "Answer recurring telemetry questions from approved readings.",
+  "territory": "devtools-data",
+  "user": "An engineering/support pair that repeatedly answers customer-impact questions from telemetry tools but cannot share broad access.",
+  "smallest_useful_product": "A static local-first app that turns approved read-only links or CSV exports into named question cards with owner, freshness, threshold, and a shareable answer snapshot.",
+  "artifact_class": "static-web",
+  "monetization": "one-time",
+  "constraints": "Use read-only, least-privilege links. Snapshots need expiry and redaction. Do not generate explanations with an LLM."
+}

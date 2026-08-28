@@ -1,0 +1,58 @@
+[
+  {
+    "id": "demo-sandbox",
+    "claim": "Try it with sample data opens three realistic questions in separate demo storage.",
+    "where": "landing action and demo banner",
+    "test": "npm test -- --grep @claim:demo-sandbox",
+    "sandbox": "fresh browser context; click the landing action; inspect cards and localStorage keys"
+  },
+  {
+    "id": "local-browser",
+    "claim": "Question data stays in this browser and the app sends no analytics.",
+    "where": "landing facts and privacy page",
+    "test": "npm test -- --grep @claim:local-browser",
+    "sandbox": "fresh demo context; record every request during snapshot creation; require same-origin only"
+  },
+  {
+    "id": "threshold-states",
+    "claim": "The book marks saved readings as on track, needs attention, or stale from their threshold and freshness limit.",
+    "where": "live preview, question cards, and README",
+    "test": "npm test -- --grep @claim:threshold-states",
+    "sandbox": "fresh demo context; assert two passing cards, one stale card, and a visible freshness limit"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "Works after the first visit, even offline.",
+    "where": "landing facts and README",
+    "test": "npm test -- --grep @claim:offline-reload",
+    "sandbox": "fresh browser context; visit demo, activate service worker, set context offline, reload"
+  },
+  {
+    "id": "csv-import",
+    "claim": "Imports approved question rows from CSV.",
+    "where": "landing how-it-works, book toolbar, and README",
+    "test": "npm test -- --grep @claim:csv-import",
+    "sandbox": "demo data; upload one valid CSV row; assert a fourth card and its reading"
+  },
+  {
+    "id": "snapshot-controls",
+    "claim": "Creates expiring answer snapshots with optional owner, source, and note redaction.",
+    "where": "landing how-it-works and README",
+    "test": "npm test -- --grep @claim:snapshot-controls",
+    "sandbox": "demo data; create a redacted snapshot, then open an expired fixture"
+  },
+  {
+    "id": "least-privilege-input",
+    "claim": "The app accepts approved HTTPS links and never asks for dashboard credentials.",
+    "where": "landing boundaries, authoring form, and README",
+    "test": "npm test -- --grep @claim:least-privilege-input",
+    "sandbox": "fresh real book; open authoring form; assert URL input, warning, and no password input"
+  },
+  {
+    "id": "paid-support-pack",
+    "claim": "A verified one-time license downloads the Support Pack connector recipes and templates.",
+    "where": "paid tier and README",
+    "test": "npm test -- --grep @claim:paid-support-pack",
+    "sandbox": "fresh context; mock a valid Sociobot verification response; assert named download"
+  }
+]

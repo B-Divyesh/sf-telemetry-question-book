@@ -1,6 +1,10 @@
 node_modules/
 dist/
-.env
+test-results/
+playwright-report/
+.DS_Store
 *.log
 graphify-out/
-.DS_Store
+.factory/evidence/index.html
+.factory/evidence/lighthouse.json
+.factory/evidence/screenshot-*.png
