@@ -2,7 +2,7 @@
 
 ## Release status
 
-Repair candidate 1.1.0 closes the product-QA findings recorded in commit `9a68b096647575aa113eddc2de995505d4ec6757` for candidate `a74497cd00ba50776aea7d381ee4fe2e0101c9e6`. The artifact remains a Vite + TypeScript static web app with `dist/index.html` at its root.
+Repair 1.1.0 closes the product-QA findings recorded in commit `9a68b096647575aa113eddc2de995505d4ec6757` for candidate `a74497cd00ba50776aea7d381ee4fe2e0101c9e6`. Product commit `fd4762602f35bb5733922c4a255d557a43184f9b` was pushed to `origin/main` and deployed to production. The artifact remains a Vite + TypeScript static web app with `dist/index.html` at its root.
 
 ## Repairs
 
@@ -33,8 +33,21 @@ Run from `/work/repo` on 28 August 2026 with Node 22.23.2, npm 10.9.8, Playwrigh
 - Azure SWA emulator: all eight declared routes returned 200; `/not-a-route` and `/missing.png` returned the styled 404 with HTTP 404. Normal routes had the configured CSP, `nosniff`, referrer, permissions, and HSTS headers.
 - Offline/update regression: the visited demo reloaded offline with three cards; a fresh worker removed `tqb-shell-v2`, activated `tqb-shell-v3`, and had no waiting worker.
 - Privacy regression: landing, editing, and answer-copy flow requested only the product origin. Real, demo, and preview data remained in `tqb:v1`, `demo:tqb:v1`, and `tqb:snapshot-preview` respectively.
-- Local mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 1.1 s, LCP 1.4 s, CLS 0, TBT 0 ms.
+- Live mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.2 s, CLS 0, TBT 0 ms.
 - Updated first-read evidence: `.factory/qa/first-read-desktop.webp` and `.factory/qa/first-read-mobile.webp`.
+
+## Deployment and live identity
+
+- Deployed with `/opt/fleet/lib/deploy-static.sh telemetry-question-book dist`; Azure deployment ID `d7bb6cde-c8a7-4639-90cc-72d47e431405` succeeded.
+- Azure resource: `sf-telemetry-question-book`, Standard SKU, Central US; default host `zealous-stone-0dc817310.7.azurestaticapps.net`.
+- Custom domain `telemetry-question-book.sociobot.in` reports `Ready`. TLS certificate CN matches the domain and is valid from 28 August 2026 through 28 February 2027.
+- GitHub `main` and local HEAD both resolved to `fd4762602f35bb5733922c4a255d557a43184f9b` after push.
+- SHA-256 matched for all 14 public build artifacts: HTML, CSS, JS, both 404 assets, three WebP files, service worker, manifest, robots, sitemap, favicon, and apple-touch icon.
+- Live route policy: `/`, `/demo`, `/book`, `/privacy`, `/terms`, `/snapshot`, and all three sample sources return 200. `/not-a-route` and `/missing.png` return the styled HTTP 404.
+- Live headers: same-origin-only CSP, HSTS, `nosniff`, strict-origin referrer policy, and camera/microphone/geolocation denial. Hashed CSS/JS are one-year immutable; illustrations revalidate after one day; HTML and the service worker revalidate after 30 seconds.
+- `/opt/fleet/lib/verify-url.sh`: HTTP 200, 851 ms load, no console errors, title/lang/main/alt/button checks passed.
+- Live desktop and 390 px browser QA repeated every route and both workflows with the same results as local. All crawled links returned 200.
+- Fresh live offline check installed only `tqb-shell-v3`, reloaded three demo cards offline, and showed the offline notice. The edit and answer-copy flow contacted only the product origin.
 
 ## Scope decisions and known gaps
 
