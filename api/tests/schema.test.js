@@ -74,3 +74,34 @@ test('create handler rejects the exact malformed payload before storage', async 
   assert.equal(writes, 0);
   assert.deepEqual(JSON.parse(response.body), { error: 'The answer copy is invalid. Review it and try again.' });
 });
+
+test('read handler removes malformed stored data and returns a plain unavailable response', async () => {
+  const handlerPath = require.resolve('../snapshot-get');
+  const storePath = require.resolve('../lib/store');
+  const ratePath = require.resolve('../lib/rate-limit');
+  let removed;
+  require.cache[storePath] = {
+    id: storePath,
+    filename: storePath,
+    loaded: true,
+    exports: {
+      get: async () => ({ payload: JSON.stringify(validSnapshot({ question: null })), expiresAt: '2026-08-30T10:00:00.000Z', demo: false }),
+      removePayload: async (token, reason) => { removed = { token, reason }; }
+    }
+  };
+  require.cache[ratePath] = {
+    id: ratePath,
+    filename: ratePath,
+    loaded: true,
+    exports: {
+      enforceRateLimit: async () => ({ allowed: true, headers: { 'X-RateLimit-Limit': '100' } }),
+      addRateHeaders: (response, rate) => ({ ...response, headers: { ...rate.headers, ...response.headers } })
+    }
+  };
+  delete require.cache[handlerPath];
+  const handler = require(handlerPath);
+  const response = await handler({ bindingData: { token: 'r_bad' } }, { headers: {} });
+  assert.equal(response.status, 410);
+  assert.deepEqual(JSON.parse(response.body), { error: 'This answer link is unavailable.', reason: 'invalid' });
+  assert.deepEqual(removed, { token: 'r_bad', reason: 'invalid' });
+});

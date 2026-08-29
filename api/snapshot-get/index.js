@@ -1,5 +1,6 @@
 const { get, removePayload } = require('../lib/store');
 const { enforceRateLimit, addRateHeaders } = require('../lib/rate-limit');
+const { validateSnapshot } = require('../lib/snapshot-schema');
 
 module.exports = async function (context, req) {
   const rate = await enforceRateLimit(req);
@@ -17,7 +18,10 @@ module.exports = async function (context, req) {
     return addRateHeaders({ status: 410, headers, body: JSON.stringify({ error: 'This answer link has expired or was revoked.', reason }) }, rate);
   }
   try {
-    return addRateHeaders({ status: 200, headers, body: JSON.stringify({ snapshot: JSON.parse(record.payload), expiresAt: record.expiresAt }) }, rate);
+    const snapshot = JSON.parse(record.payload);
+    const checked = validateSnapshot(snapshot, Boolean(record.demo));
+    if (!checked.ok) throw new Error('invalid stored snapshot');
+    return addRateHeaders({ status: 200, headers, body: JSON.stringify({ snapshot: checked.value, expiresAt: record.expiresAt }) }, rate);
   } catch {
     await removePayload(token, 'invalid');
     return addRateHeaders({ status: 410, headers, body: JSON.stringify({ error: 'This answer link is unavailable.', reason: 'invalid' }) }, rate);

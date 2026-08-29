@@ -411,5 +411,5 @@ test('regression: service worker replaces old caches and has no waiting update',
   await page.evaluate(async () => { await navigator.serviceWorker.ready; });
   await expect.poll(() => page.evaluate(() => caches.keys())).not.toContain('tqb-shell-v2');
   await expect.poll(() => page.evaluate(async () => Boolean((await navigator.serviceWorker.getRegistration())?.waiting))).toBe(false);
-  expect(await page.evaluate(() => caches.keys())).toContain('tqb-shell-v4');
+  expect(await page.evaluate(() => caches.keys())).toContain('tqb-shell-v5');
 });
