@@ -37,7 +37,8 @@ Production evidence at <https://telemetry-question-book.sociobot.in>:
 - `/opt/fleet/lib/verify-url.sh`: HTTP 200, no console errors, title/lang/one h1/main/alt/button labels pass.
 - Browser + axe matrix: 32 route/viewport checks, zero serious/critical violations, zero horizontal overflow, zero undersized controls.
 - Shared-answer axe check: zero serious/critical violations and zero console errors.
-- Mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 1.1 s, LCP 1.3 s, CLS 0, TBT 40 ms.
+- Mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.2 s, CLS 0, TBT 10 ms.
+- Production deployment ID: `3307865e-ec0d-4e6e-bc78-6ae120d59477`.
 - Live API: expiry `200 → 410`; revocation `200 → 204 → 410`; storage inspection confirms `payload_retained=false` after both.
 - Cold live 390 × 844: first card fields occupy y 588–763; banner persists on `/demo/snapshot`; real storage sentinels survive Reset demo and Start for real.
 - Privacy: normal landing/demo/update requests stay same-origin; no analytics, third-party font/script, account, automatic telemetry query, or alert request occurs.
