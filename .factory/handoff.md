@@ -1,59 +1,86 @@
-# Telemetry Question Book — review 6 handoff
+# Telemetry Question Book — polish 6 handoff
 
 ## Outcome
 
-**FAIL — one reopened blocking finding remains.** Review 6 found that F-1-6,
-the claim-to-test coverage mismatch, is still only partly fixed. The live
-product behavior checked in this round works, but five tagged tests do not
-prove the complete promises recorded in `.factory/claims.json`.
+**PASS.** F-1-6 is fully closed. The application behavior was already correct,
+but five claim tests were too shallow. They now prove both demo exit paths,
+the complete freshness boundary, the exact CSV template, preview storage
+separation, and the exact downloaded answer object. All findings from reviews
+1–6 were rechecked; no known issue remains.
 
-No product code was modified. The review is in `.factory/review-6.md`.
+The product stays a Vite + TypeScript static web app with managed Static Web
+App functions. Its cream, forest, amber, hard-edged instrument-panel identity
+is unchanged.
 
-## What was done
+## Changes
 
-- Opened the live product cold in fresh 390 × 844 and 1440 × 900 Chromium
-  contexts and recorded the first-screen interpretation before scrolling.
-- Exercised the one-click demo, sample reset, separate storage, answer-copy
-  preview, expiring link, revocation, Start for real, and offline reload.
-- Recorded live requests across normal and sharing flows; only the product
-  origin was contacted, and the snapshot API was called only after explicit
-  sharing actions.
-- Audited every landing and README sentence for length, jargon, terminology,
-  heading clarity, and action wording.
-- Ran every literal claim command independently from a fresh clone, then ran
-  the full suite and repository gates.
-- Rechecked every finding from reviews 1–5 against live behavior and current
-  code/tests.
-- Audited route metadata, deep links, history focus, 404 behavior, all page
-  links, keyboard focus, mobile overflow, and Axe results at both viewports.
+- `@claim:demo-controls` now creates a `d_` link before **Reset demo**, proves
+  HTTP 410 after reset, verifies that only the freshly seeded sample key
+  remains, and compares exact real sentinels. It repeats revocation, full demo
+  cleanup, and real-data comparison for **Start for real**.
+- `@claim:csv-validation` now successfully imports and inspects `freshMinutes`
+  10,080 in addition to the existing 1, 0, 1.5, and 10,081 cases.
+- `@claim:csv-template` compares the complete header and every field of the
+  one sample row exactly.
+- `@claim:answer-copy-security` pre-seeds a real preview and proves the demo
+  preview leaves it byte-for-byte unchanged.
+- `@claim:answer-copy-download` compares the exact key set and complete file
+  with the reviewed preview, including answer, status, observed time, and
+  created time.
+- `.factory/claims.json` documents those exact sandboxes.
+- The catalog description is now the verb-first, 76-character line: “Track
+  recurring telemetry answers from readings your team enters or imports.”
 
-## Verification results
+## Verification
 
-- 28/28 literal claim commands: PASS.
-- `npm test`: PASS — 15 API tests and 33 Playwright tests.
-- `npm run lint`: PASS.
-- `npm run typecheck`: PASS.
-- `npm run build`: PASS; `dist/index.html` produced.
-- Full and production high-severity dependency audits: PASS.
-- `git diff --check`: PASS.
-- Live Axe: zero serious or critical findings across 22 route/viewport scans.
-- `/opt/fleet/lib/verify-url.sh`: PASS for `/` and `/demo`.
-- Live static and API build IDs both equal
-  `566300dfe913e1feb162af3deae250721034cbdd`.
+- Fresh clone `/tmp/tqb-polish6-clean` at repair commit `296c06d`:
+  **28/28 literal claim commands passed**.
+- `npm test`: **15 API tests and 33 Playwright tests passed**.
+- `npm run lint`, `npm run typecheck`, `npm run build`, `git diff --check`,
+  root full/production audits, and API production audit: PASS, zero
+  vulnerabilities.
+- Build output: JS 36,457 bytes raw / 11.89 kB gzip; CSS 17,192 bytes raw /
+  4.88 kB gzip; mobile hero 42,650 bytes. `dist/index.html` exists.
+- Local and live browser matrix at 1440 × 900 and 390 × 844: all valid routes
+  have the correct title, `lang=en`, one h1/main, image alternatives, no
+  overflow, no unexpected console/page errors, no sub-16 px visible text, no
+  undersized targets, and zero serious/critical Axe findings.
+- Keyboard checks: visible skip-link and primary-action focus, route h1 focus,
+  forward/reverse dialog containment, Escape focus restoration, and reduced
+  motion all pass.
+- Cold production flow: first-screen facts fit; one-click `/demo` and
+  `?demo=1` show the first reading; Reset and Start preserve real sentinels;
+  1-hour/24-hour/7-day links use `d_` IDs and revoke to 410; offline reload
+  retains three cards; every audited route/title passes; unknown paths return
+  the designed HTTP 404. All observed requests stay on the product origin.
+- `/opt/fleet/lib/verify-url.sh` passed live `/` and `/demo` with no errors.
+- Live Lighthouse: Performance 100, Accessibility 100, Best Practices 100,
+  SEO 100; FCP 0.910 s, LCP 1.210 s, TBT 0 ms, CLS 0, 61,697 bytes transferred.
+- Deployment verification requires `/build-info.json` and `/api/health` to
+  match the exact committed build, then confirms forged network-address
+  headers cannot bypass the 100-request limit.
 
-## Remaining work
+Evidence is indexed in `.factory/polish-6.md`. The concise clean record is
+`.factory/evidence/polish-6/clean-verification.txt`; live browser evidence is
+under `.factory/evidence/polish-6/live/`.
 
-Close F-1-6 in `tests/claims.spec.ts`:
+## Run and deploy
 
-1. Prove Reset revokes an existing demo link, removes prior demo keys, re-seeds
-   only the sample workspace, and preserves real sentinels; repeat the cleanup
-   assertions for Start for real.
-2. Successfully import CSV freshness `10080` inside `@claim:csv-validation`.
-3. Compare the CSV template header exactly and inspect its sample row.
-4. Pre-seed and compare the real preview key inside
-   `@claim:answer-copy-security`.
-5. Compare the downloaded JSON’s exact included fields and answer content with
-   the reviewed preview.
+```bash
+npm ci
+npm --prefix api ci
+npm test
+npm run lint
+npm run typecheck
+npm run build
+npm run deploy
+```
 
-Then rerun all 28 manifest commands and the complete review. No other product,
-copy, structure, accessibility, privacy-behavior, or feature gap was found.
+`npm run deploy` requires a clean committed checkout. It builds `dist/`, sets
+the API build ID, uploads the static site and functions, and verifies live
+static/API identity plus the forged-header rate-limit boundary.
+
+## Known gaps and next steps
+
+None. Generated explanations remain intentionally absent because the brief
+prohibits them. No infrastructure, DNS, billing, or paid provider was changed.
