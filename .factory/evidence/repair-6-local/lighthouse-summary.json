@@ -1,0 +1,25 @@
+{
+  "fetchTime": "2026-08-29T18:49:37.232Z",
+  "url": "http://127.0.0.1:4173/",
+  "scores": {
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "fcpMs": 1121.8167,
+    "lcpMs": 1424.22505,
+    "tbtMs": 52,
+    "cls": 0
+  },
+  "transfer": {
+    "requests": 5,
+    "totalBytes": 99392,
+    "scriptBytes": 36724,
+    "stylesheetBytes": 17301,
+    "imageBytes": 42820,
+    "fontBytes": 0,
+    "thirdPartyBytes": 0
+  }
+}

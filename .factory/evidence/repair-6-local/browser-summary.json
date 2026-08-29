@@ -1,0 +1,166 @@
+{
+  "generatedAt": "2026-08-29T18:44:28.587Z",
+  "base": "http://127.0.0.1:4173",
+  "checks": [
+    {
+      "viewport": {
+        "name": "desktop",
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/",
+      "status": 200,
+      "title": "Telemetry Question Book — track approved readings",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersized": [],
+      "firstScreen": [
+        {
+          "text": "● Question cards stay in this browser.",
+          "top": 625.25,
+          "bottom": 650.046875,
+          "withinViewport": true
+        },
+        {
+          "text": "● Saved questions reopen offline after one online visit.",
+          "top": 658.046875,
+          "bottom": 682.84375,
+          "withinViewport": true
+        },
+        {
+          "text": "● Free to use. No account needed.",
+          "top": 690.84375,
+          "bottom": 715.640625,
+          "withinViewport": true
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": ".factory/evidence/repair-6-local/desktop-landing.png"
+    },
+    {
+      "viewport": {
+        "name": "desktop",
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/demo",
+      "status": 200,
+      "title": "Demo — Telemetry Question Book",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersized": [],
+      "firstScreen": [
+        {
+          "text": "Did Northstar orders arrive?",
+          "top": 818.265625,
+          "bottom": 847.65625,
+          "withinViewport": true
+        },
+        {
+          "text": "1,842",
+          "top": 859.65625,
+          "bottom": 887.65625,
+          "withinViewport": true
+        },
+        {
+          "text": "On track",
+          "top": 796.953125,
+          "bottom": 829.75,
+          "withinViewport": true
+        },
+        {
+          "text": "Fresh for 60 min",
+          "top": 860.546875,
+          "bottom": 885.34375,
+          "withinViewport": true
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": ".factory/evidence/repair-6-local/desktop-demo.png"
+    },
+    {
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "route": "/",
+      "status": 200,
+      "title": "Telemetry Question Book — track approved readings",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersized": [],
+      "firstScreen": [
+        {
+          "text": "● Question cards stay in this browser.",
+          "top": 666.8125,
+          "bottom": 716.40625,
+          "withinViewport": true
+        },
+        {
+          "text": "● Saved questions reopen offline after one online visit.",
+          "top": 724.40625,
+          "bottom": 774,
+          "withinViewport": true
+        },
+        {
+          "text": "● Free to use. No account needed.",
+          "top": 782,
+          "bottom": 806.796875,
+          "withinViewport": true
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": ".factory/evidence/repair-6-local/mobile-landing.png"
+    },
+    {
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "route": "/demo",
+      "status": 200,
+      "title": "Demo — Telemetry Question Book",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersized": [],
+      "firstScreen": [
+        {
+          "text": "Did Northstar orders arrive?",
+          "top": 599.71875,
+          "bottom": 640.875,
+          "withinViewport": true
+        },
+        {
+          "text": "1,842",
+          "top": 652.875,
+          "bottom": 680.875,
+          "withinViewport": true
+        },
+        {
+          "text": "On track",
+          "top": 704.0625,
+          "bottom": 736.859375,
+          "withinViewport": true
+        },
+        {
+          "text": "Fresh for 60 min",
+          "top": 767.65625,
+          "bottom": 792.453125,
+          "withinViewport": true
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": ".factory/evidence/repair-6-local/mobile-demo.png"
+    }
+  ]
+}
