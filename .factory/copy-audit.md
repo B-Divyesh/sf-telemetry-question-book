@@ -15,8 +15,8 @@ Audited 29 August 2026. Counts use whitespace-delimited words and treat hyphenat
 | 6 | The app does not query dashboards. | Pass |
 | 5 | Try it with sample data | Pass; primary action |
 | 8 | Opens a filled question book in one click. | Pass |
-| 5 | Data stays in this browser. | Pass; `local-browser` |
-| 7 | Works after the first visit, even offline. | Pass; `offline-reload` |
+| 6 | Question cards stay in this browser. | Pass; `local-browser` |
+| 8 | Saved questions reopen offline after one online visit. | Pass; `offline-reload` |
 | 3 | Free to use. | Pass; `free-core` |
 | 3 | No account needed. | Pass; `free-core` |
 | 11 | An instrument console turns telemetry paper into a blank answer ticket. | Pass; image alt |
@@ -77,4 +77,4 @@ Audited 29 August 2026. Counts use whitespace-delimited words and treat hyphenat
 | Authorized external destination | approved source |
 | Isolated sample workspace | demo |
 
-Catalog description: **Track recurring telemetry answers from approved readings, then share a time-limited link.** (85 characters)
+Catalog description: **Track recurring support answers from approved telemetry readings and share expiring links.** (90 characters)

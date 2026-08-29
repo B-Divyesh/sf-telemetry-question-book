@@ -224,8 +224,8 @@ function landingPage(): string {
           <p class="hero-lede">For support teams: enter a reading or approved CSV. The app does not query dashboards.</p>
           <div class="hero-action"><a class="button primary" href="/demo" data-link>Try it with sample data</a><span>Opens a filled question book in one click.</span></div>
           <ul class="plain-facts" aria-label="Product facts">
-            <li><span aria-hidden="true">●</span> Data stays in this browser.</li>
-            <li><span aria-hidden="true">●</span> Works after the first visit, even offline.</li>
+            <li><span aria-hidden="true">●</span> Question cards stay in this browser.</li>
+            <li><span aria-hidden="true">●</span> Saved questions reopen offline after one online visit.</li>
             <li><span aria-hidden="true">●</span> Free to use. No account needed.</li>
           </ul>
         </div>

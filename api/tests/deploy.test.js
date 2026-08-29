@@ -5,7 +5,7 @@ const { join, resolve } = require('node:path');
 const { spawnSync } = require('node:child_process');
 const test = require('node:test');
 
-test('deployment uploads the committed artifact, sets its exact BUILD_ID, and verifies live API identity', async () => {
+test('@claim:deploy-integrity deployment uploads the committed artifact, sets its exact BUILD_ID, and verifies live API identity', async () => {
   const fixture = await mkdtemp(join(tmpdir(), 'tqb-deploy-'));
   const bin = join(fixture, 'bin');
   const log = join(fixture, 'calls.log');

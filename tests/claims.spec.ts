@@ -138,6 +138,7 @@ test('@claim:local-browser keeps question and answer-copy data local with no ana
   await page.getByLabel('Current value').fill('1901');
   await page.getByRole('button', { name: 'Save updated reading' }).click();
   await page.goto('/');
+  await expect(page.getByText('Question cards stay in this browser.')).toBeVisible();
   expect([...origins]).toEqual(['http://127.0.0.1:4173']);
   expect(await page.evaluate(() => localStorage.getItem('demo:tqb:v1'))).not.toBeNull();
   await expect(page.locator('input[type="password"], [data-account], [data-analytics], [data-query-builder], [data-alert-control]')).toHaveCount(0);
@@ -169,6 +170,8 @@ test('@claim:free-core keeps all question workflows available without an account
 });
 
 test('@claim:offline-reload reloads the visited demo offline', async ({ page, context }) => {
+  await page.goto('/');
+  await expect(page.getByText('Saved questions reopen offline after one online visit.')).toBeVisible();
   await page.goto('/demo');
   await page.evaluate(async () => { await navigator.serviceWorker.ready; });
   await page.reload();
@@ -539,14 +542,16 @@ test('regression: mobile navigation and footer targets meet 44px', async ({ page
   }
 });
 
-test('regression: the complete first-screen facts fit a 1440 by 900 viewport', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto('/');
-  const facts = page.locator('.plain-facts li');
-  await expect(facts).toHaveCount(3);
-  for (let index = 0; index < 3; index++) {
-    const box = await facts.nth(index).boundingBox();
-    expect(box && box.y >= 0 && box.y + box.height <= 900, `fact ${index + 1} must fit before scrolling`).toBeTruthy();
+test('regression: the complete first-screen facts fit phone and desktop viewports', async ({ page }) => {
+  for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    const facts = page.locator('.plain-facts li');
+    await expect(facts).toHaveCount(3);
+    for (let index = 0; index < 3; index++) {
+      const box = await facts.nth(index).boundingBox();
+      expect(box && box.y >= 0 && box.y + box.height <= viewport.height, `fact ${index + 1} must fit at ${viewport.width}px`).toBeTruthy();
+    }
   }
 });
 

@@ -2,7 +2,7 @@
 
 Track recurring answers from approved readings. This browser-based app is for engineering and support pairs who cannot share broad dashboard access.
 
-Enter a reading or import an approved CSV. The app does not query dashboards. The free question book keeps each owner, freshness limit, threshold, and HTTPS source link. It works after the first visit, even offline.
+Enter a reading or import an approved CSV. The app does not query dashboards. The free question book keeps each owner, freshness limit, threshold, and HTTPS source link. Saved questions reopen offline after one online visit.
 
 Try the isolated sample at `/demo`, `/?demo=1`, or <https://telemetry-question-book.sociobot.in/demo>. Demo changes use `demo:` storage keys and never read or change the real question book.
 
@@ -79,7 +79,7 @@ Deploy from a clean, committed checkout:
 npm run deploy
 ```
 
-The command builds `dist/` with `api/` and binds `BUILD_ID` to the exact commit before deployment. It then checks the live identity and spoof-resistant request allowance.
+The command builds `dist/` and the server functions in `api/`. It sets `BUILD_ID` to the commit being deployed. After deployment, it confirms that `/api/health` reports that commit. It also confirms that forged network-address headers cannot bypass the 100-request limit.
 
 The deployed app needs a secret `SnapshotStorage` setting for its approved Azure Storage account. The connection needs Table and Queue service access. Never commit its value.
 

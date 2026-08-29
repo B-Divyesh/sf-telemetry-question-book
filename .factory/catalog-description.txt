@@ -1,1 +1,1 @@
-Track recurring telemetry answers from approved readings and share expiring links.
+Track recurring support answers from approved telemetry readings and share expiring links.

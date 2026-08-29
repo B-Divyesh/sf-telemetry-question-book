@@ -84,7 +84,7 @@ test('@claim:snapshot-storage-minimization stores only link controls in metadata
   assert.deepEqual(Object.keys(table.entities.get(`demo/${token}`)).sort(), ['partitionKey', 'reason', 'removedAt', 'removedAtMs', 'rowKey', 'unavailable']);
 });
 
-test('legacy migration removes expired data and moves active payloads to TTL storage without reading either token', async () => {
+test('@claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token', async () => {
   const now = Date.parse('2026-08-29T12:00:00.000Z');
   const expired = { partitionKey: 'real', rowKey: 'r_expired', payload: 'CUSTOMER-DATA', expiresAt: new Date(now - 1).toISOString() };
   const current = { partitionKey: 'demo', rowKey: 'd_current', payload: 'SAMPLE-DATA', expiresAt: new Date(now + 60_000).toISOString() };
