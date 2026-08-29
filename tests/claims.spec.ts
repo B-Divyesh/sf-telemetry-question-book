@@ -289,6 +289,8 @@ test('@claim:share-revocation makes a recipient link unavailable immediately', a
   await page.getByRole('button', { name: 'Create expiring link' }).click();
   const token = new URL(await page.getByLabel('Expiring answer link').inputValue()).pathname.split('/').pop()!;
   expect((await request.get(`/api/snapshots/${token}`)).status()).toBe(200);
+  await page.reload();
+  await expect(page.getByLabel('Expiring answer link')).toHaveValue(new RegExp(`/s/${token}$`));
   await page.getByRole('button', { name: 'Revoke link now' }).click();
   await expect(page.getByText('Link revoked.')).toBeVisible();
   expect((await request.get(`/api/snapshots/${token}`)).status()).toBe(410);

@@ -329,7 +329,7 @@ function snapshotPage(): string {
 }
 
 function snapshotTicket(snapshot: Snapshot, editable: boolean, expiresAt?: string): string {
-  return `<article class="snapshot-ticket"><p class="eyebrow">${editable ? 'Review before sharing' : 'Shared answer copy'}</p><h1 tabindex="-1">${escapeHtml(snapshot.question)}</h1><div class="snapshot-answer"><span>${escapeHtml(snapshot.status)}</span><strong>${escapeHtml(snapshot.answer)}</strong></div><dl><div><dt>Observed</dt><dd>${new Date(snapshot.observedAt).toLocaleString()}</dd></div><div><dt>Created</dt><dd>${new Date(snapshot.createdAt).toLocaleString()}</dd></div>${expiresAt ? `<div><dt>Link expires</dt><dd>${new Date(expiresAt).toLocaleString()}</dd></div>` : ''}${snapshot.owner ? `<div><dt>Owner</dt><dd>${escapeHtml(snapshot.owner)}</dd></div>` : ''}${snapshot.source ? `<div><dt>Source</dt><dd>${escapeHtml(snapshot.source)}</dd></div>` : ''}</dl>${snapshot.note ? `<p>${escapeHtml(snapshot.note)}</p>` : ''}${snapshot.redacted ? '<p class="redacted">Owner, source, and internal note were hidden.</p>' : ''}${editable ? '<p class="snapshot-warning"><strong>Choose how to share it.</strong> Expiring links can be revoked. Downloaded files do not expire.</p><div id="share-result" class="share-result" role="status" aria-live="polite"></div>' : '<p class="snapshot-warning">This link stops working at the expiry time shown above.</p>'}<div class="snapshot-actions">${editable ? '<button class="button primary" data-action="create-share">Create expiring link</button><button class="button secondary" data-action="download-snapshot">Download JSON</button>' : ''}<button class="button secondary" data-action="copy-snapshot">Copy answer text</button>${editable ? `<a class="button secondary" href="${snapshot.demo ? '/demo' : '/book'}" data-link>Back to questions</a>` : '<a class="button secondary" href="/" data-link>Open Telemetry Question Book</a>'}</div></article>`;
+  return `<article class="snapshot-ticket"><p class="eyebrow">${editable ? 'Review before sharing' : 'Shared answer copy'}</p><h1 tabindex="-1">${escapeHtml(snapshot.question)}</h1><div class="snapshot-answer"><span>${escapeHtml(snapshot.status)}</span><strong>${escapeHtml(snapshot.answer)}</strong></div><dl><div><dt>Observed</dt><dd>${new Date(snapshot.observedAt).toLocaleString()}</dd></div><div><dt>Created</dt><dd>${new Date(snapshot.createdAt).toLocaleString()}</dd></div>${expiresAt ? `<div><dt>Link expires</dt><dd>${new Date(expiresAt).toLocaleString()}</dd></div>` : ''}${snapshot.owner ? `<div><dt>Owner</dt><dd>${escapeHtml(snapshot.owner)}</dd></div>` : ''}${snapshot.source ? `<div><dt>Source</dt><dd>${escapeHtml(snapshot.source)}</dd></div>` : ''}</dl>${snapshot.note ? `<p>${escapeHtml(snapshot.note)}</p>` : ''}${snapshot.redacted ? '<p class="redacted">Owner, source, and internal note were hidden.</p>' : ''}${editable ? `<p class="snapshot-warning"><strong>Choose how to share it.</strong> Expiring links can be revoked. Downloaded files do not expire.</p><div id="share-result" class="share-result" role="status" aria-live="polite">${shareEntriesMarkup(snapshot.demo)}</div>` : '<p class="snapshot-warning">This link stops working at the expiry time shown above.</p>'}<div class="snapshot-actions">${editable ? '<button class="button primary" data-action="create-share">Create expiring link</button><button class="button secondary" data-action="download-snapshot">Download JSON</button>' : ''}<button class="button secondary" data-action="copy-snapshot">Copy answer text</button>${editable ? `<a class="button secondary" href="${snapshot.demo ? '/demo' : '/book'}" data-link>Back to questions</a>` : '<a class="button secondary" href="/" data-link>Open Telemetry Question Book</a>'}</div></article>`;
 }
 
 function sharedSnapshotPage(): string {
@@ -562,6 +562,15 @@ function saveShare(share: SharedSnapshot, demo = isDemo()): void {
   sessionStorage.setItem(demo ? DEMO_SHARES_KEY : REAL_SHARES_KEY, JSON.stringify([...storedShares(demo), share]));
 }
 
+function shareEntriesMarkup(demo: boolean): string {
+  const shares = storedShares(demo);
+  if (!shares.length) return '';
+  return `<strong>Active expiring links</strong>${shares.map((share, index) => {
+    const url = `${location.origin}/s/${share.token}`;
+    return `<div class="share-entry"><label for="share-url-${index}">Expiring answer link</label><div class="share-link"><input id="share-url-${index}" readonly value="${escapeHtml(url)}"><button class="button secondary" data-action="copy-share" data-url="${escapeHtml(url)}">Copy link</button></div><p>Expires ${new Date(share.expiresAt).toLocaleString()}.</p><button class="text-button danger-link" data-action="revoke-share" data-token="${escapeHtml(share.token)}" data-revoke-key="${escapeHtml(share.revokeKey)}">Revoke link now</button></div>`;
+  }).join('')}`;
+}
+
 function forgetShare(token: string, demo: boolean): void {
   sessionStorage.setItem(demo ? DEMO_SHARES_KEY : REAL_SHARES_KEY, JSON.stringify(storedShares(demo).filter((share) => share.token !== token)));
 }
@@ -638,8 +647,7 @@ document.addEventListener('click', async (event) => {
       const share = await response.json() as SharedSnapshot & { error?: string };
       if (!response.ok || !share.token || !share.revokeKey) throw new Error(share.error || 'The link could not be created.');
       saveShare(share, snapshot.demo);
-      const url = `${location.origin}/s/${share.token}`;
-      result.innerHTML = `<label for="share-url">Expiring answer link</label><div class="share-link"><input id="share-url" readonly value="${escapeHtml(url)}"><button class="button secondary" data-action="copy-share" data-url="${escapeHtml(url)}">Copy link</button></div><p>Expires ${new Date(share.expiresAt).toLocaleString()}.</p><button class="text-button danger-link" data-action="revoke-share" data-token="${escapeHtml(share.token)}" data-revoke-key="${escapeHtml(share.revokeKey)}">Revoke link now</button>`;
+      result.innerHTML = shareEntriesMarkup(snapshot.demo);
     } catch (reason) {
       result.textContent = `${reason instanceof Error ? reason.message : 'The link could not be created.'} Check your connection and try again.`;
       target.removeAttribute('disabled');
@@ -652,8 +660,10 @@ document.addEventListener('click', async (event) => {
     const share = { token: target.dataset.token || '', revokeKey: target.dataset.revokeKey || '', expiresAt: '' };
     target.setAttribute('disabled', '');
     if (await revokeShare(share)) {
-      forgetShare(share.token, share.token.startsWith('d_'));
-      target.closest<HTMLElement>('#share-result')!.innerHTML = '<p><strong>Link revoked.</strong> It no longer opens the answer copy.</p>';
+      const demo = share.token.startsWith('d_');
+      forgetShare(share.token, demo);
+      target.closest<HTMLElement>('#share-result')!.innerHTML = shareEntriesMarkup(demo);
+      showNotice('Link revoked. It no longer opens the answer copy.');
     } else {
       target.removeAttribute('disabled');
       showNotice('The link could not be revoked. Check your connection and try again.', 'error');

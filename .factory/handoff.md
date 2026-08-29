@@ -10,7 +10,7 @@
 - Made `/?demo=1` and `/demo` open the same isolated three-reading sample.
 - Kept the demo banner visible through `/demo/snapshot`; all demo local/session keys use `demo:` and reset/exit revokes demo links before clearing them.
 - Put the first complete sample reading inside the initial 390 × 844 viewport.
-- Added opaque `/s/<token>` links with 1-hour, 24-hour, or 7-day expiry, default field hiding, creator revocation, and server-side payload removal.
+- Added opaque `/s/<token>` links with 1-hour, 24-hour, or 7-day expiry, default field hiding, revocation controls that survive preview reloads, and server-side payload removal.
 - Added 18 registered claim tests, including card persistence, full CSV boundaries, demo sentinels, expiry, tamper resistance, redaction, revocation, privacy requests, and offline reload.
 - Added distinct route titles and descriptions, canonical/OG/Twitter updates, focus and history behavior, sitemap entries, real 404 metadata/shell, and complete legal explanations.
 - Preserved the mid-century instrument-panel visual system and original generated console art.
@@ -30,7 +30,7 @@ npm audit --omit=dev --audit-level=high            PASS (0 vulnerabilities)
 npm --prefix api audit --audit-level=high           PASS (0 vulnerabilities)
 ```
 
-Build output: initial JS 34.33 kB raw / 11.15 kB gzip; CSS 16.73 kB raw / 4.78 kB gzip; no web fonts; mobile hero 42.65 kB. `dist/index.html` exists.
+Build output: initial JS 34.51 kB raw / 11.21 kB gzip; CSS 16.81 kB raw / 4.79 kB gzip; no web fonts; mobile hero 42.65 kB. `dist/index.html` exists.
 
 Production evidence at <https://telemetry-question-book.sociobot.in>:
 
