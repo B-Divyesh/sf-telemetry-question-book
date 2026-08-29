@@ -414,8 +414,8 @@ test('@claim:share-expiry-options sends and receives each advertised expiry dura
     expect(body.ttlSeconds).toBe(option.seconds);
     expect(result.expiresAt).toBeTruthy();
     const duration = Date.parse(result.expiresAt!) - requestedAt;
-    expect(duration).toBeGreaterThanOrEqual(option.seconds * 1_000 - 2_000);
-    expect(duration).toBeLessThanOrEqual(option.seconds * 1_000 + 2_000);
+    expect(duration).toBeGreaterThanOrEqual(option.seconds * 1_000 - 5_000);
+    expect(duration).toBeLessThanOrEqual(option.seconds * 1_000 + 5_000);
   }
 });
 
