@@ -1,0 +1,37 @@
+{
+  "verifiedAt": "2026-08-29T06:15:00Z",
+  "baseUrl": "https://telemetry-question-book.sociobot.in",
+  "buildId": "telemetry-question-book-repair-3-29c993d",
+  "malformedSnapshot": {
+    "status": 400,
+    "error": "The answer copy is invalid. Review it and try again.",
+    "stored": false
+  },
+  "automaticExpiry": {
+    "ttlSeconds": 2,
+    "tableContainedPayload": false,
+    "queueMessagesBeforeExpiry": 1,
+    "queueMessagesAfterExpiryWithoutRead": 0,
+    "laterReadStatus": 410
+  },
+  "concurrency": {
+    "count": 20,
+    "uniqueTokens": 20,
+    "createStatuses": { "201": 20 },
+    "readStatuses": { "200": 20 },
+    "revokeStatuses": { "204": 20 },
+    "postRevokeStatuses": { "410": 20 }
+  },
+  "rateLimit": {
+    "allowance": 100,
+    "windowSeconds": 60,
+    "first429Request": 101,
+    "retryAfterSecondsObserved": 44,
+    "createStatus": 429,
+    "getStatusAtExhaustion": 429,
+    "deleteStatusAtExhaustion": 429,
+    "getRetryAfterSecondsObserved": 37,
+    "deleteRetryAfterSecondsObserved": 36,
+    "healthStatusAtExhaustion": 200
+  }
+}

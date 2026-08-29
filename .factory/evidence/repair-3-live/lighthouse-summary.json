@@ -1,0 +1,11 @@
+{
+  "lighthouseVersion": "13.4.1",
+  "performance": 100,
+  "accessibility": 100,
+  "bestPractices": 100,
+  "seo": 100,
+  "fcpSeconds": 1.0,
+  "lcpSeconds": 1.3,
+  "tbtMilliseconds": 0,
+  "cls": 0
+}
