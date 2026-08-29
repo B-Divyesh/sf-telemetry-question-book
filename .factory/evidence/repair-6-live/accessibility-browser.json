@@ -1,0 +1,321 @@
+{
+  "generatedAt": "2026-08-29T19:00:48.948Z",
+  "base": "https://telemetry-question-book.sociobot.in",
+  "routes": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/demo",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/demo/snapshot",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/book",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/privacy",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/terms",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/snapshot",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/sample-sources/northstar-orders",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "route": "/definitely-missing-repair-6",
+      "status": 404,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "/",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "/demo",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "/demo/snapshot",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "/book",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "/privacy",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "/terms",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "/snapshot",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "/sample-sources/northstar-orders",
+      "status": 200,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "/definitely-missing-repair-6",
+      "status": 404,
+      "seriousCritical": [],
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "undersizedText": [],
+      "undersizedTargets": []
+    }
+  ],
+  "keyboard": {
+    "skip": {
+      "text": "Skip to main content",
+      "top": 190,
+      "outlineWidth": "3px"
+    },
+    "initialDialogFocus": {
+      "text": "Close answer copy dialog",
+      "insideDialog": true,
+      "outlineWidth": "3px"
+    },
+    "focusCycle": [
+      {
+        "text": "Review answer copy",
+        "insideDialog": true,
+        "outlineWidth": "3px"
+      },
+      {
+        "text": "Close answer copy dialog",
+        "insideDialog": true,
+        "outlineWidth": "3px"
+      },
+      {
+        "text": "Hide owner, source, and note",
+        "insideDialog": true,
+        "outlineWidth": "3px"
+      },
+      {
+        "text": "Link expires after1 hour24 hours7 days",
+        "insideDialog": true,
+        "outlineWidth": "3px"
+      },
+      {
+        "text": "Cancel",
+        "insideDialog": true,
+        "outlineWidth": "3px"
+      },
+      {
+        "text": "Review answer copy",
+        "insideDialog": true,
+        "outlineWidth": "3px"
+      },
+      {
+        "text": "Close answer copy dialog",
+        "insideDialog": true,
+        "outlineWidth": "3px"
+      }
+    ],
+    "restoredToOpener": true
+  },
+  "reducedMotion": {
+    "animationDuration": "1e-05s"
+  },
+  "serviceWorker": {
+    "active": true,
+    "waiting": false,
+    "caches": [
+      "tqb-shell-v7"
+    ]
+  },
+  "origins": [
+    "https://telemetry-question-book.sociobot.in"
+  ]
+}

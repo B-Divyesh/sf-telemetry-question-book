@@ -1,0 +1,153 @@
+{
+  "generatedAt": "2026-08-29T19:02:23.984Z",
+  "base": "https://telemetry-question-book.sociobot.in",
+  "factBounds": [
+    {
+      "text": "● Question cards stay in this browser.",
+      "top": 666.8125,
+      "bottom": 716.40625
+    },
+    {
+      "text": "● Saved questions reopen offline after one online visit.",
+      "top": 724.40625,
+      "bottom": 774
+    },
+    {
+      "text": "● Free to use. No account needed.",
+      "top": 782,
+      "bottom": 806.796875
+    }
+  ],
+  "firstReadingBounds": {
+    "Did Northstar orders arrive?": {
+      "x": 57,
+      "y": 599.71875,
+      "width": 256,
+      "height": 41.15625
+    },
+    "1,842": {
+      "x": 57,
+      "y": 652.875,
+      "width": 72.25,
+      "height": 28
+    },
+    "On track": {
+      "x": 57,
+      "y": 704.0625,
+      "width": 93.0625,
+      "height": 32.796875
+    },
+    "Fresh for 60 min": {
+      "x": 57,
+      "y": 767.65625,
+      "width": 154.125,
+      "height": 24.796875
+    }
+  },
+  "shares": [
+    {
+      "label": "1 hour",
+      "seconds": 3600,
+      "requestSeconds": 3600,
+      "measuredDuration": 3601605,
+      "tokenPrefix": "d_",
+      "revokedStatus": 410
+    },
+    {
+      "label": "24 hours",
+      "seconds": 86400,
+      "requestSeconds": 86400,
+      "measuredDuration": 86401558,
+      "tokenPrefix": "d_",
+      "revokedStatus": 410
+    },
+    {
+      "label": "7 days",
+      "seconds": 604800,
+      "requestSeconds": 604800,
+      "measuredDuration": 604801523,
+      "tokenPrefix": "d_",
+      "revokedStatus": 410
+    }
+  ],
+  "isolation": {
+    "realQuestion": "[{\"id\":\"real\",\"question\":\"REAL QUESTION SENTINEL\",\"owner\":\"Real owner\",\"source\":\"Real source\",\"sourceUrl\":\"https://example.test/real\",\"value\":1,\"unit\":\"event\",\"threshold\":1,\"comparison\":\"eq\",\"observedAt\":\"2026-08-29T19:01:59.498Z\",\"freshMinutes\":60,\"note\":\"\"}]",
+    "realPreview": "REAL PREVIEW SENTINEL",
+    "realShares": "[{\"token\":\"real-share-sentinel\"}]",
+    "demoKeys": []
+  },
+  "directDemo": {
+    "cards": 3,
+    "banner": true
+  },
+  "offline": {
+    "cards": 3,
+    "notice": true
+  },
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "title": "Telemetry Question Book — track approved readings"
+    },
+    {
+      "path": "/demo",
+      "status": 200,
+      "title": "Demo — Telemetry Question Book"
+    },
+    {
+      "path": "/book",
+      "status": 200,
+      "title": "My question book — Telemetry Question Book"
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "title": "Privacy — Telemetry Question Book"
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "title": "Terms — Telemetry Question Book"
+    },
+    {
+      "path": "/snapshot",
+      "status": 200,
+      "title": "Answer copy — Telemetry Question Book"
+    },
+    {
+      "path": "/demo/snapshot",
+      "status": 200,
+      "title": "Demo answer copy — Telemetry Question Book"
+    },
+    {
+      "path": "/sample-sources/northstar-orders",
+      "status": 200,
+      "title": "Northstar order feed — Telemetry Question Book"
+    },
+    {
+      "path": "/sample-sources/atlas-webhooks",
+      "status": 200,
+      "title": "Atlas webhook queue — Telemetry Question Book"
+    },
+    {
+      "path": "/sample-sources/harbor-export",
+      "status": 200,
+      "title": "Harbor daily export — Telemetry Question Book"
+    }
+  ],
+  "missing": {
+    "status": 404,
+    "title": "Not found — Telemetry Question Book"
+  },
+  "health": {
+    "ok": true,
+    "snapshotStoreConfigured": true,
+    "buildId": "1c02ce0be8e5aa502c33d7f69c6c9f490db9b728"
+  },
+  "origins": [
+    "https://telemetry-question-book.sociobot.in"
+  ],
+  "consoleErrors": [],
+  "pageErrors": []
+}

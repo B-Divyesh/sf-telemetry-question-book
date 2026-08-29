@@ -1,5 +1,5 @@
 {
-  "fetchTime": "2026-08-29T18:49:37.232Z",
+  "fetchTime": "2026-08-29T19:07:33.187Z",
   "url": "http://127.0.0.1:4173/",
   "scores": {
     "performance": 100,
@@ -8,16 +8,16 @@
     "seo": 100
   },
   "metrics": {
-    "fcpMs": 1121.8167,
-    "lcpMs": 1424.22505,
-    "tbtMs": 52,
+    "fcpMs": 1205.1403,
+    "lcpMs": 1507.71045,
+    "tbtMs": 0,
     "cls": 0
   },
   "transfer": {
     "requests": 5,
-    "totalBytes": 99392,
+    "totalBytes": 99466,
     "scriptBytes": 36724,
-    "stylesheetBytes": 17301,
+    "stylesheetBytes": 17375,
     "imageBytes": 42820,
     "fontBytes": 0,
     "thirdPartyBytes": 0

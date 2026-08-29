@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-08-29T19:02:30Z",
+  "url": "https://telemetry-question-book.sociobot.in",
+  "sourceCommit": "1c02ce0be8e5aa502c33d7f69c6c9f490db9b728",
+  "health": {
+    "ok": true,
+    "snapshotStoreConfigured": true,
+    "buildId": "1c02ce0be8e5aa502c33d7f69c6c9f490db9b728",
+    "cacheControl": "no-store"
+  },
+  "artifactSha256": {
+    "index.html": "a4a883edd254dcbf75ffe5ce688fccfa7b1d1e20147de0b82f15f909527bc5e6",
+    "assets/index-4I_MHiPM.js": "3334cc078541e2298f24a6916b7b9f8736278113dda19de949b5c6fdb996ee61",
+    "assets/index-DhSVBkEe.css": "a92dff7939f0fcce6b197476e7ad5133766f9fc17be1402a91de75770087350f",
+    "assets/question-console-960.webp": "eee4aa5375c78516609090d913efd4f446914db64734a484442adccfc6fafbfd",
+    "sw.js": "847b6d1bcae4995c07b58ac14566144874c09b3bce86f5996137089bf40cdc32"
+  },
+  "artifactParity": true,
+  "routes": {
+    "/": 200,
+    "/demo": 200,
+    "/book": 200,
+    "/privacy": 200,
+    "/terms": 200,
+    "/snapshot": 200,
+    "/demo/snapshot": 200,
+    "/sample-sources/northstar-orders": 200,
+    "/sample-sources/atlas-webhooks": 200,
+    "/sample-sources/harbor-export": 200,
+    "/definitely-missing-repair-6": 404
+  },
+  "headers": {
+    "htmlCacheControl": "public, must-revalidate, max-age=30",
+    "assetCacheControl": "public, max-age=31536000, immutable",
+    "contentSecurityPolicy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+    "strictTransportSecurity": "max-age=10886400; includeSubDomains; preload",
+    "referrerPolicy": "strict-origin-when-cross-origin",
+    "xContentTypeOptions": "nosniff",
+    "permissionsPolicy": "camera=(), microphone=(), geolocation=()"
+  }
+}

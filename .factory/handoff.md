@@ -28,6 +28,9 @@ set of component-specific CSS sizes below the 16 px floor documented in
   repair.
 - Updated the design scale to state the implemented 16 px minimum for body,
   labels, and reading details.
+- A strict live target sweep also found the inline privacy and support email
+  links were only 19 px tall. They now provide 44 px targets, and the mobile
+  target regression covers both legal routes.
 
 ## Local verification
 
@@ -42,7 +45,7 @@ set of component-specific CSS sizes below the 16 px floor documented in
 - `npm run lint`, `npm run typecheck`, `npm run build`, `npm audit`,
   `npm --prefix api audit --omit=dev`, and `git diff --check`: passed.
 - Production output: `dist/index.html` present; JavaScript 36,534 bytes raw /
-  11,872 bytes gzip; CSS 17,118 bytes raw / 4,856 bytes gzip; mobile hero
+  11,872 bytes gzip; CSS 17,192 bytes raw / 4,875 bytes gzip; mobile hero
   42,650 bytes.
 - Browser matrix: desktop 1440 × 900 and mobile 390 × 844 have zero sub-16 px
   visible text, no horizontal overflow, no console/page errors, and one `h1`
@@ -58,19 +61,41 @@ set of component-specific CSS sizes below the 16 px floor documented in
   errors. Evidence: `.factory/evidence/repair-6-local/verify-root/verify.json`
   and `.factory/evidence/repair-6-local/verify-demo/verify.json`.
 - Mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100,
-  SEO 100; FCP 1.12 s, LCP 1.42 s, TBT 52 ms, CLS 0. Total transfer was
-  99,392 bytes with no font or third-party requests. Evidence:
+  SEO 100; FCP 1.21 s, LCP 1.51 s, TBT 0 ms, CLS 0. Total transfer was
+  99,466 bytes with no font or third-party requests. Evidence:
   `.factory/evidence/repair-6-local/lighthouse-summary.json`.
 - Package/consumer checks are not applicable to this Vite static-web product.
   Runtime AI and paid unlock remain intentionally absent under the brief.
 
 ## Deployment and live verification
 
-Deploy only from the clean committed tree with `npm run deploy`. That command
-builds the committed artifact, sets the managed API `BUILD_ID` to the exact
-40-character commit, uploads `dist/` with `api/`, and runs the live API identity
-and forged-header allowance check. Final live evidence is recorded below after
-deployment.
+The source-bearing repair commit
+`1c02ce0be8e5aa502c33d7f69c6c9f490db9b728` was pushed and deployed with
+`npm run deploy` to <https://telemetry-question-book.sociobot.in>.
+
+- The deploy command built `dist/`, set the managed API identity, uploaded the
+  static app and API, and passed its forged-header allowance check. `/api/health`
+  returned configured storage and the exact source commit above.
+- Local and live SHA-256 values match for `index.html`, hashed JavaScript,
+  hashed CSS, the mobile hero, and `sw.js`. All expected routes return 200; the
+  designed unknown route returns 404. Security and cache headers match the
+  response policy. Evidence:
+  `.factory/evidence/repair-6-live/deployment-integrity.json`.
+- The live 1440 × 900 and 390 × 844 sweep covered 18 route/viewport pairs. It
+  found zero sub-16 px visible text, undersized targets, serious/critical Axe
+  findings, or horizontal overflow. Skip-link focus, both dialog tab boundaries,
+  focus restoration, reduced motion, and the active/no-waiting service worker
+  passed. Evidence: `.factory/evidence/repair-6-live/accessibility-browser.json`.
+- The cold live workflow verified all three expiry choices, recipient open,
+  immediate revocation, demo reset/exit isolation, direct demo entry, offline
+  reload, all route titles, same-origin-only requests, and zero unexpected
+  console/page errors. Evidence:
+  `.factory/evidence/repair-6-live/browser/cold-browser-check.json`.
+- Factory URL checks passed root and `/?demo=1`; evidence is under
+  `.factory/evidence/repair-6-live/verify-root/` and `verify-demo/`.
+- Live mobile Lighthouse: Performance 100, Accessibility 100, Best Practices
+  100, SEO 100; FCP 0.90 s, LCP 1.20 s, TBT 0 ms, CLS 0. Evidence:
+  `.factory/evidence/repair-6-live/lighthouse-summary.json`.
 
 ## Run and verify
 
