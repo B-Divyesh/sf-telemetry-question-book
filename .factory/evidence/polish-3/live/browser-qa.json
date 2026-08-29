@@ -1,0 +1,282 @@
+{
+  "checkedAt": "2026-08-29T12:58:50.060Z",
+  "base": "https://telemetry-question-book.sociobot.in",
+  "root": {
+    "heading": "Track recurring answers from approved readings",
+    "lede": "For support teams: enter a reading or approved CSV. The app does not query dashboards.",
+    "facts": [
+      "● Data stays in this browser.",
+      "● Works after the first visit, even offline.",
+      "● Free to use. No account needed."
+    ],
+    "initialStorage": {
+      "local": [],
+      "session": []
+    }
+  },
+  "demo": {
+    "cardBounds": {
+      "Did Northstar orders arrive?": {
+        "x": 57,
+        "y": 588.40625,
+        "width": 256,
+        "height": 41.15625
+      },
+      "1,842": {
+        "x": 57,
+        "y": 641.5625,
+        "width": 72.25,
+        "height": 28
+      },
+      "On track": {
+        "x": 57,
+        "y": 692.75,
+        "width": 73.796875,
+        "height": 26.59375
+      },
+      "Fresh for 60 min": {
+        "x": 57,
+        "y": 743.9375,
+        "width": 115.59375,
+        "height": 18.59375
+      }
+    },
+    "liveExpiries": [
+      {
+        "label": "1 hour",
+        "sent": 3600,
+        "duration": 3601539
+      },
+      {
+        "label": "24 hours",
+        "sent": 86400,
+        "duration": 86401622
+      },
+      {
+        "label": "7 days",
+        "sent": 604800,
+        "duration": 604801549
+      }
+    ],
+    "demoTokens": [
+      "d_8effaef9c94540d1ac23942d737e94d9",
+      "d_38b9b4101d21443a81be772378c63298",
+      "d_cf30c6f03597400988ab6b9ec6fa2d48"
+    ],
+    "revoked": [
+      {
+        "token": "d_8effaef9c94540d1ac23942d737e94d9",
+        "status": 410
+      },
+      {
+        "token": "d_38b9b4101d21443a81be772378c63298",
+        "status": 410
+      },
+      {
+        "token": "d_cf30c6f03597400988ab6b9ec6fa2d48",
+        "status": 410
+      }
+    ],
+    "requestOrigins": [
+      "https://telemetry-question-book.sociobot.in"
+    ],
+    "remainingDemo": []
+  },
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "Telemetry Question Book — track approved readings",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://telemetry-question-book.sociobot.in/"
+    },
+    {
+      "route": "/demo",
+      "status": 200,
+      "title": "Demo — Telemetry Question Book",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://telemetry-question-book.sociobot.in/demo"
+    },
+    {
+      "route": "/book",
+      "status": 200,
+      "title": "My question book — Telemetry Question Book",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://telemetry-question-book.sociobot.in/book"
+    },
+    {
+      "route": "/privacy",
+      "status": 200,
+      "title": "Privacy — Telemetry Question Book",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://telemetry-question-book.sociobot.in/privacy"
+    },
+    {
+      "route": "/terms",
+      "status": 200,
+      "title": "Terms — Telemetry Question Book",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://telemetry-question-book.sociobot.in/terms"
+    },
+    {
+      "route": "/snapshot",
+      "status": 200,
+      "title": "Answer copy — Telemetry Question Book",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://telemetry-question-book.sociobot.in/snapshot"
+    },
+    {
+      "route": "/sample-sources/northstar-orders",
+      "status": 200,
+      "title": "Northstar order feed — Telemetry Question Book",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://telemetry-question-book.sociobot.in/sample-sources/northstar-orders"
+    },
+    {
+      "route": "/not-a-route",
+      "status": 404,
+      "title": "Not found — Telemetry Question Book",
+      "h1": 1,
+      "main": 1,
+      "canonical": "https://telemetry-question-book.sociobot.in/404"
+    }
+  ],
+  "axe": [
+    {
+      "route": "/",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/demo",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/book",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/privacy",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/terms",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/snapshot",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/sample-sources/northstar-orders",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/not-a-route",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/demo",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/book",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/privacy",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/terms",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/snapshot",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/sample-sources/northstar-orders",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "seriousCritical": 0
+    },
+    {
+      "route": "/not-a-route",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "seriousCritical": 0
+    }
+  ],
+  "errors": []
+}
