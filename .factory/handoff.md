@@ -12,21 +12,20 @@ The service worker never caches `/api/` responses. A shared answer therefore can
 
 ## Verification
 
-- Clean clone: `/tmp/tqb-polish2-clean-b6FZhV/repo` at repair commit `f6ab850`.
-- All 25 exact commands in `.factory/claims.json`: passed independently.
-- `npm test`: passed; 14 API tests and 29 Playwright tests.
+- Final clean clone: `/tmp/tqb-rc-zFdFlz/repo` at `a8c2ac52431198e3642d7d646b6ab37597a43afe`.
+- `npm test`: passed from that clean clone; it runs all 25 tagged claims, 14 API tests, and 29 Playwright tests.
 - `npm run lint`: passed.
 - `npm run typecheck`: passed.
 - `npm run build`: passed and produced `dist/index.html`.
 - `npm audit --audit-level=high`: zero vulnerabilities.
 - `npm audit --omit=dev --audit-level=high`: zero vulnerabilities.
-- Route/viewport matrix: 16 local scans, zero serious or critical axe findings, zero overflow, and no valid-route console or page errors.
+- Route/viewport matrix: 16 local and 16 live scans, zero serious or critical axe findings, zero overflow, and no valid-route console or page errors. Evidence: `.factory/qa/browser-qa-results.json`.
 - A final axe rerun caught and fixed a 4.07:1 amber-button edge case caused by the paper texture; the complete route matrix passes after the fix.
 - Keyboard: skip-link focus, hybrid pointer navigation, dialog focus/escape restoration, history focus, and reduced-motion checks passed.
 - Privacy/offline: demo/real sentinels, API-cache exclusion, offline reload, offline share failure, reconnect recovery, expiry, revocation, and storage minimization passed.
-- Local URL verifier: `.factory/evidence/polish-2/local/verify.json`.
+- Final live URL verifiers: `.factory/evidence/polish-2/recheck-live/verify.json` and `.factory/evidence/polish-2/recheck-demo/verify.json`.
 - Local screenshots: `.factory/qa/local-1440-landing.png`, `.factory/qa/local-1440-demo.png`, `.factory/qa/local-390-landing.png`, `.factory/qa/local-390-demo.png`.
-- Mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 1.2 s, LCP 1.5 s, TBT 10 ms, CLS 0.
+- Final live Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.1 s, LCP 0.2 s, TBT 0 ms, CLS 0. Evidence: `.factory/evidence/polish-2/lighthouse-live-recheck.json`.
 - Output sizes: JavaScript 35,859 bytes raw / 11.68 kB gzip; CSS 16,909 bytes raw / 4.82 kB gzip; mobile hero 42,650 bytes.
 
 ## Run and deploy
@@ -55,6 +54,7 @@ The managed snapshot functions require the existing secret `SnapshotStorage` set
 - Local and deployed JS/CSS SHA-256 hashes matched.
 - Live Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.2 s, TBT 0 ms, CLS 0.
 - `/api/health` returned `snapshotStoreConfigured: true`. Its unchanged runtime build ID remains `telemetry-question-book-repair-3-29c993d`; no production API source changed in this polish.
+- The final rebuilt landing HTML, JS, and CSS exactly matched the live bytes by SHA-256. The cold shell checks found no console errors and valid title, language, main landmark, image alt text, and button labels.
 
 ## Known gaps
 

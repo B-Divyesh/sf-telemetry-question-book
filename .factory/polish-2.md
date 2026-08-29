@@ -4,6 +4,8 @@ Work order: `telemetry-question-book-polish-2`
 Candidate repaired from: `036e7551e6b4b912d4b929560e796e3adcc50be0`  
 Review source: `8eaf7af40c2ea2809a68f0941491b9ac0a00bb5d`
 
+Final independent recheck: `a8c2ac52431198e3642d7d646b6ab37597a43afe` on 2026-08-29 UTC.
+
 ## Finding closure
 
 | Finding | Change made | Evidence |
@@ -41,9 +43,11 @@ Review source: `8eaf7af40c2ea2809a68f0941491b9ac0a00bb5d`
 | F-2-12 | Rewrote queue/table/TTL/hash prose as stored answer, expiry time, link details, and one-way revocation code. | README copy search; `@claim:snapshot-storage-minimization`. |
 | F-2-13 | Removed candidate-specific repair lore; the README now states the only current upgrade condition for the migration command. | README deployment section. |
 
+Every row above was also cold-checked at <https://telemetry-question-book.sociobot.in> after the final build. The live route and workflow evidence is `.factory/qa/browser-qa-results.json`; the cold landing and demo checks are `.factory/evidence/polish-2/recheck-live/verify.json` and `.factory/evidence/polish-2/recheck-demo/verify.json`. The corresponding screenshots are `.factory/qa/live-1440-landing.png`, `.factory/qa/live-390-landing.png`, `.factory/qa/live-1440-demo.png`, and `.factory/qa/live-390-demo.png`.
+
 ## Local evidence
 
-- `npm test`: 14 API tests and 29 Playwright tests passed.
+- Clean clone `/tmp/tqb-rc-zFdFlz/repo` at `a8c2ac5`: `npm test` passed, running all 25 tagged claims, 14 API tests, and 29 Playwright tests.
 - `npm run lint`, `npm run typecheck`, and `npm run build`: passed.
 - Local route/axe matrix: 16 route/viewport scans, zero serious or critical violations, no valid-route console errors, and no overflow.
 - URL verifier: `.factory/evidence/polish-2/local/verify.json`.
@@ -53,7 +57,7 @@ Review source: `8eaf7af40c2ea2809a68f0941491b9ac0a00bb5d`
 
 ## Live evidence
 
-Deployment `167b19e7-bfb9-4162-ad2f-0597f8db00b5` was cold-checked at <https://telemetry-question-book.sociobot.in>.
+The verified deployed artifact was cold-checked at <https://telemetry-question-book.sociobot.in>.
 
 - F-1-1, F-1-2, F-1-3, F-1-5, F-1-6, F-2-2, F-2-3, and F-2-6: `/?demo=1`, `/demo`, `/demo/snapshot`, and `/s/<demo-token>` passed. The four required first-card details ended at 630, 670, 719, and 763 px on a 390 × 844 screen. Export contained four CSV lines and no real sentinel. Start for real preserved the real sentinel, cleared all `demo:` keys, and changed the demo share response to HTTP 410.
 - F-1-4, F-1-10 through F-1-16, F-2-7, and F-2-8: `/` passed. The three desktop facts ended at 650, 679, and 709 px at 1440 × 900. The focused skip link no longer intercepted Demo. Screenshots: `.factory/qa/live-1440-landing.png` and `.factory/qa/live-390-landing.png`.
@@ -63,3 +67,5 @@ Deployment `167b19e7-bfb9-4162-ad2f-0597f8db00b5` was cold-checked at <https://t
 - Live axe/browser matrix: `.factory/qa/browser-qa-results.json`; 16 live route/viewport scans, zero serious or critical findings, no overflow, and no valid-route console/page errors.
 - Live Lighthouse: `.factory/evidence/polish-2/lighthouse-live.json`; Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.2 s, TBT 0 ms, CLS 0.
 - Local and deployed hashed JS/CSS files matched byte-for-byte by SHA-256.
+- Final independent recheck: local/live JS SHA-256 `d06232b52e049ba50353d4f81d535b8f14fb6b7543ceffa16e9a08ef3035504e`; CSS SHA-256 `119ab55bcf019e512ccd77b63e1dfcbfbb41f332fc052bcd57350df2a4cb3408`; HTML SHA-256 `0e5ecc579e4ddd172dd48053d54ec196460ad02af2a08b369b00f5c32f075965`.
+- Final live Lighthouse: `.factory/evidence/polish-2/lighthouse-live-recheck.json`; Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.1 s, LCP 0.2 s, TBT 0 ms, CLS 0.
