@@ -532,6 +532,33 @@ test('regression: desktop and mobile routes have no serious accessibility issues
   }
 });
 
+test('regression: visible product text never falls below the 16px reading minimum', async ({ page }) => {
+  const routes = ['/', '/demo', '/demo/snapshot', '/book', '/privacy', '/terms', '/snapshot', '/sample-sources/northstar-orders', '/not-a-route'];
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport);
+    for (const route of routes) {
+      await page.goto(route);
+      const undersized = await page.locator('body').evaluate((body) =>
+        [...body.querySelectorAll<HTMLElement>('*')].flatMap((element) => {
+          const text = [...element.childNodes]
+            .filter((node) => node.nodeType === Node.TEXT_NODE)
+            .map((node) => node.textContent || '')
+            .join(' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+          if (!text || element.closest('.sr-only, .sr, [aria-hidden="true"]')) return [];
+          const style = getComputedStyle(element);
+          const bounds = element.getBoundingClientRect();
+          if (style.display === 'none' || style.visibility === 'hidden' || bounds.width <= 1 || bounds.height <= 1) return [];
+          const fontSize = Number.parseFloat(style.fontSize);
+          return fontSize < 16 ? [{ element: `${element.tagName.toLowerCase()}.${element.className}`, text: text.slice(0, 80), fontSize }] : [];
+        })
+      );
+      expect(undersized, `${route} at ${viewport.width}px`).toEqual([]);
+    }
+  }
+});
+
 test('regression: mobile navigation and footer targets meet 44px', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');

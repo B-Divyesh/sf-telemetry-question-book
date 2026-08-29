@@ -33,7 +33,7 @@ All text combinations meet WCAG AA. State is never expressed by color alone.
 
 - Display and labels: `Arial Narrow`, `Roboto Condensed`, `Franklin Gothic Medium`, system sans-serif. Narrow uppercase labels evoke engraved panel legends without a font download.
 - Body and data: `IBM Plex Mono`, `Menlo`, `Consolas`, monospace. The mono rhythm makes freshness, values, and owners scan like readings. System fonts keep the font budget at zero and avoid third-party requests.
-- Scale: 14 / 16 / 19 / 24 / 40 / 64 px. Body never falls below 16 px.
+- Scale: 16 / 19 / 24 / 40 / 64 px. Body, labels, and reading details never fall below 16 px.
 
 ## Spacing and shape
 
