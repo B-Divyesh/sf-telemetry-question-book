@@ -17,8 +17,8 @@ export default tseslint.config(
     }
   },
   {
-    files: ['api/**/*.js', 'tests/**/*.mjs'],
-    languageOptions: { globals: { require: 'readonly', module: 'readonly', Buffer: 'readonly', process: 'readonly', URL: 'readonly', structuredClone: 'readonly', console: 'readonly' } },
+    files: ['api/**/*.js', 'tests/**/*.mjs', 'scripts/**/*.mjs'],
+    languageOptions: { globals: { require: 'readonly', module: 'readonly', Buffer: 'readonly', process: 'readonly', URL: 'readonly', structuredClone: 'readonly', console: 'readonly', fetch: 'readonly', __dirname: 'readonly' } },
     rules: { '@typescript-eslint/no-require-imports': 'off' }
   },
   { ignores: ['dist/**', 'node_modules/**', '.factory/**'] }

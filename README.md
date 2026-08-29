@@ -73,13 +73,15 @@ This release is free and has no purchase flow.
 
 ## Deployment
 
-Run `npm run build`, then deploy `dist/` together with the server functions in `api/`:
+Deploy from a clean, committed checkout:
 
 ```bash
-/opt/fleet/lib/deploy-static.sh telemetry-question-book dist
+npm run deploy
 ```
 
-The deployed app needs a secret `SnapshotStorage` setting for the approved Azure Storage account owned by this service. The connection needs Table and Queue service access. Never commit its value. Set non-secret `BUILD_ID` to the deployed commit so `/api/health` reports which commit is running.
+The command builds and deploys `dist/` with `api/`. It sets `BUILD_ID` to the exact commit. It then checks the live identity and spoof-resistant request allowance.
+
+The deployed app needs a secret `SnapshotStorage` setting for its approved Azure Storage account. The connection needs Table and Queue service access. Never commit its value.
 
 Run `npm --prefix api run cleanup:legacy` only when upgrading storage created before version 1.2.0. The command migrates active answers and removes expired ones.
 

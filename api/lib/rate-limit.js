@@ -11,9 +11,8 @@ function header(req, name) {
   return headers[name] ?? headers[name.toLowerCase()] ?? headers[name.toUpperCase()];
 }
 
-function clientAddress(req) {
-  const forwarded = header(req, 'x-azure-clientip') || header(req, 'x-forwarded-for') || header(req, 'client-ip') || req?.ip || 'unknown';
-  const address = String(forwarded).split(',')[0].trim().slice(0, 128);
+function normalizeAddress(value) {
+  const address = String(value || '').trim().slice(0, 128);
   const bracketed = address.match(/^\[([^\]]+)](?::\d+)?$/);
   if (bracketed && isIP(bracketed[1])) return bracketed[1];
   const ipv4WithPort = address.match(/^(\d{1,3}(?:\.\d{1,3}){3}):\d+$/);
@@ -22,7 +21,20 @@ function clientAddress(req) {
   const lastColon = address.lastIndexOf(':');
   const possibleIpv6 = lastColon > 0 ? address.slice(0, lastColon) : '';
   if (/^\d+$/.test(address.slice(lastColon + 1)) && isIP(possibleIpv6) === 6) return possibleIpv6;
-  return address || 'unknown';
+  return null;
+}
+
+function clientAddress(req) {
+  // Azure Front Door overwrites X-Azure-SocketIP with the TCP peer it observed.
+  // X-Azure-ClientIP and forwarding headers can be supplied by a caller and must
+  // never influence the allowance key.
+  const platformAddress = normalizeAddress(header(req, 'x-azure-socketip'));
+  if (platformAddress) return platformAddress;
+
+  // This fallback is useful when the function is hosted directly. It is the
+  // server-observed peer, not an HTTP header. Managed SWA requests use the
+  // platform header above.
+  return normalizeAddress(req?.socket?.remoteAddress || req?.connection?.remoteAddress) || 'unknown-platform-client';
 }
 
 function createRateLimiter(options = {}) {

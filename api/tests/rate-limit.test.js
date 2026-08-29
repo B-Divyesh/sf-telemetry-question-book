@@ -67,7 +67,12 @@ test('@claim:api-rate-limit all sharing routes share one network-address minute 
   const create = require(createPath);
   const open = require(getPath);
   const revoke = require(deletePath);
-  const headers = { 'x-forwarded-for': '203.0.113.9, 10.0.0.1' };
+  const headersFor = (index) => ({
+    'x-azure-socketip': '203.0.113.9:443',
+    'x-azure-clientip': `198.51.100.${(index % 200) + 1}`,
+    'x-forwarded-for': `192.0.2.${(index % 200) + 1}, 10.0.0.1`,
+    'client-ip': `2001:db8::${index + 1}`
+  });
   const snapshot = {
     version: 2,
     question: 'Did Northstar orders arrive?',
@@ -81,21 +86,21 @@ test('@claim:api-rate-limit all sharing routes share one network-address minute 
 
   try {
     for (let index = 0; index < 34; index++) {
-      assert.equal((await create({}, { headers, body: { snapshot, demo: true, ttlSeconds: 60 } })).status, 201);
+      assert.equal((await create({}, { headers: headersFor(index), body: { snapshot, demo: true, ttlSeconds: 60 } })).status, 201);
     }
     for (let index = 0; index < 33; index++) {
-      assert.equal((await open({ bindingData: { token: 'd_missing' } }, { headers })).status, 404);
+      assert.equal((await open({ bindingData: { token: 'd_missing' } }, { headers: headersFor(index + 34) })).status, 404);
     }
     for (let index = 0; index < 33; index++) {
-      assert.equal((await revoke({ bindingData: { token: 'd_missing' } }, { headers, body: { revokeKey: 'wrong' } })).status, 403);
+      assert.equal((await revoke({ bindingData: { token: 'd_missing' } }, { headers: headersFor(index + 67), body: { revokeKey: 'wrong' } })).status, 403);
     }
 
-    const blocked = await create({}, { headers, body: { snapshot, demo: true, ttlSeconds: 60 } });
+    const blocked = await create({}, { headers: headersFor(100), body: { snapshot, demo: true, ttlSeconds: 60 } });
     assert.equal(blocked.status, 429);
     assert.equal(blocked.headers['Retry-After'], '60');
     assert.match(JSON.parse(blocked.body).error, /100 snapshot requests/);
 
-    const otherClient = await open({ bindingData: { token: 'd_missing' } }, { headers: { 'x-forwarded-for': '203.0.113.10' } });
+    const otherClient = await open({ bindingData: { token: 'd_missing' } }, { headers: { ...headersFor(101), 'x-azure-socketip': '203.0.113.10' } });
     assert.equal(otherClient.status, 404);
     assert.equal(otherClient.headers['X-RateLimit-Remaining'], '99');
   } finally {
@@ -107,13 +112,20 @@ test('@claim:api-rate-limit all sharing routes share one network-address minute 
   }
 });
 
-test('forwarded source ports cannot split one client into multiple allowances', async () => {
+test('only the platform socket identity can split allowances', async () => {
   const { clientAddress } = require('../lib/rate-limit');
-  assert.equal(clientAddress({ headers: { 'x-forwarded-for': '203.0.113.9:49152' } }), '203.0.113.9');
-  assert.equal(clientAddress({ headers: { 'x-forwarded-for': '203.0.113.9:58301, 10.0.0.1' } }), '203.0.113.9');
-  assert.equal(clientAddress({ headers: { 'x-forwarded-for': '[2001:db8::7]:49152' } }), '2001:db8::7');
-  assert.equal(clientAddress({ headers: { 'x-forwarded-for': '2001:db8::7' } }), '2001:db8::7');
-  assert.equal(clientAddress({ headers: { 'x-azure-clientip': '198.51.100.4:5000', 'x-forwarded-for': '203.0.113.9:49152' } }), '198.51.100.4');
+  const attackerHeaders = {
+    'x-azure-socketip': '203.0.113.9:49152',
+    'x-azure-clientip': '198.51.100.4:5000',
+    'x-forwarded-for': '192.0.2.44, 10.0.0.1',
+    'client-ip': '2001:db8::99'
+  };
+  assert.equal(clientAddress({ headers: attackerHeaders, ip: '198.18.0.1' }), '203.0.113.9');
+  assert.equal(clientAddress({ headers: { ...attackerHeaders, 'x-azure-clientip': '198.51.100.5', 'x-forwarded-for': '192.0.2.45' } }), '203.0.113.9');
+  assert.equal(clientAddress({ headers: { 'x-azure-socketip': '[2001:db8::7]:49152' } }), '2001:db8::7');
+  assert.equal(clientAddress({ headers: { 'x-azure-socketip': '2001:db8::7' } }), '2001:db8::7');
+  assert.equal(clientAddress({ headers: { 'x-azure-clientip': '198.51.100.4', 'x-forwarded-for': '203.0.113.9' } }), 'unknown-platform-client');
+  assert.equal(clientAddress({ headers: {}, socket: { remoteAddress: '203.0.113.11' } }), '203.0.113.11');
 });
 
 test('limiter fails closed with a plain retry response when shared storage is unavailable', async () => {
