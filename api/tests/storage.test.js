@@ -52,6 +52,7 @@ test('@claim:snapshot-retention payload storage uses service-enforced TTL and ta
 
   const metadata = table.entities.get(`real/${token}`);
   assert.equal(Object.hasOwn(metadata, 'payload'), false);
+  assert.deepEqual(Object.keys(metadata).sort(), ['demo', 'expiresAt', 'partitionKey', 'revokeHash', 'rowKey']);
   const payloadQueue = queues.queues.get(queueName(token));
   assert.equal(payloadQueue.message.ttl, 1);
   assert.equal(payloadQueue.message.messageText, payload);
@@ -60,6 +61,27 @@ test('@claim:snapshot-retention payload storage uses service-enforced TTL and ta
   const storedAfterExpiry = await payloadQueue.peekMessages();
   assert.deepEqual(storedAfterExpiry.peekedMessageItems, []);
   assert.equal(table.entities.get(`real/${token}`).unavailable, undefined);
+});
+
+test('@claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation', async () => {
+  const now = Date.parse('2026-08-29T12:00:00.000Z');
+  const table = new FakeTable();
+  const queues = new FakeQueueService(() => now);
+  const { createStore, queueName } = require('../lib/store');
+  const store = createStore({ tableClient: table, queueServiceClient: queues, clock: () => now });
+  const token = 'd_abcdef1234567890abcdef1234567890';
+  await store.put({ rowKey: token, payload: 'PRIVATE ANSWER', expiresAt: '2026-08-29T13:00:00.000Z', demo: true, revokeHash: 'one-way-code' });
+
+  const metadata = table.entities.get(`demo/${token}`);
+  assert.deepEqual(Object.keys(metadata).sort(), ['demo', 'expiresAt', 'partitionKey', 'revokeHash', 'rowKey']);
+  assert.equal(JSON.stringify(metadata).includes('PRIVATE ANSWER'), false);
+  const queue = queues.queues.get(queueName(token));
+  assert.equal(queue.message.messageText, 'PRIVATE ANSWER');
+
+  await store.removePayload(token, 'revoked');
+  assert.equal(queue.deleted, true);
+  assert.equal(queue.message, undefined);
+  assert.deepEqual(Object.keys(table.entities.get(`demo/${token}`)).sort(), ['partitionKey', 'reason', 'removedAt', 'removedAtMs', 'rowKey', 'unavailable']);
 });
 
 test('legacy migration removes expired data and moves active payloads to TTL storage without reading either token', async () => {

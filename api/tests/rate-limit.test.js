@@ -39,8 +39,14 @@ test('shared atomic storage allowance admits 100 concurrent requests and rejects
 
 test('@claim:api-rate-limit all snapshot routes share one per-client minute and 429 includes Retry-After', async () => {
   const ratePath = require.resolve('../lib/rate-limit');
+  const storePath = require.resolve('../lib/store');
+  const createPath = require.resolve('../snapshots-create');
+  const getPath = require.resolve('../snapshot-get');
+  const deletePath = require.resolve('../snapshot-delete');
+  const originalRate = require.cache[ratePath];
+  const originalStore = require.cache[storePath];
   delete require.cache[ratePath];
-  const { createRateLimiter, LIMIT, WINDOW_SECONDS } = require(ratePath);
+  const { createRateLimiter, LIMIT, WINDOW_SECONDS, addRateHeaders } = require(ratePath);
   const counts = new Map();
   const consume = async (key, limit, window, now) => {
     assert.equal(limit, LIMIT);
@@ -49,20 +55,56 @@ test('@claim:api-rate-limit all snapshot routes share one per-client minute and 
     counts.set(key, count);
     return { allowed: count <= limit, remaining: Math.max(0, limit - count), resetAtMs: now + 60_000 };
   };
-  const limit = createRateLimiter({ consume, clock: () => 2_000_000 });
-  const req = { headers: { 'x-forwarded-for': '203.0.113.9, 10.0.0.1' } };
-  for (let index = 0; index < LIMIT; index++) {
-    const result = await limit(req);
-    assert.equal(result.allowed, true);
-  }
-  const blocked = await limit(req);
-  assert.equal(blocked.allowed, false);
-  assert.equal(blocked.response.status, 429);
-  assert.equal(blocked.response.headers['Retry-After'], '60');
-  assert.match(JSON.parse(blocked.response.body).error, /100 snapshot requests/);
+  const enforceRateLimit = createRateLimiter({ consume, clock: () => 2_000_000 });
+  require.cache[ratePath] = { id: ratePath, filename: ratePath, loaded: true, exports: { enforceRateLimit, addRateHeaders } };
+  require.cache[storePath] = {
+    id: storePath,
+    filename: storePath,
+    loaded: true,
+    exports: { put: async () => {}, get: async () => null, removePayload: async () => {} }
+  };
+  for (const path of [createPath, getPath, deletePath]) delete require.cache[path];
+  const create = require(createPath);
+  const open = require(getPath);
+  const revoke = require(deletePath);
+  const headers = { 'x-forwarded-for': '203.0.113.9, 10.0.0.1' };
+  const snapshot = {
+    version: 2,
+    question: 'Did Northstar orders arrive?',
+    answer: '1,842 orders',
+    status: 'On track',
+    observedAt: '2026-08-29T10:00:00.000Z',
+    createdAt: '2026-08-29T10:01:00.000Z',
+    redacted: true,
+    demo: true
+  };
 
-  const otherClient = await limit({ headers: { 'x-forwarded-for': '203.0.113.10' } });
-  assert.equal(otherClient.allowed, true);
+  try {
+    for (let index = 0; index < 34; index++) {
+      assert.equal((await create({}, { headers, body: { snapshot, demo: true, ttlSeconds: 60 } })).status, 201);
+    }
+    for (let index = 0; index < 33; index++) {
+      assert.equal((await open({ bindingData: { token: 'd_missing' } }, { headers })).status, 404);
+    }
+    for (let index = 0; index < 33; index++) {
+      assert.equal((await revoke({ bindingData: { token: 'd_missing' } }, { headers, body: { revokeKey: 'wrong' } })).status, 403);
+    }
+
+    const blocked = await create({}, { headers, body: { snapshot, demo: true, ttlSeconds: 60 } });
+    assert.equal(blocked.status, 429);
+    assert.equal(blocked.headers['Retry-After'], '60');
+    assert.match(JSON.parse(blocked.body).error, /100 snapshot requests/);
+
+    const otherClient = await open({ bindingData: { token: 'd_missing' } }, { headers: { 'x-forwarded-for': '203.0.113.10' } });
+    assert.equal(otherClient.status, 404);
+    assert.equal(otherClient.headers['X-RateLimit-Remaining'], '99');
+  } finally {
+    for (const path of [createPath, getPath, deletePath]) delete require.cache[path];
+    if (originalRate) require.cache[ratePath] = originalRate;
+    else delete require.cache[ratePath];
+    if (originalStore) require.cache[storePath] = originalStore;
+    else delete require.cache[storePath];
+  }
 });
 
 test('forwarded source ports cannot split one client into multiple allowances', async () => {

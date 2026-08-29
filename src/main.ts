@@ -44,6 +44,7 @@ const DEMO_SHARES_KEY = 'demo:tqb:shares';
 const SNAPSHOT_TTL_KEY = 'tqb:snapshot-ttl';
 const DEMO_SNAPSHOT_TTL_KEY = 'demo:tqb:snapshot-ttl';
 const REAL_SHARES_KEY = 'tqb:shares';
+const CSV_HEADERS = ['question', 'owner', 'source', 'sourceUrl', 'value', 'unit', 'threshold', 'comparison', 'observedAt', 'freshMinutes', 'note'] as const;
 const app = document.querySelector<HTMLDivElement>('#app')!;
 let firstRender = true;
 let activeSharedSnapshot: Snapshot | null = null;
@@ -199,7 +200,7 @@ function footer(): string {
     <footer class="site-footer">
       <p>Plain answers from approved telemetry readings.</p>
       <nav aria-label="Footer navigation"><a href="/privacy" data-link>Privacy</a><a href="/terms" data-link>Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></nav>
-      <p>Version 1.2.0 · Generated illustration disclosed in the design notes.</p>
+      <p>Version 1.3.0 · Generated illustration disclosed in the design notes.</p>
     </footer>`;
 }
 
@@ -275,6 +276,7 @@ function bookPage(): string {
       <section class="book-heading"><div><p class="eyebrow">${demo ? 'Sample workspace' : 'Local workspace'}</p><h1 tabindex="-1">Check the approved questions</h1><p>${demo ? `${questions.length} sample question${questions.length === 1 ? '' : 's'} use a separate demo storage space.` : 'Add a question or import an approved CSV export.'}</p></div><button class="button primary" data-action="show-add">Add a question</button></section>
       <section class="book-controls" aria-label="Question book controls">
         <button class="button secondary" data-action="show-import">Import CSV</button>
+        <button class="button secondary" data-action="export-book">Export question book CSV</button>
         <button class="button secondary" data-action="download-template">Download CSV template</button>
         <span>${questions.length} question${questions.length === 1 ? '' : 's'}</span>
       </section>
@@ -282,7 +284,7 @@ function bookPage(): string {
       <section aria-labelledby="current-title"><div class="list-heading"><h2 id="current-title">Current answers</h2><p>Readings use the time and threshold saved on each card.</p></div>
         <div class="question-list">${questions.length ? questions.map((q) => questionCard(q)).join('') : emptyState()}</div>
       </section>
-      <dialog id="snapshot-dialog" aria-labelledby="snapshot-title"><form method="dialog" id="snapshot-form"><div class="dialog-head"><div><p class="eyebrow">Share a reading</p><h2 id="snapshot-title">Make answer copy</h2></div><button class="icon-button" value="cancel" aria-label="Close answer copy dialog">×</button></div><input type="hidden" name="id"><label class="check"><input type="checkbox" name="redact" checked> Hide owner, source, and note</label><label>Link expires after<select name="ttl"><option value="3600">1 hour</option><option value="86400" selected>24 hours</option><option value="604800">7 days</option></select></label><p>Creating a link sends this reviewed answer copy to this site’s snapshot service. You can revoke it early.</p><div class="dialog-actions"><button class="button secondary" value="cancel">Cancel</button><button class="button primary" value="default" data-action="create-snapshot">Review answer copy</button></div></form></dialog>
+      <dialog id="snapshot-dialog" aria-labelledby="snapshot-title"><form method="dialog" id="snapshot-form"><div class="dialog-head"><div><p class="eyebrow">Share a reading</p><h2 id="snapshot-title">Make answer copy</h2></div><button class="icon-button" value="cancel" aria-label="Close answer copy dialog">×</button></div><input type="hidden" name="id"><label class="check"><input type="checkbox" name="redact" checked> Hide owner, source, and note</label><label>Link expires after<select name="ttl"><option value="3600">1 hour</option><option value="86400" selected>24 hours</option><option value="604800">7 days</option></select></label><p>Creating a link sends this reviewed answer copy to this site’s sharing service. You can revoke it early.</p><div class="dialog-actions"><button class="button secondary" value="cancel">Cancel</button><button class="button primary" value="default" data-action="create-snapshot">Review answer copy</button></div></form></dialog>
     </main>`);
 }
 
@@ -309,7 +311,7 @@ function questionForm(existing?: Question): string {
     <label>Passes when<select name="comparison">${option('gte', 'Value is at least')}${option('lte', 'Value is at most')}${option('eq', 'Value equals')}</select></label>
     <label>Threshold<input name="threshold" required type="number" step="any" value="${value.threshold}"></label>
     <label>Observed at<input name="observedAt" required type="datetime-local" value="${localDateTime(value.observedAt)}"></label>
-    <label>Fresh for minutes<input name="freshMinutes" required type="number" min="1" max="10080" value="${value.freshMinutes}"></label>
+    <label>Fresh for minutes<input name="freshMinutes" required type="number" min="1" max="10080" step="1" value="${value.freshMinutes}"></label>
     <label class="full">Internal note<textarea name="note" maxlength="240" rows="3">${escapeHtml(value.note)}</textarea></label>
     <div class="form-error full" role="alert" hidden></div><div class="form-actions full"><button type="button" class="button secondary" data-action="close-editor">Cancel</button><button class="button primary" type="submit">${editing ? 'Save updated reading' : 'Save question'}</button></div>
   </form></div>`;
@@ -341,6 +343,7 @@ async function loadSharedSnapshot(path: string): Promise<void> {
   const ticket = document.querySelector<HTMLElement>('#shared-ticket');
   if (!ticket) return;
   try {
+    if (!navigator.onLine) throw new Error('offline');
     const response = await fetch(`/api/snapshots/${encodeURIComponent(token)}`, { headers: { Accept: 'application/json' } });
     const result = await response.json() as { snapshot?: Snapshot; expiresAt?: string; error?: string };
     if (!response.ok || !result.snapshot || !result.expiresAt) throw new Error(result.error || 'This answer link could not be opened.');
@@ -348,14 +351,16 @@ async function loadSharedSnapshot(path: string): Promise<void> {
     ticket.outerHTML = snapshotTicket(result.snapshot, false, result.expiresAt);
     setMetadata(`${result.snapshot.question} — Telemetry Question Book`, 'A time-limited telemetry answer shared from Telemetry Question Book.', path, true);
   } catch (reason) {
-    const message = reason instanceof Error ? reason.message : 'This answer link could not be opened.';
+    const message = !navigator.onLine
+      ? 'You are offline. Reconnect and reload this page to open the answer link.'
+      : reason instanceof Error ? reason.message : 'This answer link could not be opened.';
     ticket.innerHTML = `<p class="eyebrow">Unavailable answer link</p><h1 tabindex="-1">This answer link is no longer available</h1><p>${escapeHtml(message)}</p><a class="button primary" href="/" data-link>Open Telemetry Question Book</a>`;
   }
   document.querySelector<HTMLElement>('h1')?.focus();
 }
 
 function privacyPage(): string {
-  return shell(`<main id="main" class="legal"><p class="eyebrow">Policy · 29 August 2026</p><h1 tabindex="-1">Control where each answer copy goes</h1><p>Question cards stay in this browser. The app has no account service or analytics.</p><h2>Demo data</h2><p>Demo changes use keys that start with <code>demo:</code>. Resetting or leaving the demo deletes those keys and revokes its links.</p><h2>Expiring links</h2><p>Creating a link sends only the reviewed answer copy to this site.</p><p>Azure Storage deletes that copy automatically at expiry, even if nobody opens the link again.</p><p>Revoking a link deletes its copy immediately. The metadata keeps no answer text.</p><p>The opaque link contains no answer data. The default setting hides the owner, source, and internal note.</p><h2>Downloaded files</h2><p>A downloaded answer copy stays under your control. The file does not expire or have access controls.</p><h2>Your controls</h2><p>Clear this site’s browser storage to remove questions. Contact <a href="mailto:privacy@sociobot.in">privacy@sociobot.in</a> with policy questions.</p></main>`);
+  return shell(`<main id="main" class="legal"><p class="eyebrow">Policy · 29 August 2026</p><h1 tabindex="-1">Control where each answer copy goes</h1><p>Question cards stay in this browser. The app has no account service or analytics.</p><h2>Demo data</h2><p>Demo changes use keys that start with <code>demo:</code>. Resetting or leaving the demo deletes those keys and revokes its links.</p><h2>Expiring links</h2><p>Creating a link sends only the reviewed answer copy to this site.</p><p>Azure Storage deletes that copy automatically at expiry, even if nobody opens the link again.</p><p>Revoking a link deletes its copy immediately. The stored link details keep no answer text.</p><p>The link contains a random ID, not the answer. The default setting hides the owner, source, and internal note.</p><h2>Downloaded files</h2><p>A downloaded answer copy stays under your control. The file does not expire or have access controls.</p><h2>Your controls</h2><p>Clear this site’s browser storage to remove questions. Contact <a href="mailto:privacy@sociobot.in">privacy@sociobot.in</a> with policy questions.</p></main>`);
 }
 
 function termsPage(): string {
@@ -475,6 +480,17 @@ function formQuestion(form: HTMLFormElement): Question {
   return question;
 }
 
+function isIsoDate(value: string): boolean {
+  const match = value.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/);
+  if (!match || !Number.isFinite(Date.parse(value))) return false;
+  const [, year, month, day, hour, minute, second = '0'] = match;
+  const calendar = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+  return calendar.getUTCFullYear() === Number(year)
+    && calendar.getUTCMonth() === Number(month) - 1
+    && calendar.getUTCDate() === Number(day)
+    && Number(hour) <= 23 && Number(minute) <= 59 && Number(second) <= 59;
+}
+
 function validateQuestion(question: Question, row?: number): void {
   const prefix = row ? `Row ${row} ` : '';
   const required: Array<[keyof Question, number]> = [['question', 100], ['owner', 60], ['source', 60], ['unit', 30]];
@@ -490,7 +506,7 @@ function validateQuestion(question: Question, row?: number): void {
   if (!['gte', 'lte', 'eq'].includes(question.comparison)) throw new Error(`${prefix}has an invalid comparison. Use gte, lte, or eq.`);
   if (![question.value, question.threshold, question.freshMinutes].every(Number.isFinite)) throw new Error(`${prefix}has an invalid number.`);
   if (!Number.isInteger(question.freshMinutes) || question.freshMinutes < 1 || question.freshMinutes > 10_080) throw new Error(`${prefix}freshMinutes must be a whole number from 1 to 10080.`);
-  if (Number.isNaN(new Date(question.observedAt).getTime())) throw new Error(`${prefix}has an invalid observedAt date.`);
+  if (!isIsoDate(question.observedAt)) throw new Error(`${prefix}has an invalid observedAt date. Use an ISO date with a timezone.`);
 }
 
 function parseCsv(text: string): Question[] {
@@ -517,9 +533,9 @@ function parseCsv(text: string): Question[] {
   if (missing.length) throw new Error(`The CSV is missing ${missing.join(', ')}. Use the template and import again.`);
   return rows.slice(1).map((values, index) => {
     const record = Object.fromEntries(headers.map((key, i) => [key, values[i] ?? '']));
-    const rawDate = new Date(record.observedAt);
-    const question: Question = { id: uid(), question: record.question.trim(), owner: record.owner.trim(), source: record.source.trim(), sourceUrl: record.sourceUrl.trim(), value: record.value === '' ? Number.NaN : Number(record.value), unit: record.unit.trim(), threshold: record.threshold === '' ? Number.NaN : Number(record.threshold), comparison: record.comparison as Comparison, observedAt: Number.isNaN(rawDate.getTime()) ? record.observedAt : rawDate.toISOString(), freshMinutes: record.freshMinutes === '' ? Number.NaN : Number(record.freshMinutes), note: (record.note || '').trim() };
+    const question: Question = { id: uid(), question: record.question.trim(), owner: record.owner.trim(), source: record.source.trim(), sourceUrl: record.sourceUrl.trim(), value: record.value === '' ? Number.NaN : Number(record.value), unit: record.unit.trim(), threshold: record.threshold === '' ? Number.NaN : Number(record.threshold), comparison: record.comparison as Comparison, observedAt: record.observedAt, freshMinutes: record.freshMinutes === '' ? Number.NaN : Number(record.freshMinutes), note: (record.note || '').trim() };
     validateQuestion(question, index + 2);
+    question.observedAt = new Date(question.observedAt).toISOString();
     return question;
   });
 }
@@ -533,6 +549,16 @@ function download(name: string, content: string, type: string): void {
 
 function csvTemplate(): string {
   return 'question,owner,source,sourceUrl,value,unit,threshold,comparison,observedAt,freshMinutes,note\n"Did the daily feed arrive?",Data Platform,Approved Grafana view,https://telemetry-question-book.sociobot.in/sample-sources/northstar-orders,1820,events,1500,gte,2026-08-28T09:30:00Z,60,"Morning batch"\n';
+}
+
+function csvCell(value: string | number): string {
+  const text = String(value);
+  return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+}
+
+function questionBookCsv(questions: Question[]): string {
+  const rows = questions.map((question) => CSV_HEADERS.map((key) => csvCell(question[key])).join(','));
+  return `${CSV_HEADERS.join(',')}\n${rows.join('\n')}${rows.length ? '\n' : ''}`;
 }
 
 function makeSnapshot(question: Question, redacted: boolean): Snapshot {
@@ -615,6 +641,7 @@ document.addEventListener('click', async (event) => {
   if (action === 'show-import') showEditor(importForm());
   if (action === 'close-editor') { const editor = document.querySelector<HTMLElement>('#editor'); if (editor) { editor.hidden = true; editor.innerHTML = ''; } }
   if (action === 'download-template') { download('question-book-template.csv', csvTemplate(), 'text/csv'); showNotice('CSV template downloaded.'); }
+  if (action === 'export-book') { download('telemetry-question-book.csv', questionBookCsv(loadQuestions()), 'text/csv'); showNotice('Question book CSV exported.'); }
   if (action === 'delete-question') {
     const question = loadQuestions().find((item) => item.id === target.dataset.id);
     if (question && confirm(`Delete “${question.question}”? This cannot be undone.`)) { saveQuestions(loadQuestions().filter((item) => item.id !== question.id)); render(); showNotice('Question deleted.'); }
@@ -642,6 +669,7 @@ document.addEventListener('click', async (event) => {
     target.setAttribute('disabled', '');
     result.textContent = 'Creating the expiring link…';
     try {
+      if (!navigator.onLine) throw new Error('offline');
       const ttlSeconds = Number(sessionStorage.getItem(snapshotTtlKey()) || '86400');
       const response = await fetch('/api/snapshots', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ snapshot, ttlSeconds, demo: snapshot.demo }) });
       const share = await response.json() as SharedSnapshot & { error?: string };
@@ -649,7 +677,9 @@ document.addEventListener('click', async (event) => {
       saveShare(share, snapshot.demo);
       result.innerHTML = shareEntriesMarkup(snapshot.demo);
     } catch (reason) {
-      result.textContent = `${reason instanceof Error ? reason.message : 'The link could not be created.'} Check your connection and try again.`;
+      result.textContent = !navigator.onLine
+        ? 'You are offline. Reconnect, then create the expiring link again.'
+        : `${reason instanceof Error ? reason.message : 'The link could not be created.'} Check your connection and try again.`;
       target.removeAttribute('disabled');
     }
   }

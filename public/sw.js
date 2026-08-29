@@ -1,4 +1,4 @@
-const CACHE = 'tqb-shell-v5';
+const CACHE = 'tqb-shell-v7';
 const CORE = ['/assets/question-console-960.webp', '/favicon.svg', '/404.css'];
 
 self.addEventListener('install', (event) => {
@@ -22,7 +22,12 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) return;
+  const requestUrl = new URL(event.request.url);
+  if (event.request.method !== 'GET' || requestUrl.origin !== self.location.origin) return;
+  if (requestUrl.pathname.startsWith('/api/')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
   event.respondWith(
     fetch(event.request)
       .then((response) => {

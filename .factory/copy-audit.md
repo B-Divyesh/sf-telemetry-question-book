@@ -61,7 +61,7 @@ Audited 29 August 2026. Counts use whitespace-delimited words and treat hyphenat
 | 1 | Privacy | Pass |
 | 1 | Terms | Pass |
 | 6 | Built by Param Factory (external site) | Pass |
-| 10 | Version 1.2.0 · Generated illustration disclosed in the design notes. | Pass |
+| 10 | Version 1.3.0 · Generated illustration disclosed in the design notes. | Pass |
 
 ## Terminology
 
@@ -77,4 +77,4 @@ Audited 29 August 2026. Counts use whitespace-delimited words and treat hyphenat
 | Authorized external destination | approved source |
 | Isolated sample workspace | demo |
 
-Catalog description: **Track recurring telemetry answers from approved readings without sharing broad dashboard access.** (91 characters)
+Catalog description: **Track recurring telemetry answers from approved readings, then share a time-limited link.** (85 characters)

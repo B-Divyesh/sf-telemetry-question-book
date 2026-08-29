@@ -11,6 +11,25 @@ async function importCsv(page: import('@playwright/test').Page, csv: string): Pr
   await page.getByRole('button', { name: 'Import questions' }).click();
 }
 
+async function downloadedText(download: import('@playwright/test').Download): Promise<string> {
+  const stream = await download.createReadStream();
+  const chunks: Buffer[] = [];
+  for await (const chunk of stream) chunks.push(Buffer.from(chunk));
+  return Buffer.concat(chunks).toString('utf8');
+}
+
+async function openQuestionForm(page: import('@playwright/test').Page): Promise<void> {
+  await page.getByRole('button', { name: 'Add a question' }).click();
+  await page.locator('input[name="question"]').fill('Is Comet delivery current?');
+  await page.locator('input[name="owner"]').fill('Support Engineering');
+  await page.locator('input[name="source"]').fill('Approved Comet view');
+  await page.locator('input[name="sourceUrl"]').fill('https://telemetry.example.test/comet');
+  await page.locator('input[name="value"]').fill('42');
+  await page.locator('input[name="unit"]').fill('events');
+  await page.locator('input[name="threshold"]').fill('40');
+  await page.locator('input[name="observedAt"]').fill('2026-08-29T10:00');
+}
+
 test('@claim:demo-sandbox opens three realistic questions in isolated storage', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
@@ -78,6 +97,8 @@ test('@claim:card-fields retains owner, freshness, threshold, and source across 
   await expect(page.locator('.question-card').first()).toContainText('Owner Data Platform');
   await expect(page.locator('.question-card').first()).toContainText('Fresh for 60 min');
   await expect(page.locator('.question-card').first()).toContainText('at least 1,500 orders');
+  await expect(page.locator('.question-card').first()).toContainText('Approved Grafana view');
+  await expect(page.locator('.question-card').first().getByRole('link', { name: /Open approved source/ })).toHaveAttribute('href', /sample-sources\/northstar-orders$/);
 });
 
 test('@claim:threshold-states shows on track, needs attention, and stale', async ({ page }) => {
@@ -112,14 +133,24 @@ test('@claim:local-browser keeps question and answer-copy data local with no ana
 
 test('@claim:free-core keeps all question workflows available without an account or purchase', async ({ page }) => {
   await page.goto('/demo');
-  await expect(page.getByRole('button', { name: 'Update reading' }).first()).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Import CSV' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Make answer copy' }).first()).toBeVisible();
   await expect(page.locator('input[type="password"], a[href*="checkout"], [data-action="download-pack"]')).toHaveCount(0);
+
+  await page.getByRole('button', { name: 'Update reading' }).first().click();
+  await page.getByLabel('Current value').fill('1902');
+  await page.getByRole('button', { name: 'Save updated reading' }).click();
+  await expect(page.locator('.question-card').first().getByText('1,902', { exact: true })).toBeVisible();
+
+  await importCsv(page, validCsv());
+  await expect(page.getByRole('heading', { name: 'Is Beacon latency within limit?' })).toBeVisible();
+
   await page.getByRole('button', { name: 'Make answer copy' }).first().click();
   await page.getByRole('button', { name: 'Review answer copy' }).click();
-  await expect(page.getByRole('button', { name: 'Create expiring link' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Download JSON' })).toBeVisible();
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download JSON' }).click();
+  expect(JSON.parse(await downloadedText(await download)).question).toBe('Did Northstar orders arrive?');
+  await page.getByRole('button', { name: 'Create expiring link' }).click();
+  await expect(page.getByLabel('Expiring answer link')).toHaveValue(/\/s\/d_[a-f0-9]+$/);
+  await expect(page.locator('input[type="password"], a[href*="checkout"]')).toHaveCount(0);
 });
 
 test('@claim:offline-reload reloads the visited demo offline', async ({ page, context }) => {
@@ -131,6 +162,29 @@ test('@claim:offline-reload reloads the visited demo offline', async ({ page, co
   await page.reload();
   await expect(page.getByText('You are offline. Saved questions are still available.')).toBeVisible();
   await expect(page.locator('.question-card')).toHaveCount(3);
+});
+
+test('@claim:offline-sharing explains that links need a connection and recovers after reconnecting', async ({ page, context }) => {
+  await page.goto('/demo');
+  await page.evaluate(async () => { await navigator.serviceWorker.ready; });
+  await page.getByRole('button', { name: 'Make answer copy' }).first().click();
+  await page.getByRole('button', { name: 'Review answer copy' }).click();
+  await page.getByRole('button', { name: 'Create expiring link' }).click();
+  const token = new URL(await page.getByLabel('Expiring answer link').inputValue()).pathname.split('/').pop()!;
+
+  await context.setOffline(true);
+  await page.goto(`/s/${token}`);
+  await expect(page.getByText('You are offline. Reconnect and reload this page to open the answer link.')).toBeVisible();
+  await page.goto('/demo/snapshot');
+  await page.getByRole('button', { name: 'Create expiring link' }).click();
+  await expect(page.getByText('You are offline. Reconnect, then create the expiring link again.')).toBeVisible();
+
+  await context.setOffline(false);
+  await page.reload();
+  await page.getByRole('button', { name: 'Create expiring link' }).click();
+  await expect(page.getByLabel('Expiring answer link')).toHaveCount(2);
+  await page.goto(`/s/${token}`);
+  await expect(page.getByRole('heading', { name: 'Did Northstar orders arrive?' })).toBeVisible();
 });
 
 test('@claim:question-update changes one recurring card without a duplicate', async ({ page }) => {
@@ -180,12 +234,59 @@ test('@claim:csv-validation enforces required fields, HTTPS, and whole-minute li
   await page.locator('input[type="file"]').setInputFiles({ name: 'questions.csv', mimeType: 'text/csv', buffer: Buffer.from(validCsv(180, 'One minute').replace(',10080,', ',1,')) });
   await page.getByRole('button', { name: 'Import questions' }).click();
   await expect(page.getByRole('heading', { name: 'One minute' })).toBeVisible();
-  await page.getByRole('button', { name: 'Add a question' }).click();
-  const freshness = page.getByLabel('Fresh for minutes');
+
+  await openQuestionForm(page);
+  const question = page.locator('input[name="question"]');
+  const sourceUrl = page.locator('input[name="sourceUrl"]');
+  const freshness = page.locator('input[name="freshMinutes"]');
   await expect(freshness).toHaveAttribute('min', '1');
   await expect(freshness).toHaveAttribute('max', '10080');
+  await expect(freshness).toHaveAttribute('step', '1');
   await expect(freshness).toHaveAttribute('type', 'number');
-  await expect(page.locator('.question-card')).toHaveCount(4);
+
+  await question.fill('');
+  await page.getByRole('button', { name: 'Save question' }).click();
+  expect(await question.evaluate((input: HTMLInputElement) => input.validity.valid)).toBe(false);
+  await question.fill('Is Comet delivery current?');
+  await sourceUrl.fill('https://');
+  await page.getByRole('button', { name: 'Save question' }).click();
+  expect(await sourceUrl.evaluate((input: HTMLInputElement) => input.validity.valid)).toBe(false);
+  await sourceUrl.fill('https://telemetry.example.test/comet');
+  for (const invalid of ['0', '1.5', '10081']) {
+    await freshness.fill(invalid);
+    await page.getByRole('button', { name: 'Save question' }).click();
+    expect(await freshness.evaluate((input: HTMLInputElement) => input.validity.valid)).toBe(false);
+  }
+  await freshness.fill('1');
+  await page.getByRole('button', { name: 'Save question' }).click();
+  await expect(page.getByRole('heading', { name: 'Is Comet delivery current?' })).toBeVisible();
+
+  await openQuestionForm(page);
+  await page.locator('input[name="question"]').fill('Is Quasar delivery current?');
+  await page.locator('input[name="freshMinutes"]').fill('10080');
+  await page.getByRole('button', { name: 'Save question' }).click();
+  await expect(page.getByRole('heading', { name: 'Is Quasar delivery current?' })).toBeVisible();
+  await expect(page.locator('.question-card')).toHaveCount(6);
+});
+
+test('@claim:csv-schema accepts three comparisons and valid ISO dates, and rejects unknown values and invalid dates', async ({ page }) => {
+  await page.goto('/demo');
+  const header = 'question,owner,source,sourceUrl,value,unit,threshold,comparison,observedAt,freshMinutes,note';
+  const rows = [
+    'Greater check,Reliability,Approved CSV,https://telemetry.example.test/gte,5,events,4,gte,2026-08-29T09:30:00Z,60,',
+    'Lower check,Reliability,Approved CSV,https://telemetry.example.test/lte,3,events,4,lte,2026-08-29T09:30:00+00:00,60,',
+    'Equal check,Reliability,Approved CSV,https://telemetry.example.test/eq,4,events,4,eq,2026-08-29T09:30:00.000Z,60,'
+  ];
+  await importCsv(page, `${header}\n${rows.join('\n')}\n`);
+  for (const name of ['Greater check', 'Lower check', 'Equal check']) await expect(page.getByRole('heading', { name })).toBeVisible();
+
+  await importCsv(page, `${header}\nUnknown comparison,Reliability,Approved CSV,https://telemetry.example.test/bad,1,events,1,gt,2026-08-29T09:30:00Z,60,\n`);
+  await expect(page.getByRole('alert')).toContainText('invalid comparison');
+  await page.locator('input[type="file"]').setInputFiles({ name: 'questions.csv', mimeType: 'text/csv', buffer: Buffer.from(`${header}\nBad date,Reliability,Approved CSV,https://telemetry.example.test/date,1,events,1,gte,2026-02-30T09:30:00Z,60,\n`) });
+  await page.getByRole('button', { name: 'Import questions' }).click();
+  await expect(page.getByRole('alert')).toContainText('invalid observedAt date');
+  await expect(page.getByRole('heading', { name: 'Unknown comparison' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Bad date' })).toHaveCount(0);
 });
 
 test('@claim:csv-template downloads a usable template', async ({ page }) => {
@@ -194,12 +295,35 @@ test('@claim:csv-template downloads a usable template', async ({ page }) => {
   await page.getByRole('button', { name: 'Download CSV template' }).click();
   const artifact = await pending;
   expect(artifact.suggestedFilename()).toBe('question-book-template.csv');
-  const stream = await artifact.createReadStream();
-  const chunks: Buffer[] = [];
-  for await (const chunk of stream) chunks.push(Buffer.from(chunk));
-  const csv = Buffer.concat(chunks).toString('utf8');
+  const csv = await downloadedText(artifact);
   expect(csv).toContain('question,owner,source,sourceUrl,value,unit,threshold,comparison,observedAt,freshMinutes,note');
   expect(csv.trim().split('\n')).toHaveLength(2);
+});
+
+test('@claim:question-book-export exports one workspace and round-trips every card without duplicates', async ({ page }) => {
+  await page.goto('/demo');
+  await page.evaluate(() => localStorage.setItem('tqb:v1', JSON.stringify([{ question: 'REAL SENTINEL' }])));
+  const pending = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Export question book CSV' }).click();
+  const artifact = await pending;
+  expect(artifact.suggestedFilename()).toBe('telemetry-question-book.csv');
+  const csv = await downloadedText(artifact);
+  expect(csv).toContain('Did Northstar orders arrive?');
+  expect(csv).toContain('Are Atlas webhooks clearing?');
+  expect(csv).toContain('Did Harbor export finish?');
+  expect(csv).not.toContain('REAL SENTINEL');
+  expect(csv.trim().split('\n')).toHaveLength(4);
+
+  await page.goto('/book');
+  await page.evaluate(() => localStorage.removeItem('tqb:v1'));
+  await page.reload();
+  await importCsv(page, csv);
+  await expect(page.locator('.question-card')).toHaveCount(3);
+  for (const name of ['Did Northstar orders arrive?', 'Are Atlas webhooks clearing?', 'Did Harbor export finish?']) await expect(page.getByRole('heading', { name })).toBeVisible();
+  await expect(page.locator('.question-card').first()).toContainText('Owner Data Platform');
+  await expect(page.locator('.question-card').first()).toContainText('Approved Grafana view');
+  await importCsv(page, csv);
+  await expect(page.locator('.question-card')).toHaveCount(3);
 });
 
 test('@claim:answer-copy-security keeps data out of URLs and ignores forged fragments', async ({ page }) => {
@@ -300,10 +424,14 @@ test('@claim:share-revocation makes a recipient link unavailable immediately', a
 
 test('@claim:least-privilege-input accepts HTTPS links and never asks for credentials', async ({ page }) => {
   await page.goto('/book');
-  await page.getByRole('button', { name: 'Add a question' }).click();
-  await expect(page.getByLabel('Approved source URL')).toHaveAttribute('type', 'url');
+  await openQuestionForm(page);
+  await expect(page.locator('input[name="sourceUrl"]')).toHaveAttribute('type', 'url');
   await expect(page.locator('input[type="password"]')).toHaveCount(0);
   await expect(page.getByText('Do not paste dashboard credentials.')).toBeVisible();
+  await page.getByRole('button', { name: 'Save question' }).click();
+  const card = page.locator('.question-card').filter({ hasText: 'Is Comet delivery current?' });
+  await expect(card).toBeVisible();
+  await expect(card.getByRole('link', { name: /Open approved source/ })).toHaveAttribute('href', 'https://telemetry.example.test/comet');
 });
 
 test('@claim:sample-sources gives every demo card a working local source page', async ({ page, request }) => {
@@ -367,6 +495,26 @@ test('regression: mobile navigation and footer targets meet 44px', async ({ page
   }
 });
 
+test('regression: the complete first-screen facts fit a 1440 by 900 viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  const facts = page.locator('.plain-facts li');
+  await expect(facts).toHaveCount(3);
+  for (let index = 0; index < 3; index++) {
+    const box = await facts.nth(index).boundingBox();
+    expect(box && box.y >= 0 && box.y + box.height <= 900, `fact ${index + 1} must fit before scrolling`).toBeTruthy();
+  }
+});
+
+test('regression: a focused mobile skip link does not block Demo navigation', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('link', { name: 'Skip to main content' })).toBeFocused();
+  await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Demo', exact: true }).click();
+  await expect(page).toHaveURL(/\/demo$/);
+});
+
 test('regression: keyboard focus and dialog restoration remain visible', async ({ page }) => {
   await page.goto('/demo');
   await page.keyboard.press('Tab');
@@ -411,5 +559,5 @@ test('regression: service worker replaces old caches and has no waiting update',
   await page.evaluate(async () => { await navigator.serviceWorker.ready; });
   await expect.poll(() => page.evaluate(() => caches.keys())).not.toContain('tqb-shell-v2');
   await expect.poll(() => page.evaluate(async () => Boolean((await navigator.serviceWorker.getRegistration())?.waiting))).toBe(false);
-  expect(await page.evaluate(() => caches.keys())).toContain('tqb-shell-v5');
+  expect(await page.evaluate(() => caches.keys())).toContain('tqb-shell-v7');
 });

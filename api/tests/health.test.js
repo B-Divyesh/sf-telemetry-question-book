@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const test = require('node:test');
 
-test('health publishes only the injected non-secret build identity and is not rate limited', async () => {
+test('@claim:health-rate-limit health stays read-only and available after more than 100 requests', async () => {
   const previous = process.env.BUILD_ID;
   process.env.BUILD_ID = '753ed02-repair.3';
   const health = require('../health');
