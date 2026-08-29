@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T17:06:24.501Z",
+  "generatedAt": "2026-08-29T17:29:40.608Z",
   "bases": {
     "local": {
       "desktop": [
@@ -131,7 +131,7 @@
         },
         {
           "path": "/not-a-route",
-          "status": 404,
+          "status": 200,
           "title": "Not found — Telemetry Question Book",
           "lang": "en",
           "h1": 1,
@@ -143,9 +143,7 @@
           "origins": [
             "http://127.0.0.1:4173"
           ],
-          "consoleErrors": [
-            "Failed to load resource: the server responded with a status of 404 (Not Found)"
-          ],
+          "consoleErrors": [],
           "pageErrors": [],
           "serious": []
         }
@@ -279,7 +277,7 @@
         },
         {
           "path": "/not-a-route",
-          "status": 404,
+          "status": 200,
           "title": "Not found — Telemetry Question Book",
           "lang": "en",
           "h1": 1,
@@ -291,9 +289,7 @@
           "origins": [
             "http://127.0.0.1:4173"
           ],
-          "consoleErrors": [
-            "Failed to load resource: the server responded with a status of 404 (Not Found)"
-          ],
+          "consoleErrors": [],
           "pageErrors": [],
           "serious": []
         }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T17:12:21.107Z",
+  "generatedAt": "2026-08-29T17:31:04.196Z",
   "base": "https://telemetry-question-book.sociobot.in",
   "factBounds": [
     {
@@ -49,7 +49,7 @@
       "label": "1 hour",
       "seconds": 3600,
       "requestSeconds": 3600,
-      "measuredDuration": 3600600,
+      "measuredDuration": 3600590,
       "tokenPrefix": "d_",
       "revokedStatus": 410
     },
@@ -57,7 +57,7 @@
       "label": "24 hours",
       "seconds": 86400,
       "requestSeconds": 86400,
-      "measuredDuration": 86402984,
+      "measuredDuration": 86401544,
       "tokenPrefix": "d_",
       "revokedStatus": 410
     },
@@ -65,13 +65,13 @@
       "label": "7 days",
       "seconds": 604800,
       "requestSeconds": 604800,
-      "measuredDuration": 604801523,
+      "measuredDuration": 604801613,
       "tokenPrefix": "d_",
       "revokedStatus": 410
     }
   ],
   "isolation": {
-    "realQuestion": "[{\"id\":\"real\",\"question\":\"REAL QUESTION SENTINEL\",\"owner\":\"Real owner\",\"source\":\"Real source\",\"sourceUrl\":\"https://example.test/real\",\"value\":1,\"unit\":\"event\",\"threshold\":1,\"comparison\":\"eq\",\"observedAt\":\"2026-08-29T17:11:57.479Z\",\"freshMinutes\":60,\"note\":\"\"}]",
+    "realQuestion": "[{\"id\":\"real\",\"question\":\"REAL QUESTION SENTINEL\",\"owner\":\"Real owner\",\"source\":\"Real source\",\"sourceUrl\":\"https://example.test/real\",\"value\":1,\"unit\":\"event\",\"threshold\":1,\"comparison\":\"eq\",\"observedAt\":\"2026-08-29T17:30:42.848Z\",\"freshMinutes\":60,\"note\":\"\"}]",
     "realPreview": "REAL PREVIEW SENTINEL",
     "realShares": "[{\"token\":\"real-share-sentinel\"}]",
     "demoKeys": []
@@ -143,7 +143,7 @@
   "health": {
     "ok": true,
     "snapshotStoreConfigured": true,
-    "buildId": "4af90fe609af03c9b55b5ea1d3caad498e552148"
+    "buildId": "63c02aba795498a8042c72aee4be6f3b685fa37f"
   },
   "origins": [
     "https://telemetry-question-book.sociobot.in"

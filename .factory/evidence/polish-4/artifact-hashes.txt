@@ -1,0 +1,6 @@
+Deployed build checked against fresh-clone dist at 63c02aba795498a8042c72aee4be6f3b685fa37f
+
+MATCH index.html 146200804b93d8b37d314c179d49b2ace62fabdfb10ff3f901ac5a7ac5505a6a
+MATCH assets/index-Dy-1cvQq.js 3334cc078541e2298f24a6916b7b9f8736278113dda19de949b5c6fdb996ee61
+MATCH assets/index-yjLvK2T_.css aad8f3ed2b84793be3406e3e6b8394fc06817e6bc29dafcc7cd7e7443791896d
+MATCH sw.js 847b6d1bcae4995c07b58ac14566144874c09b3bce86f5996137089bf40cdc32

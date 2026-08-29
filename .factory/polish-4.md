@@ -3,7 +3,7 @@
 Work order: `telemetry-question-book-polish-4`  
 Review source: `2a5498513985a83c3dcd427f516a2694ef803038`  
 Functional repair: `400f4bdd3e4be39c56dbbb3ae2e4490f2497a6f8`  
-First verified deployment: `4af90fe609af03c9b55b5ea1d3caad498e552148`  
+Accessibility hardening and verified deployment: `63c02aba795498a8042c72aee4be6f3b685fa37f`
 Live URL: <https://telemetry-question-book.sociobot.in>
 
 ## Evidence key
@@ -21,7 +21,7 @@ Every finding below was rechecked in current code, tests, and the deployed produ
 
 | Finding | Change made or retained | Evidence: test, screenshot, live URL check |
 | --- | --- | --- |
-| F-1-1 | Kept the first complete sample reading before phone controls. | `@claim:demo-sandbox`; [demo mobile](evidence/polish-4/live/demo/screenshot-mobile.png); live `/?demo=1` ends question/value/state/freshness at 630/670/719/763 px. |
+| F-1-1 | Kept the first complete sample reading before phone controls. | `@claim:demo-sandbox`; [demo mobile](evidence/polish-4/live/demo/screenshot-mobile.png); live `/?demo=1` ends question/value/state/freshness at 630/670/719/763 px, while direct `/demo` ends them at 629/670/719/763 px. |
 | F-1-2 | Kept separate demo question, preview, and share keys; the sticky banner survives the answer-copy route; both exits clear only demo keys. | `@claim:demo-controls`, `@claim:answer-copy-security`; [share controls](evidence/polish-4/live/share-controls-mobile.png); live `/demo` → `/demo/snapshot` preserved all real sentinels. |
 | F-1-3 | Kept server-held expiring links, hidden answer data in URLs, service-enforced expiry, and creator revocation. | `@claim:expiring-share`, `@claim:share-redaction`, `@claim:share-revocation`, `@claim:snapshot-retention`; [shared answer](evidence/polish-4/live/shared-answer-mobile.png); live `/s/d_*` returned 200, then 410 after revocation. |
 | F-1-4 | Kept the job-first headline and manual entry/import boundary on the first screen. | `@claim:local-browser`; [root mobile](evidence/polish-4/live/root/screenshot-mobile.png); cold live `/` showed the exact headline and lede. |
