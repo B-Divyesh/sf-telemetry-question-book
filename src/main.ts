@@ -250,7 +250,7 @@ function landingPage(): string {
       </section>
 
       <section class="limits" aria-labelledby="limits-title">
-        <div><p class="eyebrow">What the question book does not do</p><h2 id="limits-title">It translates readings. It does not replace telemetry.</h2></div>
+        <div><h2 id="limits-title">What the question book does not do</h2></div>
         <ul><li>It does not ingest logs or metrics.</li><li>It does not write query language.</li><li>It does not alert or monitor systems.</li><li>It never asks for dashboard credentials.</li></ul>
       </section>
 

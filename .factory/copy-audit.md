@@ -50,9 +50,7 @@ Audited 29 August 2026. Counts use whitespace-delimited words and treat hyphenat
 | 3 | Share the answer | Pass |
 | 5 | Create an expiring link. | Pass; `expiring-share` |
 | 9 | Choose whether to hide the owner, source, and note. | Pass; `share-redaction` |
-| 7 | What the question book does not do | Pass |
-| 3 | It translates readings. | Pass |
-| 5 | It does not replace telemetry. | Pass |
+| 7 | What the question book does not do | Pass; descriptive h2 |
 | 7 | It does not ingest logs or metrics. | Pass; `local-browser` |
 | 6 | It does not write query language. | Pass; `local-browser` |
 | 7 | It does not alert or monitor systems. | Pass; `local-browser` |
@@ -77,4 +75,4 @@ Audited 29 August 2026. Counts use whitespace-delimited words and treat hyphenat
 | Authorized external destination | approved source |
 | Isolated sample workspace | demo |
 
-Catalog description: **Track recurring support answers from approved telemetry readings and share expiring links.** (90 characters)
+Catalog description: **Track recurring telemetry answers from approved readings.** (55 characters, verb first)

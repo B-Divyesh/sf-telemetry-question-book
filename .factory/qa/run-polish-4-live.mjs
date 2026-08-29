@@ -26,6 +26,8 @@ await page.goto(base, { waitUntil: 'networkidle' });
 assert.deepEqual(await page.evaluate(() => ({ local: Object.keys(localStorage), session: Object.keys(sessionStorage) })), { local: [], session: [] });
 await page.getByText('Question cards stay in this browser.').waitFor();
 await page.getByText('Saved questions reopen offline after one online visit.').waitFor();
+assert.equal(await page.getByRole('heading', { level: 2, name: 'What the question book does not do' }).count(), 1);
+assert.equal(await page.getByRole('heading', { name: /It translates readings/i }).count(), 0);
 const factBounds = await page.locator('.plain-facts li').evaluateAll((items) => items.map((item) => {
   const box = item.getBoundingClientRect();
   return { text: item.textContent?.trim(), top: box.top, bottom: box.bottom };

@@ -588,6 +588,14 @@ test('regression: the complete first-screen facts fit phone and desktop viewport
   }
 });
 
+test('regression: the limits section names its boundary in the heading list', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('heading', { level: 2, name: 'What the question book does not do' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /It translates readings/i })).toHaveCount(0);
+  await expect(page.getByText('It does not ingest logs or metrics.')).toBeVisible();
+  await expect(page.getByText('It never asks for dashboard credentials.')).toBeVisible();
+});
+
 test('regression: a focused mobile skip link does not block Demo navigation', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
