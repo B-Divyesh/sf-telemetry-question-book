@@ -1,6 +1,6 @@
 {
   "url": "https://telemetry-question-book.sociobot.in",
-  "tested_at": "2026-08-28T16:58:19.574Z",
+  "tested_at": "2026-08-29T14:27:58Z",
   "mode": "mobile",
   "scores": {
     "performance": 100,
@@ -9,8 +9,8 @@
     "seo": 100
   },
   "metrics": {
-    "first_contentful_paint": "0.9 s",
-    "largest_contentful_paint": "1.2 s",
+    "first_contentful_paint": "0.95 s",
+    "largest_contentful_paint": "1.25 s",
     "cumulative_layout_shift": 0,
     "total_blocking_time": "0 ms",
     "interaction_to_next_paint": "not measured"
