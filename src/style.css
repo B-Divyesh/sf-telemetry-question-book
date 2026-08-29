@@ -65,7 +65,7 @@ h3 { font-size: 24px; }
 .button { min-height: 48px; padding: 11px 18px; border: 2px solid var(--ink); border-radius: 2px; display: inline-flex; justify-content: center; align-items: center; color: var(--ink); background: var(--paper); box-shadow: 3px 3px 0 var(--ink); font: 800 14px/1.2 var(--display); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; cursor: pointer; }
 .button:hover { color: var(--ink); background: var(--cream); }
 .button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-.button.primary { background: var(--amber); color: #28140d; }
+.button.primary { background: var(--amber); color: #10211c; }
 .button.secondary { background: var(--cream); }
 .plain-facts { padding: 0; margin: 0; list-style: none; display: grid; gap: 8px; color: var(--muted); font-size: 14px; }
 .plain-facts span { color: var(--amber-dark); margin-right: 8px; }

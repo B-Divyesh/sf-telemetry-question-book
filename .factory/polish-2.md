@@ -49,7 +49,17 @@ Review source: `8eaf7af40c2ea2809a68f0941491b9ac0a00bb5d`
 - URL verifier: `.factory/evidence/polish-2/local/verify.json`.
 - Lighthouse mobile: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 1.2 s, LCP 1.5 s, TBT 10 ms, CLS 0.
 - Built assets: JavaScript 35,859 bytes raw / 11.68 kB gzip; CSS 16,819 bytes raw / 4.80 kB gzip; mobile hero 42,650 bytes.
+- A final full-suite rerun found the paper texture reduced one amber button to 4.07:1. Darker button text raised it above AA; the 18-route/viewport axe regression then passed.
 
 ## Live evidence
 
-Live verification is recorded in `.factory/evidence/polish-2/live/` and the final handoff after deployment.
+Deployment `167b19e7-bfb9-4162-ad2f-0597f8db00b5` was cold-checked at <https://telemetry-question-book.sociobot.in>.
+
+- F-1-1, F-1-2, F-1-3, F-1-5, F-1-6, F-2-2, F-2-3, and F-2-6: `/?demo=1`, `/demo`, `/demo/snapshot`, and `/s/<demo-token>` passed. The four required first-card details ended at 630, 670, 719, and 763 px on a 390 × 844 screen. Export contained four CSV lines and no real sentinel. Start for real preserved the real sentinel, cleared all `demo:` keys, and changed the demo share response to HTTP 410.
+- F-1-4, F-1-10 through F-1-16, F-2-7, and F-2-8: `/` passed. The three desktop facts ended at 650, 679, and 709 px at 1440 × 900. The focused skip link no longer intercepted Demo. Screenshots: `.factory/qa/live-1440-landing.png` and `.factory/qa/live-390-landing.png`.
+- F-1-7, F-1-8, F-1-9: every fixed route had its expected title/metadata; the three source pages returned 200; `/definitely-missing-polish-2` returned the styled HTTP 404. Screenshots: `.factory/qa/live-1440-demo.png` and `.factory/qa/live-390-demo.png`.
+- F-1-17 through F-1-19 and F-2-1, F-2-4, F-2-5, F-2-9 through F-2-13: deployed README/source and exact clean-clone claim tests were cross-checked against the live behavior and `/api/health` response.
+- Live URL verifier: `.factory/evidence/polish-2/live/verify.json`; direct demo verifier: `.factory/evidence/polish-2/live-demo/verify.json`. Both report no console errors and valid title, language, landmark, alt text, and button labels.
+- Live axe/browser matrix: `.factory/qa/browser-qa-results.json`; 16 live route/viewport scans, zero serious or critical findings, no overflow, and no valid-route console/page errors.
+- Live Lighthouse: `.factory/evidence/polish-2/lighthouse-live.json`; Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.2 s, TBT 0 ms, CLS 0.
+- Local and deployed hashed JS/CSS files matched byte-for-byte by SHA-256.

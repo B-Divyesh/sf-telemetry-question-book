@@ -21,6 +21,7 @@ The service worker never caches `/api/` responses. A shared answer therefore can
 - `npm audit --audit-level=high`: zero vulnerabilities.
 - `npm audit --omit=dev --audit-level=high`: zero vulnerabilities.
 - Route/viewport matrix: 16 local scans, zero serious or critical axe findings, zero overflow, and no valid-route console or page errors.
+- A final axe rerun caught and fixed a 4.07:1 amber-button edge case caused by the paper texture; the complete route matrix passes after the fix.
 - Keyboard: skip-link focus, hybrid pointer navigation, dialog focus/escape restoration, history focus, and reduced-motion checks passed.
 - Privacy/offline: demo/real sentinels, API-cache exclusion, offline reload, offline share failure, reconnect recovery, expiry, revocation, and storage minimization passed.
 - Local URL verifier: `.factory/evidence/polish-2/local/verify.json`.
@@ -43,7 +44,17 @@ The managed snapshot functions require the existing secret `SnapshotStorage` set
 
 ## Live verification
 
-Deployment and cold live verification evidence will be recorded under `.factory/evidence/polish-2/live/` in the final evidence commit.
+- Deployed commit: `90ebb44` through Static Web Apps deployment `167b19e7-bfb9-4162-ad2f-0597f8db00b5`.
+- Live URL: <https://telemetry-question-book.sociobot.in>.
+- Cold URL verifier: `.factory/evidence/polish-2/live/verify.json`; no console errors and all title/language/landmark/alt/button checks passed.
+- Cold `/?demo=1` verifier: `.factory/evidence/polish-2/live-demo/verify.json`; correct Demo title, banner, one `h1`, and no errors.
+- Live browser/axe matrix: 16 route/viewport scans passed with zero serious or critical violations, no valid-route errors, and no overflow.
+- Live workflow: CSV validation, persistence, recurring update, dialog focus, redacted/unredacted copies, Reset, Start for real, history focus, and demo/real storage isolation passed.
+- Review-2 checks: desktop facts ended by 709 px; mobile demo details ended by 763 px; CSV export had exactly three demo rows and no real sentinel; offline sharing showed recovery text; Start for real revoked the `d_` link with HTTP 410.
+- Unknown route returned the designed HTTP 404. Privacy and Terms returned HTTP 200. Cold landing requests were same-origin only.
+- Local and deployed JS/CSS SHA-256 hashes matched.
+- Live Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.2 s, TBT 0 ms, CLS 0.
+- `/api/health` returned `snapshotStoreConfigured: true`. Its unchanged runtime build ID remains `telemetry-question-book-repair-3-29c993d`; no production API source changed in this polish.
 
 ## Known gaps
 
