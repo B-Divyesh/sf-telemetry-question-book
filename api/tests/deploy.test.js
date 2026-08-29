@@ -42,8 +42,8 @@ exit 2`);
     assert.equal(result.status, 0, result.stderr);
     assert.deepEqual((await readFile(log, 'utf8')).trim().split('\n'), [
       'npm run build',
-      'deploy telemetry-question-book dist',
       `az staticwebapp appsettings set --name sf-telemetry-question-book --resource-group sociobot --setting-names BUILD_ID=${commit} --output none`,
+      'deploy telemetry-question-book dist',
       `npm run verify:live-api -- ${commit}`
     ]);
   } finally {

@@ -7,6 +7,20 @@ if (!/^[0-9a-f]{40}$/.test(expectedBuildId || '')) {
   throw new Error('Pass the exact 40-character deployed commit as the first argument.');
 }
 
+const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+let health;
+for (let attempt = 0; attempt < 24; attempt += 1) {
+  const response = await fetch(`${origin}/api/health`, { cache: 'no-store' });
+  assert.equal(response.status, 200);
+  health = await response.json();
+  assert.deepEqual(Object.keys(health).sort(), ['buildId', 'ok', 'snapshotStoreConfigured']);
+  if (health.buildId === expectedBuildId) break;
+  await wait(2_500);
+}
+assert.equal(health.ok, true);
+assert.equal(health.snapshotStoreConfigured, true);
+assert.equal(health.buildId, expectedBuildId, 'live API BUILD_ID must equal the deployed commit');
+
 const probeToken = `d_live_rate_${Date.now().toString(36)}`;
 let firstRemaining;
 
@@ -42,13 +56,5 @@ for (let index = 0; index <= 100; index += 1) {
     break;
   }
 }
-
-const healthResponse = await fetch(`${origin}/api/health`, { cache: 'no-store' });
-assert.equal(healthResponse.status, 200);
-const health = await healthResponse.json();
-assert.deepEqual(Object.keys(health).sort(), ['buildId', 'ok', 'snapshotStoreConfigured']);
-assert.equal(health.ok, true);
-assert.equal(health.snapshotStoreConfigured, true);
-assert.equal(health.buildId, expectedBuildId, 'live API BUILD_ID must equal the deployed commit');
 
 console.log(`Live API passed: spoofed headers shared one allowance; buildId=${health.buildId}`);

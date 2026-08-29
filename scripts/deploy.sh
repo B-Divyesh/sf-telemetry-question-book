@@ -16,19 +16,21 @@ if [[ ! "$build_id" =~ ^[0-9a-f]{40}$ ]]; then
 fi
 
 if [[ -n "$(git status --porcelain --untracked-files=all)" ]]; then
-  echo "Commit tracked changes before deployment so BUILD_ID identifies the artifact." >&2
+  echo "Commit all changes before deployment so BUILD_ID identifies the artifact." >&2
   exit 1
 fi
 
 npm run build
-"$deploy_static_script" "$slug" dist
 
-# Keep the runtime identity update in the same command as the artifact upload.
+# Set identity before upload because managed Functions read settings while the
+# new API artifact is activated.
 # Azure retains SnapshotStorage and every unrelated setting when this one key is set.
 az staticwebapp appsettings set \
   --name "$static_app" \
   --resource-group "$resource_group" \
   --setting-names "BUILD_ID=$build_id" \
   --output none
+
+"$deploy_static_script" "$slug" dist
 
 npm run verify:live-api -- "$build_id"

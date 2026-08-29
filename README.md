@@ -79,7 +79,7 @@ Deploy from a clean, committed checkout:
 npm run deploy
 ```
 
-The command builds and deploys `dist/` with `api/`. It sets `BUILD_ID` to the exact commit. It then checks the live identity and spoof-resistant request allowance.
+The command builds `dist/` with `api/` and binds `BUILD_ID` to the exact commit before deployment. It then checks the live identity and spoof-resistant request allowance.
 
 The deployed app needs a secret `SnapshotStorage` setting for its approved Azure Storage account. The connection needs Table and Queue service access. Never commit its value.
 
