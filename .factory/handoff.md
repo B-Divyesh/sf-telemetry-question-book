@@ -2,9 +2,9 @@
 
 ## Outcome
 
-**PASS locally; ready for static deployment.** This repair resolves the sole
-release blocker from independent verification 7: the answer-copy modal could
-leave keyboard focus on `body` at either end of its Tab sequence.
+**PASS — deployed and verified.** This repair resolves the sole release
+blocker from independent verification 7: the answer-copy modal could leave
+keyboard focus on `body` at either end of its Tab sequence.
 
 ## What changed
 
@@ -47,6 +47,31 @@ leave keyboard focus on `body` at either end of its Tab sequence.
   independent live run recorded 100/100/100/100. This repair adds 0.67 kB raw
   JavaScript and 0.12 kB raw CSS and does not change the loading path.
 
+## Live verification
+
+- `npm run deploy` uploaded the clean committed repair and set the managed API
+  build identity before activating it. `npm run verify:live-api --
+  8b223180c5a55f3b32e9924680e7a8a67bfda22a` passed: health reported that
+  exact 40-character build ID and configured storage, and spoofed headers
+  shared the documented 100-request allowance.
+- The complete `node .factory/qa/run-browser-qa.mjs` pass succeeded against
+  both `http://127.0.0.1:4173` and
+  `https://telemetry-question-book.sociobot.in`. Across 16 route/viewport
+  checks per target (1440 × 900 and 390 × 844), there was no horizontal
+  overflow, no page errors, and zero Axe serious/critical findings. The live
+  modal recorded all eight keyboard stops inside the dialog with a solid 3 px
+  outline, including both wrap boundaries.
+- `/opt/fleet/lib/verify-url.sh
+  https://telemetry-question-book.sociobot.in/demo
+  .factory/evidence/repair-5-live` passed with zero console/page errors and
+  the required document semantics. Its screenshots, response HTML, and
+  `verify.json` are retained in that evidence directory.
+- Live service-worker update/offline check: `/demo` was controlled by
+  `tqb-shell-v7`, had no waiting update after `registration.update()`, and
+  reopened offline at 390 px with all three cards and the offline notice.
+- SHA-256 hashes for `index.html`, the built JS/CSS, both hero images,
+  `sw.js`, and `404.html` matched the freshly built `dist/` files byte-for-byte.
+
 ## Scope and privacy
 
 The researched brief, local-first storage split, service worker, answer-copy
@@ -54,9 +79,8 @@ expiry/redaction/revocation, static deployment class, API behavior, and all
 previously passing claims are unchanged. No analytics, third-party scripts,
 fonts, or runtime network destinations were added.
 
-## Deployment and final checks
+## Deployment
 
 Deploy from a clean committed checkout with `npm run deploy`. It builds `dist`,
 sets the API `BUILD_ID` to the committed revision before upload, and verifies
-the live identity plus sharing allowance. After the live build activates, rerun
-the browser QA runner without `QA_LOCAL_ONLY` and the live verifier script.
+the live identity plus sharing allowance.
