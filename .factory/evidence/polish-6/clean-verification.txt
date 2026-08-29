@@ -1,0 +1,43 @@
+Telemetry Question Book — polish 6 clean verification
+Generated: 2026-08-29 UTC
+Repair commit tested: 296c06d
+Clean clone: /tmp/tqb-polish6-clean
+
+PASS npm ci: 105 root packages, 0 vulnerabilities
+PASS npm --prefix api ci: 29 API packages, 0 vulnerabilities
+PASS every literal command in .factory/claims.json: 28/28
+PASS npm test: 15 API tests and 33 Playwright tests
+PASS npm run lint
+PASS npm run typecheck
+PASS npm run build: dist/index.html exists
+PASS npm audit --audit-level=high: 0 vulnerabilities
+PASS npm audit --omit=dev --audit-level=high: 0 vulnerabilities
+PASS npm --prefix api audit --omit=dev --audit-level=high: 0 vulnerabilities
+PASS git diff --check
+
+Build sizes:
+- JavaScript: 36,457 bytes raw / 11.89 kB gzip
+- CSS: 17,192 bytes raw / 4.88 kB gzip
+- Mobile hero: 42,650 bytes
+- Desktop hero: 108,344 bytes
+- Social preview: 59,958 bytes
+
+Local browser QA:
+- Routes checked at 1440 × 900 and 390 × 844
+- One h1/main, lang=en, route titles, canonicals, image alternatives: PASS
+- Horizontal overflow: none
+- Serious or critical Axe violations: 0
+- Keyboard focus, dialog containment, reduced motion, 44 px targets: PASS
+- Demo isolation, real workspace preservation, CSV validation, update flow: PASS
+- Expected unknown-route HTTP 404: PASS
+
+Local Lighthouse:
+- Performance: 100
+- Accessibility: 100
+- Best Practices: 100
+- SEO: 100
+- FCP: 1,164 ms
+- LCP: 1,466 ms
+- TBT: 39 ms
+- CLS: 0
+- Transfer: 99,389 bytes
