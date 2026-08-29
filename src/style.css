@@ -144,6 +144,7 @@ input[type="file"] { padding: 8px; }
 dialog { width: min(620px, calc(100% - 32px)); padding: 0; color: var(--ink); background: var(--paper); border: 4px solid var(--panel); box-shadow: 12px 12px 0 rgba(0,0,0,.24); }
 dialog::backdrop { background: rgba(9,30,27,.76); }
 dialog form { padding: 28px; display: grid; gap: 12px; }
+dialog :focus { outline: 3px solid var(--cream); outline-offset: 2px; box-shadow: 0 0 0 6px #713011; transition-duration: 0s !important; }
 .dialog-head { display: flex; justify-content: space-between; gap: 20px; }
 .dialog-head h2 { margin: 0; font-size: 40px; }
 .icon-button { width: 48px; height: 48px; flex: 0 0 auto; border: 2px solid var(--ink); background: var(--paper-deep); font-size: 30px; cursor: pointer; }

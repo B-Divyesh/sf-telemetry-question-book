@@ -70,6 +70,41 @@ async function keyboardAndMotion(base) {
   await page.getByRole('button', { name: 'Make answer copy' }).first().focus();
   await page.keyboard.press('Enter');
   assert.equal(await page.locator('dialog[open]').count(), 1);
+  const dialogFocus = [];
+  const recordDialogFocus = async (step) => {
+    await page.waitForTimeout(20);
+    const active = await page.evaluate(() => {
+      const dialog = document.querySelector('dialog[open]');
+      const element = document.activeElement;
+      const style = element ? getComputedStyle(element) : null;
+      return {
+        label: element?.getAttribute('aria-label') || element?.closest('label')?.textContent?.trim() || element?.textContent?.trim(),
+        inDialog: Boolean(dialog?.contains(element)),
+        outlineStyle: style?.outlineStyle,
+        outlineWidth: Number.parseFloat(style?.outlineWidth || '0'),
+      };
+    });
+    assert.equal(active.inDialog, true, `${step} stays inside the answer-copy dialog`);
+    assert.equal(active.outlineStyle, 'solid', `${step} uses the designed focus outline`);
+    assert.ok(active.outlineWidth >= 3, `${step} focus outline is at least 3 px`);
+    dialogFocus.push({ step, ...active });
+  };
+  await recordDialogFocus('initial close control');
+  await page.keyboard.press('Shift+Tab');
+  await recordDialogFocus('reverse wrap to review control');
+  assert.match(dialogFocus.at(-1).label || '', /Review answer copy/i);
+  for (const [step, label] of [
+    ['forward wrap to close control', /Close answer copy dialog/i],
+    ['redaction control', /Hide owner, source, and note/i],
+    ['expiry control', /1 hour24 hours7 days/i],
+    ['cancel control', /^Cancel$/i],
+    ['review control', /Review answer copy/i],
+    ['forward wrap to close control again', /Close answer copy dialog/i],
+  ]) {
+    await page.keyboard.press('Tab');
+    await recordDialogFocus(step);
+    assert.match(dialogFocus.at(-1).label || '', label);
+  }
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('dialog[open]').count(), 0);
   const restoredFocus = await page.evaluate(() => document.activeElement?.textContent?.trim());
@@ -88,7 +123,7 @@ async function keyboardAndMotion(base) {
     return { text: (el.getAttribute('aria-label') || el.textContent || el.getAttribute('name') || '').trim(), width: Math.round(rect.width * 10) / 10, height: Math.round(rect.height * 10) / 10 };
   })));
   await context.close();
-  return { firstFocus, demoFocus, restoredFocus, animationDuration, undersizedTargets: targets.filter((target) => target.width < 44 || target.height < 44) };
+  return { firstFocus, demoFocus, dialogFocus, restoredFocus, animationDuration, undersizedTargets: targets.filter((target) => target.width < 44 || target.height < 44) };
 }
 
 async function workflow(base) {

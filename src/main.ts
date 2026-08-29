@@ -622,6 +622,33 @@ function updateOnlineState(): void {
   if (note) note.hidden = navigator.onLine;
 }
 
+function dialogFocusables(dialog: HTMLDialogElement): HTMLElement[] {
+  return [...dialog.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+    .filter((element) => !element.hidden && element.getAttribute('aria-hidden') !== 'true' && getComputedStyle(element).visibility !== 'hidden');
+}
+
+function keepDialogFocus(event: KeyboardEvent): void {
+  if (event.key !== 'Tab') return;
+  const dialog = document.querySelector<HTMLDialogElement>('#snapshot-dialog[open]');
+  if (!dialog) return;
+
+  const focusable = dialogFocusables(dialog);
+  if (!focusable.length) return;
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  const active = document.activeElement;
+  const wrapsBackward = event.shiftKey && (active === first || !dialog.contains(active));
+  const wrapsForward = !event.shiftKey && (active === last || !dialog.contains(active));
+
+  if (wrapsBackward || wrapsForward) {
+    event.preventDefault();
+    (wrapsBackward ? last : first).focus();
+  }
+}
+
+document.addEventListener('keydown', keepDialogFocus);
+
 document.addEventListener('click', async (event) => {
   const target = (event.target as HTMLElement).closest<HTMLElement>('[data-link], [data-action]');
   if (!target) return;

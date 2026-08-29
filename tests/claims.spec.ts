@@ -30,6 +30,21 @@ async function openQuestionForm(page: import('@playwright/test').Page): Promise<
   await page.locator('input[name="observedAt"]').fill('2026-08-29T10:00');
 }
 
+async function expectVisibleDialogFocus(page: import('@playwright/test').Page): Promise<void> {
+  const focus = await page.locator('#snapshot-dialog').evaluate((dialog) => {
+    const active = document.activeElement as HTMLElement | null;
+    const style = active ? getComputedStyle(active) : null;
+    return {
+      withinDialog: Boolean(active && dialog.contains(active)),
+      outlineStyle: style?.outlineStyle,
+      outlineWidth: Number.parseFloat(style?.outlineWidth || '0')
+    };
+  });
+  expect(focus.withinDialog).toBe(true);
+  expect(focus.outlineStyle).toBe('solid');
+  expect(focus.outlineWidth).toBeGreaterThanOrEqual(3);
+}
+
 test('@claim:demo-sandbox opens three realistic questions in isolated storage', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
@@ -559,6 +574,34 @@ test('regression: keyboard focus and dialog restoration remain visible', async (
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(opener).toBeFocused();
+});
+
+test('regression: answer-copy dialog keeps visible keyboard focus through both tab boundaries', async ({ page }) => {
+  await page.goto('/demo');
+  const opener = page.getByRole('button', { name: 'Make answer copy' }).first();
+  const close = page.getByRole('button', { name: 'Close answer copy dialog' });
+  const review = page.getByRole('button', { name: 'Review answer copy' });
+
+  await opener.focus();
+  await page.keyboard.press('Enter');
+  await expect(close).toBeFocused();
+  await expectVisibleDialogFocus(page);
+
+  const cycle = [
+    { key: 'Shift+Tab', target: review },
+    { key: 'Tab', target: close },
+    { key: 'Tab', target: page.getByRole('checkbox', { name: 'Hide owner, source, and note' }) },
+    { key: 'Tab', target: page.getByLabel('Link expires after') },
+    { key: 'Tab', target: page.getByRole('button', { name: 'Cancel', exact: true }) },
+    { key: 'Tab', target: review },
+    { key: 'Tab', target: close }
+  ];
+
+  for (const step of cycle) {
+    await page.keyboard.press(step.key);
+    await expect(step.target).toBeFocused();
+    await expectVisibleDialogFocus(page);
+  }
 });
 
 test('regression: static response policy has explicit routes and a CSP-safe 404', async ({ request }) => {
