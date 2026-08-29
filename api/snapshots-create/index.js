@@ -1,21 +1,21 @@
 const { randomBytes, randomUUID, createHash } = require('node:crypto');
 const { put } = require('../lib/store');
-
-const allowedKeys = ['version', 'question', 'answer', 'status', 'observedAt', 'createdAt', 'owner', 'source', 'note', 'redacted'];
+const { validateSnapshot } = require('../lib/snapshot-schema');
+const { enforceRateLimit, addRateHeaders } = require('../lib/rate-limit');
 
 module.exports = async function (context, req) {
+  const rate = await enforceRateLimit(req);
+  if (!rate.allowed) return rate.response;
   const payload = req.body?.snapshot;
   const demo = req.body?.demo === true;
   const ttlSeconds = Number(req.body?.ttlSeconds);
-  if (!payload || typeof payload !== 'object' || !allowedKeys.every((key) => key in payload || !['version', 'question', 'answer', 'status', 'observedAt', 'createdAt', 'redacted'].includes(key))) {
-    return { status: 400, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ error: 'The answer copy is incomplete.' }) };
-  }
+  const checked = validateSnapshot(payload, req.body?.demo);
+  if (!checked.ok) return addRateHeaders({ status: 400, headers: { 'Cache-Control': 'no-store', 'Content-Type': 'application/json' }, body: JSON.stringify({ error: checked.error }) }, rate);
   if (!Number.isInteger(ttlSeconds) || ttlSeconds < 1 || ttlSeconds > 604800) {
-    return { status: 400, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ error: 'Expiry must be between 1 second and 7 days.' }) };
+    return addRateHeaders({ status: 400, headers: { 'Cache-Control': 'no-store', 'Content-Type': 'application/json' }, body: JSON.stringify({ error: 'Expiry must be between 1 second and 7 days.' }) }, rate);
   }
-  const clean = Object.fromEntries(allowedKeys.filter((key) => payload[key] !== undefined).map((key) => [key, payload[key]]));
-  const serialized = JSON.stringify(clean);
-  if (serialized.length > 8192) return { status: 413, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ error: 'The answer copy is too large.' }) };
+  const serialized = JSON.stringify(checked.value);
+  if (serialized.length > 8192) return addRateHeaders({ status: 413, headers: { 'Cache-Control': 'no-store', 'Content-Type': 'application/json' }, body: JSON.stringify({ error: 'The answer copy is too large.' }) }, rate);
   const token = `${demo ? 'd' : 'r'}_${randomUUID().replaceAll('-', '')}`;
   const revokeKey = randomBytes(24).toString('base64url');
   const expiresAt = new Date(Date.now() + ttlSeconds * 1000).toISOString();
@@ -26,9 +26,9 @@ module.exports = async function (context, req) {
     demo,
     revokeHash: createHash('sha256').update(revokeKey).digest('hex')
   });
-  return {
+  return addRateHeaders({
     status: 201,
     headers: { 'Cache-Control': 'no-store', 'Content-Type': 'application/json' },
     body: JSON.stringify({ token, revokeKey, expiresAt })
-  };
+  }, rate);
 };

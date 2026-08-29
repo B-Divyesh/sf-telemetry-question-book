@@ -60,6 +60,10 @@ Real questions use `tqb:v1`. Demo questions use `demo:tqb:v1`. Real and demo ans
 
 Creating an expiring link sends the reviewed copy to the first-party snapshot API. The URL holds only an opaque token. The service checks expiry and revocation on every read. Demo links use a separate token prefix. **Reset demo** and **Start for real** revoke them.
 
+The customer-data payload is a storage-queue message with the chosen time to live. Azure Storage removes that message automatically at expiry, even when nobody requests the link. The metadata table keeps only the opaque token, deadline, demo flag, and revocation-key hash. Revocation deletes the payload immediately.
+
+The anonymous snapshot routes share an allowance of 100 requests per client in each 60-second window. This allowance covers create, open, and revoke requests together. Request 101 returns HTTP `429` with `Retry-After`. `/api/health` is read-only and exempt.
+
 Downloaded files do not expire or provide access control. Do not put secrets in them. The app has no account service or analytics. See `/privacy` and `/terms`.
 
 ## Pricing
@@ -74,7 +78,9 @@ Run `npm run build`, then deploy `dist/` with the managed functions in `api/`:
 /opt/fleet/lib/deploy-static.sh telemetry-question-book dist
 ```
 
-The Static Web App needs a secret `SnapshotStorage` app setting that points to the approved first-party Azure Storage account. Never commit its value.
+The Static Web App needs a secret `SnapshotStorage` app setting that points to the approved first-party Azure Storage account. The connection needs Table and Queue service access. Never commit its value. Set non-secret `BUILD_ID` to the deployed commit; `/api/health` reports it for parity checks.
+
+Candidate `fa32cba` stored payloads in the metadata table. Run `npm --prefix api run cleanup:legacy` once with `SnapshotStorage` set before deploying this repair. The command strips every already-expired legacy payload without opening its link.
 
 `public/staticwebapp.config.json` routes app pages, serves the styled 404, sets cache rules, and adds browser security protections. Azure Static Web Apps reads it during deployment.
 

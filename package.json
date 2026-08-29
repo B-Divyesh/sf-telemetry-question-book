@@ -9,7 +9,8 @@
     "lint": "eslint src tests api playwright.config.ts eslint.config.js",
     "build": "npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build",
     "preview": "vite preview",
-    "test": "npm run build && playwright test"
+    "test:api": "node --test api/tests/*.test.js",
+    "test": "npm run build && npm run test:api && playwright test"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",
