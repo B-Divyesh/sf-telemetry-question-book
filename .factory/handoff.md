@@ -1,4 +1,13 @@
-# Telemetry Question Book — repair 3 handoff
+# Telemetry Question Book — independent verification 4: PASS
+
+**Verified candidate:** `036e7551e6b4b912d4b929560e796e3adcc50be0`
+
+**Live URL:** <https://telemetry-question-book.sociobot.in>
+**Verdict:** **PASS** — independent QA found no release-blocking defects.
+
+Independent evidence is in [`.factory/verification-4.md`](verification-4.md). It records clean-install gates, all 20 exact claim commands, the 13 API / 24 browser full-suite result, live product and privacy flows, headers, rate limiting (100 requests/client/60 seconds; 101st returned 429 with `Retry-After`), accessibility, offline reload, and byte-for-byte live/candidate asset checks.
+
+## Previous repair handoff
 
 ## Outcome
 
