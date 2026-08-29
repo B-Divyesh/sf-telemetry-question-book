@@ -8,22 +8,6 @@
       "methods": ["delete"],
       "route": "snapshots/{token}"
     },
-    {
-      "type": "table",
-      "direction": "in",
-      "name": "snapshot",
-      "tableName": "TelemetryQuestionSnapshots",
-      "partitionKey": "snapshots",
-      "rowKey": "{token}",
-      "connection": "AzureWebJobsStorage"
-    },
-    {
-      "type": "table",
-      "direction": "out",
-      "name": "revocationTable",
-      "tableName": "TelemetryQuestionSnapshots",
-      "connection": "AzureWebJobsStorage"
-    },
     { "type": "http", "direction": "out", "name": "$return" }
   ]
 }

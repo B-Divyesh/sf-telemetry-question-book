@@ -562,6 +562,10 @@ function saveShare(share: SharedSnapshot, demo = isDemo()): void {
   sessionStorage.setItem(demo ? DEMO_SHARES_KEY : REAL_SHARES_KEY, JSON.stringify([...storedShares(demo), share]));
 }
 
+function forgetShare(token: string, demo: boolean): void {
+  sessionStorage.setItem(demo ? DEMO_SHARES_KEY : REAL_SHARES_KEY, JSON.stringify(storedShares(demo).filter((share) => share.token !== token)));
+}
+
 async function revokeShare(share: SharedSnapshot): Promise<boolean> {
   try {
     const response = await fetch(`/api/snapshots/${encodeURIComponent(share.token)}`, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ revokeKey: share.revokeKey }) });
@@ -569,11 +573,13 @@ async function revokeShare(share: SharedSnapshot): Promise<boolean> {
   } catch { return false; }
 }
 
-async function clearDemoData(): Promise<void> {
-  await Promise.all(storedShares(true).map(revokeShare));
+async function clearDemoData(): Promise<boolean> {
+  const results = await Promise.all(storedShares(true).map(revokeShare));
+  if (results.some((result) => !result)) return false;
   for (const storage of [localStorage, sessionStorage]) {
     Object.keys(storage).filter((key) => key.startsWith('demo:')).forEach((key) => storage.removeItem(key));
   }
+  return true;
 }
 
 function updateOnlineState(): void {
@@ -590,8 +596,8 @@ document.addEventListener('click', async (event) => {
     return;
   }
   const action = target.dataset.action;
-  if (action === 'reset-demo') { await clearDemoData(); if (currentPath() === '/demo') { render(); showNotice('Demo reset to its original sample data.'); } else navigate('/demo'); }
-  if (action === 'start-real') { await clearDemoData(); navigate('/book'); }
+  if (action === 'reset-demo') { if (await clearDemoData()) { if (currentPath() === '/demo') { render(); showNotice('Demo reset to its original sample data.'); } else navigate('/demo'); } else showNotice('Reconnect to revoke demo links, then reset again.', 'error'); }
+  if (action === 'start-real') { if (await clearDemoData()) navigate('/book'); else showNotice('Reconnect to revoke demo links, then start for real again.', 'error'); }
   if (action === 'show-add') showEditor(questionForm());
   if (action === 'edit-question') {
     const question = loadQuestions().find((item) => item.id === target.dataset.id);
@@ -646,6 +652,7 @@ document.addEventListener('click', async (event) => {
     const share = { token: target.dataset.token || '', revokeKey: target.dataset.revokeKey || '', expiresAt: '' };
     target.setAttribute('disabled', '');
     if (await revokeShare(share)) {
+      forgetShare(share.token, share.token.startsWith('d_'));
       target.closest<HTMLElement>('#share-result')!.innerHTML = '<p><strong>Link revoked.</strong> It no longer opens the answer copy.</p>';
     } else {
       target.removeAttribute('disabled');

@@ -58,7 +58,7 @@ question,owner,source,sourceUrl,value,unit,threshold,comparison,observedAt,fresh
 
 Real questions use `tqb:v1`. Demo questions use `demo:tqb:v1`. Real and demo answer previews use separate session-storage keys. Preview data never enters the URL.
 
-Creating an expiring link sends the reviewed copy to the first-party snapshot API. The URL holds only an opaque token. The service checks expiry and revocation on every read. Demo links use a separate token prefix and are revoked when the demo resets or closes.
+Creating an expiring link sends the reviewed copy to the first-party snapshot API. The URL holds only an opaque token. The service checks expiry and revocation on every read. Demo links use a separate token prefix. **Reset demo** and **Start for real** revoke them.
 
 Downloaded files do not expire or provide access control. Do not put secrets in them. The app has no account service or analytics. See `/privacy` and `/terms`.
 
@@ -73,6 +73,8 @@ Run `npm run build`, then deploy `dist/` with the managed functions in `api/`:
 ```bash
 /opt/fleet/lib/deploy-static.sh telemetry-question-book dist
 ```
+
+The Static Web App needs a secret `SnapshotStorage` app setting that points to the approved first-party Azure Storage account. Never commit its value.
 
 `public/staticwebapp.config.json` routes app pages, serves the styled 404, sets cache rules, and adds browser security protections. Azure Static Web Apps reads it during deployment.
 

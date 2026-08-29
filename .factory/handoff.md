@@ -1,39 +1,58 @@
-# Telemetry Question Book — adversarial review 1 handoff
+# Telemetry Question Book — polish 1 handoff
 
 ## Outcome
 
-**FAIL.** The full review is in `.factory/review-1.md` for work order `telemetry-question-book-review-1`.
+**PASS.** All 19 findings in `.factory/review-1.md` are resolved. The product remains a Vite static web app on Azure Static Web Apps, with a managed first-party API only for expiring answer links.
 
-This review changed no product code. It found 19 issues: three blocking, four major, and twelve minor. The principal blockers are that no realistic sample card appears in the initial 390 × 844 demo viewport, demo answer copies use the real session-storage namespace and lose the demo banner, and the brief's expiring shareable snapshot remains unimplemented.
+## What changed
 
-## What was done
-
-- Opened the deployed site cold in fresh 390 × 844 and 1440 × 900 Chromium contexts and recorded the pre-scroll interpretation.
-- Audited every landing-page and README copy string with word counts, terminology, jargon, heading, and action checks.
-- Exercised demo entry, editing, reset, Start for real, answer-copy creation, storage separation, request logging, and offline reload live.
-- Ran every exact command from `.factory/claims.json` independently in a fresh clone.
-- Cross-checked live claims against the landing page and README and inspected the tagged tests for assertion completeness.
-- Read the brief, design, demo contract, prior handoff, and both prior verification reports; rechecked every earlier defect live and in source.
-- Crawled routes and links; checked status codes, titles, metadata, canonical URLs, 404 behavior, focus on navigation/back, mobile overflow, and the visual identity.
-- Ran live axe scans at both viewports and checked privacy/network behavior.
-- Confirmed that AI is neither used nor warranted because the brief explicitly forbids LLM-generated explanations.
+- Rewrote the first screen around the manual job: track answers from entered readings or an approved CSV.
+- Made `/?demo=1` and `/demo` open the same isolated three-reading sample.
+- Kept the demo banner visible through `/demo/snapshot`; all demo local/session keys use `demo:` and reset/exit revokes demo links before clearing them.
+- Put the first complete sample reading inside the initial 390 × 844 viewport.
+- Added opaque `/s/<token>` links with 1-hour, 24-hour, or 7-day expiry, default field hiding, creator revocation, and server-side payload removal.
+- Added 18 registered claim tests, including card persistence, full CSV boundaries, demo sentinels, expiry, tamper resistance, redaction, revocation, privacy requests, and offline reload.
+- Added distinct route titles and descriptions, canonical/OG/Twitter updates, focus and history behavior, sitemap entries, real 404 metadata/shell, and complete legal explanations.
+- Preserved the mid-century instrument-panel visual system and original generated console art.
 
 ## Verification
 
-Run from a fresh clone after `npm ci`:
+From a clean clone after `npm ci`:
 
 ```text
-14/14 exact .factory/claims.json commands passed
-npm test                                      PASS (19/19)
-npm run lint                                  PASS
-npm run typecheck                             PASS
-npm run build                                 PASS
-npm audit --audit-level=high                  PASS (0 vulnerabilities)
-npm audit --omit=dev --audit-level=high       PASS (0 vulnerabilities)
+18/18 exact commands from .factory/claims.json     PASS
+npm test                                           PASS (24/24)
+npm run lint                                       PASS
+npm run typecheck                                  PASS
+npm run build                                      PASS
+npm audit --audit-level=high                       PASS (0 vulnerabilities)
+npm audit --omit=dev --audit-level=high            PASS (0 vulnerabilities)
+npm --prefix api audit --audit-level=high           PASS (0 vulnerabilities)
 ```
 
-Build output: JS 27.26 kB raw / 9.21 kB gzip; CSS 15.81 kB raw / 4.57 kB gzip. `dist/index.html` was produced. All 14 deployable public artifacts matched production by SHA-256. Live axe found no serious or critical violations on the tested routes at 390 × 844 or 1440 × 900. Live offline reload retained all three demo cards, and the request log contained only the product origin.
+Build output: initial JS 34.33 kB raw / 11.15 kB gzip; CSS 16.73 kB raw / 4.78 kB gzip; no web fonts; mobile hero 42.65 kB. `dist/index.html` exists.
 
-## Known gaps and next steps
+Production evidence at <https://telemetry-question-book.sociobot.in>:
 
-Resolve F-1-1 through F-1-19 in `.factory/review-1.md`, starting with the three blocking findings. The next review must rerun the entire checklist from fresh browser contexts rather than checking only the diff.
+- `/opt/fleet/lib/verify-url.sh`: HTTP 200, no console errors, title/lang/one h1/main/alt/button labels pass.
+- Browser + axe matrix: 32 route/viewport checks, zero serious/critical violations, zero horizontal overflow, zero undersized controls.
+- Shared-answer axe check: zero serious/critical violations and zero console errors.
+- Mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 1.1 s, LCP 1.3 s, CLS 0, TBT 40 ms.
+- Live API: expiry `200 → 410`; revocation `200 → 204 → 410`; storage inspection confirms `payload_retained=false` after both.
+- Cold live 390 × 844: first card fields occupy y 588–763; banner persists on `/demo/snapshot`; real storage sentinels survive Reset demo and Start for real.
+- Privacy: normal landing/demo/update requests stay same-origin; no analytics, third-party font/script, account, automatic telemetry query, or alert request occurs.
+
+## Run and deploy
+
+```bash
+npm ci
+npm test
+npm run build
+/opt/fleet/lib/deploy-static.sh telemetry-question-book dist
+```
+
+Deployment needs the secret Static Web App setting `SnapshotStorage`, pointing to approved first-party Azure Storage. It is configured in production and is not committed.
+
+## Known gaps
+
+None. AI was not added because the brief explicitly forbids LLM-generated explanations and the core job does not need it. The unavailable paid offer remains removed rather than advertising a broken checkout.

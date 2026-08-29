@@ -7,7 +7,7 @@
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src tests api playwright.config.ts eslint.config.js",
-    "build": "npm run typecheck && vite build",
+    "build": "npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build",
     "preview": "vite preview",
     "test": "npm run build && playwright test"
   },

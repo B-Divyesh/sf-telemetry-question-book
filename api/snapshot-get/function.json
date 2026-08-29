@@ -8,24 +8,6 @@
       "methods": ["get"],
       "route": "snapshots/{token}"
     },
-    {
-      "type": "table",
-      "direction": "in",
-      "name": "snapshot",
-      "tableName": "TelemetryQuestionSnapshots",
-      "partitionKey": "snapshots",
-      "rowKey": "{token}",
-      "connection": "AzureWebJobsStorage"
-    },
-    {
-      "type": "table",
-      "direction": "in",
-      "name": "revocation",
-      "tableName": "TelemetryQuestionSnapshots",
-      "partitionKey": "revocations",
-      "rowKey": "{token}",
-      "connection": "AzureWebJobsStorage"
-    },
     { "type": "http", "direction": "out", "name": "$return" }
   ]
 }

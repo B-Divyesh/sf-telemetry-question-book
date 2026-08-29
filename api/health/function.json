@@ -5,8 +5,8 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": ["post"],
-      "route": "snapshots"
+      "methods": ["get"],
+      "route": "health"
     },
     { "type": "http", "direction": "out", "name": "$return" }
   ]

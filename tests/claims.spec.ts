@@ -291,6 +291,8 @@ test('@claim:share-revocation makes a recipient link unavailable immediately', a
   await page.getByRole('button', { name: 'Revoke link now' }).click();
   await expect(page.getByText('Link revoked.')).toBeVisible();
   expect((await request.get(`/api/snapshots/${token}`)).status()).toBe(410);
+  await page.getByRole('button', { name: 'Start for real' }).click();
+  await expect(page).toHaveURL(/\/book$/);
 });
 
 test('@claim:least-privilege-input accepts HTTPS links and never asks for credentials', async ({ page }) => {
