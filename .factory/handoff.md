@@ -43,7 +43,7 @@ The managed snapshot functions require the existing secret `SnapshotStorage` set
 
 ## Live verification
 
-- Deployed commit: `90ebb44` through Static Web Apps deployment `167b19e7-bfb9-4162-ad2f-0597f8db00b5`.
+- Final managed deployment: `c790e79` via `/opt/fleet/lib/deploy-static.sh telemetry-question-book dist`.
 - Live URL: <https://telemetry-question-book.sociobot.in>.
 - Cold URL verifier: `.factory/evidence/polish-2/live/verify.json`; no console errors and all title/language/landmark/alt/button checks passed.
 - Cold `/?demo=1` verifier: `.factory/evidence/polish-2/live-demo/verify.json`; correct Demo title, banner, one `h1`, and no errors.
@@ -55,6 +55,7 @@ The managed snapshot functions require the existing secret `SnapshotStorage` set
 - Live Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.2 s, TBT 0 ms, CLS 0.
 - `/api/health` returned `snapshotStoreConfigured: true`. Its unchanged runtime build ID remains `telemetry-question-book-repair-3-29c993d`; no production API source changed in this polish.
 - The final rebuilt landing HTML, JS, and CSS exactly matched the live bytes by SHA-256. The cold shell checks found no console errors and valid title, language, main landmark, image alt text, and button labels.
+- After that deployment, a fresh live two-viewport sweep passed the landing, demo, question book, Privacy, Terms, answer-copy, source, and HTTP 404 routes. The mobile demo showed its first sample card, created a `d_` link, and **Start for real** reached `/book`.
 
 ## Known gaps
 
