@@ -1,59 +1,53 @@
-# Telemetry Question Book — polish 1 handoff
+# Telemetry Question Book — verification 3 handoff
 
 ## Outcome
 
-**PASS.** All 19 findings in `.factory/review-1.md` are resolved. The product remains a Vite static web app on Azure Static Web Apps, with a managed first-party API only for expiring answer links.
+**FAIL — do not release candidate `fa32cba7f09cff6edcf881779dd47c7b040bfd76`.**
 
-## What changed
+Tested on 29 August 2026 UTC at <https://telemetry-question-book.sociobot.in>. The live static files match the candidate exactly, but the anonymous snapshot API fails required release controls.
 
-- Rewrote the first screen around the manual job: track answers from entered readings or an approved CSV.
-- Made `/?demo=1` and `/demo` open the same isolated three-reading sample.
-- Kept the demo banner visible through `/demo/snapshot`; all demo local/session keys use `demo:` and reset/exit revokes demo links before clearing them.
-- Put the first complete sample reading inside the initial 390 × 844 viewport.
-- Added opaque `/s/<token>` links with 1-hour, 24-hour, or 7-day expiry, default field hiding, revocation controls that survive preview reloads, and server-side payload removal.
-- Added 18 registered claim tests, including card persistence, full CSV boundaries, demo sentinels, expiry, tamper resistance, redaction, revocation, privacy requests, and offline reload.
-- Added distinct route titles and descriptions, canonical/OG/Twitter updates, focus and history behavior, sitemap entries, real 404 metadata/shell, and complete legal explanations.
-- Preserved the mid-century instrument-panel visual system and original generated console art.
+## Release blockers and defects
 
-## Verification
+1. **High:** no documented or enforced API request allowance. One client made 200 health requests and 120 invalid snapshot-create requests with no `429` and no `Retry-After`.
+2. **High:** expired snapshot payloads are removed only when an expired token is requested. Without that later request, customer-data payloads can remain stored past expiry, contrary to the privacy copy and brief.
+3. **Medium:** malformed snapshot field types receive `201`; the resulting link exposes an internal JavaScript error to the recipient.
+4. **Medium:** `/api/health` does not expose a build/commit identity, so exact live function parity with the candidate cannot be confirmed.
 
-From a clean clone after `npm ci`:
+Full evidence and repair criteria are in `.factory/verification-3.md`.
 
-```text
-18/18 exact commands from .factory/claims.json     PASS
-npm test                                           PASS (24/24)
-npm run lint                                       PASS
-npm run typecheck                                  PASS
-npm run build                                      PASS
-npm audit --audit-level=high                       PASS (0 vulnerabilities)
-npm audit --omit=dev --audit-level=high            PASS (0 vulnerabilities)
-npm --prefix api audit --audit-level=high           PASS (0 vulnerabilities)
-```
+## What passed
 
-Build output: initial JS 34.51 kB raw / 11.21 kB gzip; CSS 16.81 kB raw / 4.79 kB gzip; no web fonts; mobile hero 42.65 kB. `dist/index.html` exists.
+- Mandatory cold first-read and one-click sample demo.
+- All 18 exact `.factory/claims.json` commands after `npm ci`.
+- `npm test` (24/24), lint, typecheck, exact production build, and all dependency audits.
+- Core question, CSV, answer-copy, expiring-link, redaction, revocation, and demo-isolation workflows.
+- Static deployment SHA-256 parity for all 14 served artifacts.
+- Same-origin-only outgoing request log; no analytics or third-party runtime dependencies.
+- 32 local/live axe route/viewport scans with zero serious/critical findings; keyboard, focus, target size, reduced motion, and 390px layout.
+- Service-worker update and offline demo reload.
+- Mobile Lighthouse: 100 performance, accessibility, best practices, and SEO; LCP 1.2 s, CLS 0.
+- API validation for TTL/size/required fields, token uniqueness under 20 concurrent creates, revocation, and post-revocation unavailability.
 
-Production evidence at <https://telemetry-question-book.sociobot.in>:
-
-- `/opt/fleet/lib/verify-url.sh`: HTTP 200, no console errors, title/lang/one h1/main/alt/button labels pass.
-- Browser + axe matrix: 32 route/viewport checks, zero serious/critical violations, zero horizontal overflow, zero undersized controls.
-- Shared-answer axe check: zero serious/critical violations and zero console errors.
-- Mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.2 s, CLS 0, TBT 10 ms.
-- Production deployment ID: `3307865e-ec0d-4e6e-bc78-6ae120d59477`.
-- Live API: expiry `200 → 410`; revocation `200 → 204 → 410`; storage inspection confirms `payload_retained=false` after both.
-- Cold live 390 × 844: first card fields occupy y 588–763; banner persists on `/demo/snapshot`; real storage sentinels survive Reset demo and Start for real.
-- Privacy: normal landing/demo/update requests stay same-origin; no analytics, third-party font/script, account, automatic telemetry query, or alert request occurs.
-
-## Run and deploy
+## Reproduce
 
 ```bash
 npm ci
+npm run typecheck
+npm run lint
 npm test
 npm run build
-/opt/fleet/lib/deploy-static.sh telemetry-question-book dist
 ```
 
-Deployment needs the secret Static Web App setting `SnapshotStorage`, pointing to approved first-party Azure Storage. It is configured in production and is not committed.
+Rate-limit evidence can be reproduced from one client by repeatedly requesting `/api/health` and invalid-posting `{}` to `/api/snapshots`; the current deployment never returns the required `429`/`Retry-After` within the tested 200/120 requests.
 
-## Known gaps
+## Required next steps
 
-None. AI was not added because the brief explicitly forbids LLM-generated explanations and the core job does not need it. The unavailable paid offer remains removed rather than advertising a broken checkout.
+- Add a shared per-client limiter to every anonymous API route, document the allowance, and test `429` plus `Retry-After`.
+- Make payload deletion occur automatically at expiry and add a storage-level test that does not trigger cleanup by reading the expired token.
+- Add strict server-side snapshot schema validation and plain invalid-input errors.
+- Include a non-secret commit/build identifier in `/api/health` and verify it after deployment.
+- Deploy the repairs and commission a new independent verification.
+
+## Source state
+
+No product source was modified during verification. The candidate remains buildable; this handoff and `.factory/verification-3.md` are the intended QA changes.
