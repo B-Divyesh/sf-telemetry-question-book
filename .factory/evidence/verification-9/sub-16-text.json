@@ -1,0 +1,704 @@
+{
+  "desktop-root": [
+    {
+      "tag": "P",
+      "class": "eyebrow",
+      "text": "Approved readings · plain answers",
+      "fontSize": 14,
+      "lineHeight": "18.2px",
+      "y": 149
+    },
+    {
+      "tag": "A",
+      "class": "button primary",
+      "text": "Try it with sample data",
+      "fontSize": 14,
+      "lineHeight": "16.8px",
+      "y": 560
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Opens a filled question book in one click.",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 562
+    },
+    {
+      "tag": "LI",
+      "class": "",
+      "text": "Question cards stay in this browser.",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 628
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "●",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 630
+    },
+    {
+      "tag": "LI",
+      "class": "",
+      "text": "Saved questions reopen offline after one online visit.",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 658
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "●",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 660
+    },
+    {
+      "tag": "LI",
+      "class": "",
+      "text": "Free to use. No account needed.",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 687
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "●",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 689
+    },
+    {
+      "tag": "FIGCAPTION",
+      "class": "",
+      "text": "One approved reading in. One answer copy out.",
+      "fontSize": 13,
+      "lineHeight": "20.15px",
+      "y": 643
+    },
+    {
+      "tag": "P",
+      "class": "eyebrow",
+      "text": "Live preview",
+      "fontSize": 14,
+      "lineHeight": "18.2px",
+      "y": 874
+    },
+    {
+      "tag": "P",
+      "class": "card-kicker",
+      "text": "Approved Grafana view",
+      "fontSize": 11,
+      "lineHeight": "14.3px",
+      "y": 899
+    },
+    {
+      "tag": "SPAN",
+      "class": "state good",
+      "text": "On track",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 913
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "12 min ago",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 942
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Fresh for 60 min",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 964
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Owner",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1027
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "Data Platform",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1029
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Passes when",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1027
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "at least 1,500 orders",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1029
+    },
+    {
+      "tag": "P",
+      "class": "card-kicker",
+      "text": "Read-only Kibana link",
+      "fontSize": 11,
+      "lineHeight": "14.3px",
+      "y": 1105
+    },
+    {
+      "tag": "SPAN",
+      "class": "state good",
+      "text": "On track",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1119
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "26 min ago",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1149
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Fresh for 45 min",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1170
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Owner",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1233
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "Reliability",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1235
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Passes when",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1233
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "at most 10 queued",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1235
+    },
+    {
+      "tag": "P",
+      "class": "eyebrow",
+      "text": "Three steps to keep answers current",
+      "fontSize": 14,
+      "lineHeight": "18.2px",
+      "y": 1471
+    },
+    {
+      "tag": "P",
+      "class": "eyebrow",
+      "text": "What the question book does not do",
+      "fontSize": 14,
+      "lineHeight": "18.2px",
+      "y": 2046
+    }
+  ],
+  "mobile-root": [
+    {
+      "tag": "P",
+      "class": "eyebrow",
+      "text": "Approved readings · plain answers",
+      "fontSize": 14,
+      "lineHeight": "18.2px",
+      "y": 136
+    },
+    {
+      "tag": "A",
+      "class": "button primary",
+      "text": "Try it with sample data",
+      "fontSize": 14,
+      "lineHeight": "16.8px",
+      "y": 506
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Opens a filled question book in one click.",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 574
+    },
+    {
+      "tag": "LI",
+      "class": "",
+      "text": "Question cards stay in this browser.",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 637
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "●",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 639
+    },
+    {
+      "tag": "LI",
+      "class": "",
+      "text": "Saved questions reopen offline after one online visit.",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 667
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "●",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 669
+    },
+    {
+      "tag": "LI",
+      "class": "",
+      "text": "Free to use. No account needed.",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 718
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "●",
+      "fontSize": 14,
+      "lineHeight": "21.7px",
+      "y": 720
+    },
+    {
+      "tag": "FIGCAPTION",
+      "class": "",
+      "text": "One approved reading in. One answer copy out.",
+      "fontSize": 13,
+      "lineHeight": "20.15px",
+      "y": 1047
+    },
+    {
+      "tag": "P",
+      "class": "eyebrow",
+      "text": "Live preview",
+      "fontSize": 14,
+      "lineHeight": "18.2px",
+      "y": 1212
+    },
+    {
+      "tag": "P",
+      "class": "card-kicker",
+      "text": "Approved Grafana view",
+      "fontSize": 11,
+      "lineHeight": "14.3px",
+      "y": 1503
+    },
+    {
+      "tag": "SPAN",
+      "class": "state good",
+      "text": "On track",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1630
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "12 min ago",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1659
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Fresh for 60 min",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1681
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Owner",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1731
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "Data Platform",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1733
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Passes when",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1759
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "at least 1,500 orders",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1761
+    },
+    {
+      "tag": "P",
+      "class": "card-kicker",
+      "text": "Read-only Kibana link",
+      "fontSize": 11,
+      "lineHeight": "14.3px",
+      "y": 1838
+    },
+    {
+      "tag": "SPAN",
+      "class": "state good",
+      "text": "On track",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1964
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "26 min ago",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1994
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Fresh for 45 min",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 2016
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Owner",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 2065
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "Reliability",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 2067
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Passes when",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 2094
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "at most 10 queued",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 2096
+    },
+    {
+      "tag": "P",
+      "class": "eyebrow",
+      "text": "Three steps to keep answers current",
+      "fontSize": 14,
+      "lineHeight": "18.2px",
+      "y": 2259
+    },
+    {
+      "tag": "P",
+      "class": "eyebrow",
+      "text": "What the question book does not do",
+      "fontSize": 14,
+      "lineHeight": "18.2px",
+      "y": 3051
+    }
+  ],
+  "mobile-demo": [
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Changes stay in a separate demo space.",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 154
+    },
+    {
+      "tag": "P",
+      "class": "eyebrow",
+      "text": "Sample workspace",
+      "fontSize": 14,
+      "lineHeight": "18.2px",
+      "y": 256
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button secondary",
+      "text": "Import CSV",
+      "fontSize": 14,
+      "lineHeight": "16.8px",
+      "y": 2049
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button secondary",
+      "text": "Export question book CSV",
+      "fontSize": 14,
+      "lineHeight": "16.8px",
+      "y": 2109
+    },
+    {
+      "tag": "BUTTON",
+      "class": "button secondary",
+      "text": "Download CSV template",
+      "fontSize": 14,
+      "lineHeight": "16.8px",
+      "y": 2169
+    },
+    {
+      "tag": "P",
+      "class": "card-kicker",
+      "text": "Approved Grafana view",
+      "fontSize": 11,
+      "lineHeight": "14.3px",
+      "y": 566
+    },
+    {
+      "tag": "SPAN",
+      "class": "state good",
+      "text": "On track",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 693
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "12 min ago",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 722
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Fresh for 60 min",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 744
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Owner",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 794
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "Data Platform",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 796
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Passes when",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 822
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "at least 1,500 orders",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 824
+    },
+    {
+      "tag": "P",
+      "class": "card-kicker",
+      "text": "Read-only Kibana link",
+      "fontSize": 11,
+      "lineHeight": "14.3px",
+      "y": 1067
+    },
+    {
+      "tag": "SPAN",
+      "class": "state good",
+      "text": "On track",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1193
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "26 min ago",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1223
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Fresh for 45 min",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1245
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Owner",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1294
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "Reliability",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1296
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Passes when",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1323
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "at most 10 queued",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1325
+    },
+    {
+      "tag": "P",
+      "class": "card-kicker",
+      "text": "Approved CSV export",
+      "fontSize": 11,
+      "lineHeight": "14.3px",
+      "y": 1567
+    },
+    {
+      "tag": "SPAN",
+      "class": "state warn",
+      "text": "Stale",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1673
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "1 hr ago",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1703
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Fresh for 60 min",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1725
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Owner",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1774
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "Customer Operations",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1776
+    },
+    {
+      "tag": "SPAN",
+      "class": "",
+      "text": "Passes when",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1803
+    },
+    {
+      "tag": "STRONG",
+      "class": "",
+      "text": "exactly 0 files pending",
+      "fontSize": 12,
+      "lineHeight": "18.6px",
+      "y": 1805
+    }
+  ]
+}

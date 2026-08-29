@@ -1,0 +1,49 @@
+{
+  "observedAllowance": "100 requests per network address per 60 seconds",
+  "samples": [
+    {
+      "request": 1,
+      "status": 404,
+      "limit": "100",
+      "remaining": "99",
+      "reset": "1788027646",
+      "retryAfter": null,
+      "body": "{\"error\":\"This expiring link was not found.\"}"
+    },
+    {
+      "request": 99,
+      "status": 404,
+      "limit": "100",
+      "remaining": "1",
+      "reset": "1788027646",
+      "retryAfter": null,
+      "body": "{\"error\":\"This expiring link was not found.\"}"
+    },
+    {
+      "request": 100,
+      "status": 404,
+      "limit": "100",
+      "remaining": "0",
+      "reset": "1788027646",
+      "retryAfter": null,
+      "body": "{\"error\":\"This expiring link was not found.\"}"
+    },
+    {
+      "request": 101,
+      "status": 429,
+      "limit": "100",
+      "remaining": "0",
+      "reset": "1788027646",
+      "retryAfter": "41",
+      "body": "{\"error\":\"This client has used its 100 snapshot requests for this minute. Try again in 41 seconds.\"}"
+    }
+  ],
+  "healthAfterLimit": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "snapshotStoreConfigured": true,
+      "buildId": "abdf533913219c166e1d9aa1073e9e0f6f47d7d3"
+    }
+  }
+}

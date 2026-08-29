@@ -1,0 +1,57 @@
+[
+  {
+    "url": "https://telemetry-question-book.sociobot.in/",
+    "text": "TelemetryQuestion Book",
+    "status": 200
+  },
+  {
+    "url": "https://telemetry-question-book.sociobot.in/demo",
+    "text": "Return to the demo",
+    "status": 200
+  },
+  {
+    "url": "https://telemetry-question-book.sociobot.in/book",
+    "text": "My question book",
+    "status": 200
+  },
+  {
+    "url": "https://telemetry-question-book.sociobot.in/privacy",
+    "text": "Privacy",
+    "status": 200
+  },
+  {
+    "url": "https://telemetry-question-book.sociobot.in/terms",
+    "text": "Terms",
+    "status": 200
+  },
+  {
+    "url": "https://sociobot.in/",
+    "text": "Built by Param Factory (external site)",
+    "status": 200
+  },
+  {
+    "url": "https://telemetry-question-book.sociobot.in/sample-sources/northstar-orders",
+    "text": "Open approved source (opens in a new tab)",
+    "status": 200
+  },
+  {
+    "url": "https://telemetry-question-book.sociobot.in/sample-sources/atlas-webhooks",
+    "text": "Open approved source (opens in a new tab)",
+    "status": 200
+  },
+  {
+    "url": "https://telemetry-question-book.sociobot.in/sample-sources/harbor-export",
+    "text": "Open approved source (opens in a new tab)",
+    "status": 200
+  },
+  {
+    "url": "mailto:privacy@sociobot.in",
+    "text": "privacy@sociobot.in",
+    "status": "explicit-mailto"
+  },
+  {
+    "url": "mailto:support@sociobot.in",
+    "text": "support@sociobot.in",
+    "status": "explicit-mailto"
+  }
+]

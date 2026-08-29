@@ -1,0 +1,806 @@
+{
+  "startedAt": "2026-08-29T18:15:08.550Z",
+  "checks": [
+    {
+      "name": "root status",
+      "pass": true,
+      "evidence": 200
+    },
+    {
+      "name": "root semantics",
+      "pass": true,
+      "evidence": {
+        "lang": "en",
+        "h1": 1,
+        "main": 1
+      }
+    },
+    {
+      "name": "desktop CTA above fold",
+      "pass": true,
+      "evidence": {
+        "x": 72,
+        "y": 559.8125,
+        "width": 245.46875,
+        "height": 48
+      }
+    },
+    {
+      "name": "first screen contract",
+      "pass": true,
+      "evidence": "approved readings · plain answers\n\ntrack recurring answers from approved readings\n\nfor support teams: enter a reading or approved csv. the app does not query dashboards.\n\ntry it with sample data\nopens a filled question book in one click.\n● question cards stay in this browser.\n● saved questions reopen offline after one online visit.\n● free to use. no account needed.\none approved reading in. one answer copy out.\n\nlive preview\n\ncheck the latest approved readings\n\neach question keeps its owner, fres"
+    },
+    {
+      "name": "reject non-HTTPS source",
+      "pass": true,
+      "evidence": {
+        "valid": false,
+        "message": "Please match the requested format."
+      }
+    },
+    {
+      "name": "reject freshness below minimum",
+      "pass": true,
+      "evidence": {
+        "valid": false,
+        "message": "Value must be greater than or equal to 1."
+      }
+    },
+    {
+      "name": "reject fractional freshness",
+      "pass": true,
+      "evidence": {
+        "valid": false,
+        "message": "Please enter a valid value. The two nearest valid values are 1 and 2."
+      }
+    },
+    {
+      "name": "minimum freshness saves",
+      "pass": true,
+      "evidence": "LOCAL WORKSPACE\n\nCHECK THE APPROVED QUESTIONS\n\nAdd a question or import an approved CSV export.\n\nADD A QUESTION\nIMPORT CSV\nEXPORT QUESTION BOOK CSV\nDOWNLOAD CSV TEMPLATE\n1 question\nCurrent answers\n\nReadings use the time and threshold saved on each card.\n\nAPPROVED QA EXPORT\n\nDid QA heartbeat arrive?\n\n0 events\n\nON TRACK\njust now\nFresh for 1 min\nOwner Release support\nPasses when exactly 0 events\nOpen approved source\n(opens in a new tab)\nUpdate reading\nMake answer copy\nDelete"
+    },
+    {
+      "name": "maximum freshness saves",
+      "pass": true,
+      "evidence": "LOCAL WORKSPACE\n\nCHECK THE APPROVED QUESTIONS\n\nAdd a question or import an approved CSV export.\n\nADD A QUESTION\nIMPORT CSV\nEXPORT QUESTION BOOK CSV\nDOWNLOAD CSV TEMPLATE\n1 question\nCurrent answers\n\nReadings use the time and threshold saved on each card.\n\nAPPROVED QA EXPORT\n\nDid QA heartbeat arrive?\n\n42 events\n\nNEEDS ATTENTION\njust now\nFresh for 10080 min\nOwner Release support\nPasses when exactly 0 events\nOpen approved source\n(opens in a new tab)\nUpdate reading\nMake answer copy\nDelete"
+    },
+    {
+      "name": "reject freshness above maximum",
+      "pass": true,
+      "evidence": {
+        "valid": false,
+        "message": "Value must be less than or equal to 10080."
+      }
+    },
+    {
+      "name": "recover after invalid input",
+      "pass": true,
+      "evidence": "LOCAL WORKSPACE\n\nCHECK THE APPROVED QUESTIONS\n\nAdd a question or import an approved CSV export.\n\nADD A QUESTION\nIMPORT CSV\nEXPORT QUESTION BOOK CSV\nDOWNLOAD CSV TEMPLATE\n1 question\nCurrent answers\n\nReadings use the time and threshold saved on each card.\n\nAPPROVED QA EXPORT\n\nDid QA heartbeat arrive?\n\n42 events\n\nNEEDS ATTENTION\njust now\nFresh for 60 min\nOwner Release support\nPasses when exactly 0 events\nOpen approved source\n(opens in a new tab)\nUpdate reading\nMake answer copy\nDelete"
+    },
+    {
+      "name": "skip link first and visibly focused",
+      "pass": true,
+      "evidence": {
+        "text": "Skip to main content",
+        "outline": "rgb(255, 249, 233) solid 3px",
+        "rect": {
+          "x": 12,
+          "y": 92,
+          "width": 224.03125,
+          "height": 48.796875,
+          "top": 92,
+          "right": 236.03125,
+          "bottom": 140.796875,
+          "left": 12
+        }
+      }
+    },
+    {
+      "name": "skip link targets main",
+      "pass": true,
+      "evidence": {
+        "hash": "#main",
+        "active": "BODY"
+      }
+    },
+    {
+      "name": "skip link bypasses header controls",
+      "pass": true,
+      "evidence": "<a class=\"button primary\" href=\"/demo\" data-link=\"\">Try it with sample data</a>"
+    },
+    {
+      "name": "answer dialog opens with focus",
+      "pass": true,
+      "evidence": "<button class=\"icon-button\" value=\"cancel\" aria-label=\"Close answer copy dialog\">×</button>"
+    },
+    {
+      "name": "dialog traps forward focus",
+      "pass": true,
+      "evidence": "<button class=\"button secondary\" value=\"cancel\">Cancel</button>"
+    },
+    {
+      "name": "dialog traps reverse focus",
+      "pass": true,
+      "evidence": "<select name=\"ttl\"><option value=\"3600\">1 hour</option><option value=\"86400\" selected=\"\">24 hours</option><option value=\"604800\">7 days</option></select>"
+    },
+    {
+      "name": "review opens demo snapshot",
+      "pass": true,
+      "evidence": "https://telemetry-question-book.sociobot.in/demo/snapshot"
+    },
+    {
+      "name": "redacted preview omits private fields",
+      "pass": true,
+      "evidence": "REVIEW BEFORE SHARING\n\nDid Northstar orders arrive?\nON TRACK\n1,842 orders\nOBSERVED\n8/29/2026, 6:03:15 PM\nCREATED\n8/29/2026, 6:15:16 PM\n\nOwner, source, and internal note were hidden.\n\nChoose how to share it. Expiring links can be revoked. Downloaded files do not expire.\n\nCREATE EXPIRING LINK\nDOWNLOAD JSON\nCOPY ANSWER TEXT\nBACK TO QUESTIONS"
+    },
+    {
+      "name": "live share creates successfully",
+      "pass": true,
+      "evidence": {
+        "status": 201,
+        "headers": {
+          "cache-control": "no-store",
+          "content-length": "132",
+          "content-type": "application/json; charset=utf-8",
+          "date": "Sat, 29 Aug 2026 18:15:17 GMT",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "x-ms-middleware-request-id": "ee05aef6-89a6-4092-81b3-53c46fed19d8",
+          "x-ratelimit-limit": "100",
+          "x-ratelimit-remaining": "99",
+          "x-ratelimit-reset": "1788027378"
+        }
+      }
+    },
+    {
+      "name": "share URL is opaque demo id",
+      "pass": true,
+      "evidence": "https://telemetry-question-book.sociobot.in/s/d_10c77045c630447ca4e33fdb177a512f"
+    },
+    {
+      "name": "recipient sees redacted answer",
+      "pass": true,
+      "evidence": "SHARED ANSWER COPY\n\nDid Northstar orders arrive?\nON TRACK\n1,842 orders\nOBSERVED\n8/29/2026, 6:03:15 PM\nCREATED\n8/29/2026, 6:15:16 PM\nLINK EXPIRES\n8/30/2026, 6:15:17 PM\n\nOwner, source, and internal note were hidden.\n\nThis link stops working at the expiry time shown above.\n\nCOPY ANSWER TEXT\nOPEN TELEMETRY QUESTION BOOK"
+    },
+    {
+      "name": "live revoke succeeds",
+      "pass": true,
+      "evidence": "DELETE returned 204"
+    },
+    {
+      "name": "revocation recovery shown",
+      "pass": true,
+      "evidence": "UNAVAILABLE EXPIRING LINK\n\nThis expiring link is no longer available\n\nThis expiring link has expired or was revoked.\n\nOPEN TELEMETRY QUESTION BOOK"
+    },
+    {
+      "name": "390px no horizontal overflow",
+      "pass": true,
+      "evidence": {
+        "innerWidth": 390,
+        "scrollWidth": 390,
+        "scrollHeight": 3897
+      }
+    },
+    {
+      "name": "mobile CTA above fold",
+      "pass": true,
+      "evidence": {
+        "x": 20,
+        "y": 505.8125,
+        "width": 350,
+        "height": 48
+      }
+    },
+    {
+      "name": "visible mobile targets at least 44px",
+      "pass": true,
+      "evidence": [
+        {
+          "name": "TelemetryQuestion Book",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "name": "Demo",
+          "width": 44,
+          "height": 48
+        },
+        {
+          "name": "My question book",
+          "width": 127.59375,
+          "height": 48
+        },
+        {
+          "name": "Privacy",
+          "width": 62.578125,
+          "height": 48
+        },
+        {
+          "name": "Try it with sample data",
+          "width": 350,
+          "height": 48
+        }
+      ]
+    },
+    {
+      "name": "one-click demo has banner and 3 cards",
+      "pass": true,
+      "evidence": "SAMPLE WORKSPACE\n\nCHECK THE APPROVED QUESTIONS\n\n3 sample questions use a separate demo storage space.\n\nIMPORT CSV\nEXPORT QUESTION BOOK CSV\nDOWNLOAD CSV TEMPLATE\n3 questions\nCurrent answers\n\nAPPROVED GRAFANA VIEW\n\nDid Northstar orders arrive?\n\n1,842 orders\n\nON TRACK\n12 min ago\nFresh for 60 min\nOwner Data Platform\nPasses when at least 1,500 orders\nOpen approved source\n(opens in a new tab)\nUpdate reading\nMake answer copy\nDelete\n\nREAD-ONLY KIBANA LINK\n\nAre Atlas webhooks clearing?\n\n7 queued\n\nON TRACK\n26 min ago\nFresh for 45 min\nOwner Reliability\nPasses when at most 10 queued\nOpen approved source\n(opens in a new tab)\nUpdate reading\nMake answer copy\nDelete\n\nAPPROVED CSV EXPORT\n\nDid Harbor export finish?\n\n0 files pending\n\nSTALE\n1 hr ago\nFresh for 60 min\nOwner Customer Operations\nPasses when exactly 0 files pending\nOpen approved source\n(opens in a new tab)\nUpdate reading\nMake answer copy\nDelete"
+    },
+    {
+      "name": "first sample useful content in first mobile viewport",
+      "pass": true,
+      "evidence": {
+        "x": 57,
+        "y": 588.40625,
+        "width": 256,
+        "height": 41.15625
+      }
+    },
+    {
+      "name": "reduced motion has no running animations",
+      "pass": true,
+      "evidence": []
+    },
+    {
+      "name": "service worker update has active current worker",
+      "pass": true,
+      "evidence": {
+        "scope": "https://telemetry-question-book.sociobot.in/",
+        "waiting": false,
+        "active": true
+      }
+    },
+    {
+      "name": "offline demo reloads with samples",
+      "pass": true,
+      "evidence": "SAMPLE WORKSPACE\n\nCHECK THE APPROVED QUESTIONS\n\n3 sample questions use a separate demo storage space.\n\nIMPORT CSV\nEXPORT QUESTION BOOK CSV\nDOWNLOAD CSV TEMPLATE\n3 questions\nCurrent answers\n\nAPPROVED GRAFANA VIEW\n\nDid Northstar orders arrive?\n\n1,842 orders\n\nON TRACK\n12 min ago\nFresh for 60 min\nOwner Data Platform\nPasses when at least 1,500 orders\nOpen approved source\n(opens in a new tab)\nUpdate reading\nMake answer copy\nDelete\n\nREAD-ONLY KIBANA LINK\n\nAre Atlas webhooks clearing?\n\n7 queued\n\nON TRACK\n26 min ago\nFresh for 45 min\nOwner Reliability\nPasses when at most 10 queued\nOpen approved source\n(opens in a new tab)\nUpdate reading\nMake answer copy\nDelete\n\nAPPROVED CSV EXPORT\n\nDid Harbor export finish?\n\n0 files pending\n\nSTALE\n1 hr ago\nFresh for 60 min\nOwner Customer Operations\nPasses when exactly 0 files pending\nOpen approved source\n(opens in a new tab)\nUpdate reading\nMake answer copy\nDelete"
+    },
+    {
+      "name": "axe / serious/critical",
+      "pass": true,
+      "evidence": {
+        "status": 200,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "semantics /",
+      "pass": true,
+      "evidence": {
+        "status": 200,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "axe /demo serious/critical",
+      "pass": true,
+      "evidence": {
+        "status": 200,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "semantics /demo",
+      "pass": true,
+      "evidence": {
+        "status": 200,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "axe /book serious/critical",
+      "pass": true,
+      "evidence": {
+        "status": 200,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "semantics /book",
+      "pass": true,
+      "evidence": {
+        "status": 200,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "axe /privacy serious/critical",
+      "pass": true,
+      "evidence": {
+        "status": 200,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "semantics /privacy",
+      "pass": true,
+      "evidence": {
+        "status": 200,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "axe /terms serious/critical",
+      "pass": true,
+      "evidence": {
+        "status": 200,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "semantics /terms",
+      "pass": true,
+      "evidence": {
+        "status": 200,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "axe /definitely-missing-verification-9 serious/critical",
+      "pass": true,
+      "evidence": {
+        "status": 404,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "semantics /definitely-missing-verification-9",
+      "pass": true,
+      "evidence": {
+        "status": 404,
+        "lang": "en",
+        "h1": 1,
+        "main": 1,
+        "seriousCritical": []
+      }
+    },
+    {
+      "name": "live normal flows only contact same origin",
+      "pass": true,
+      "evidence": []
+    },
+    {
+      "name": "no unexpected console errors",
+      "pass": true,
+      "evidence": []
+    },
+    {
+      "name": "no page errors",
+      "pass": true,
+      "evidence": []
+    }
+  ],
+  "consoleErrors": [
+    {
+      "label": "recipient",
+      "url": "https://telemetry-question-book.sociobot.in/s/d_10c77045c630447ca4e33fdb177a512f",
+      "text": "Failed to load resource: the server responded with a status of 410 ()"
+    },
+    {
+      "label": "axe-/definitely-missing-verification-9",
+      "url": "https://telemetry-question-book.sociobot.in/definitely-missing-verification-9",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    }
+  ],
+  "pageErrors": [],
+  "requests": [
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/",
+      "type": "document"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/question-console-1536.webp",
+      "type": "image"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/question-console-960.webp",
+      "type": "image"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/question-console-1536.webp",
+      "type": "image"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/book",
+      "type": "document"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/",
+      "type": "document"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/question-console-1536.webp",
+      "type": "image"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/demo",
+      "type": "document"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "POST",
+      "url": "https://telemetry-question-book.sociobot.in/api/snapshots",
+      "type": "fetch"
+    },
+    {
+      "label": "recipient",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/s/d_10c77045c630447ca4e33fdb177a512f",
+      "type": "document"
+    },
+    {
+      "label": "recipient",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "recipient",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "recipient",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/api/snapshots/d_10c77045c630447ca4e33fdb177a512f",
+      "type": "fetch"
+    },
+    {
+      "label": "desktop-flow",
+      "method": "DELETE",
+      "url": "https://telemetry-question-book.sociobot.in/api/snapshots/d_10c77045c630447ca4e33fdb177a512f",
+      "type": "fetch"
+    },
+    {
+      "label": "recipient",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/s/d_10c77045c630447ca4e33fdb177a512f",
+      "type": "document"
+    },
+    {
+      "label": "recipient",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "recipient",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "recipient",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/api/snapshots/d_10c77045c630447ca4e33fdb177a512f",
+      "type": "fetch"
+    },
+    {
+      "label": "mobile-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/",
+      "type": "document"
+    },
+    {
+      "label": "mobile-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "mobile-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "mobile-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/question-console-960.webp",
+      "type": "image"
+    },
+    {
+      "label": "mobile-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/demo",
+      "type": "document"
+    },
+    {
+      "label": "mobile-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "mobile-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "mobile-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/demo",
+      "type": "document"
+    },
+    {
+      "label": "mobile-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "mobile-flow",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "axe-/",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/",
+      "type": "document"
+    },
+    {
+      "label": "axe-/",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "axe-/",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "axe-/",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/question-console-960.webp",
+      "type": "image"
+    },
+    {
+      "label": "axe-/demo",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/demo",
+      "type": "document"
+    },
+    {
+      "label": "axe-/demo",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "axe-/demo",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "axe-/book",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/book",
+      "type": "document"
+    },
+    {
+      "label": "axe-/book",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "axe-/book",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "axe-/privacy",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/privacy",
+      "type": "document"
+    },
+    {
+      "label": "axe-/privacy",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "axe-/privacy",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "axe-/terms",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/terms",
+      "type": "document"
+    },
+    {
+      "label": "axe-/terms",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-Dy-1cvQq.js",
+      "type": "script"
+    },
+    {
+      "label": "axe-/terms",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/assets/index-yjLvK2T_.css",
+      "type": "stylesheet"
+    },
+    {
+      "label": "axe-/definitely-missing-verification-9",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/definitely-missing-verification-9",
+      "type": "document"
+    },
+    {
+      "label": "axe-/definitely-missing-verification-9",
+      "method": "GET",
+      "url": "https://telemetry-question-book.sociobot.in/404.css",
+      "type": "stylesheet"
+    }
+  ],
+  "axe": {
+    "/": {
+      "status": 200,
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "seriousCritical": []
+    },
+    "/demo": {
+      "status": 200,
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "seriousCritical": []
+    },
+    "/book": {
+      "status": 200,
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "seriousCritical": []
+    },
+    "/privacy": {
+      "status": 200,
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "seriousCritical": []
+    },
+    "/terms": {
+      "status": 200,
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "seriousCritical": []
+    },
+    "/definitely-missing-verification-9": {
+      "status": 404,
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "seriousCritical": []
+    }
+  },
+  "screenshots": [
+    "live-desktop-full.png",
+    "live-mobile-demo.png"
+  ],
+  "expectedConsoleErrors": [
+    {
+      "label": "recipient",
+      "url": "https://telemetry-question-book.sociobot.in/s/d_10c77045c630447ca4e33fdb177a512f",
+      "text": "Failed to load resource: the server responded with a status of 410 ()"
+    },
+    {
+      "label": "axe-/definitely-missing-verification-9",
+      "url": "https://telemetry-question-book.sociobot.in/definitely-missing-verification-9",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    }
+  ],
+  "completedAt": "2026-08-29T18:15:29.626Z"
+}

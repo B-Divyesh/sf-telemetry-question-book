@@ -1,0 +1,198 @@
+[
+  {
+    "index": 1,
+    "id": "demo-sandbox",
+    "exit": 0,
+    "duration_s": "14.1",
+    "command": "npm test -- --grep @claim:demo-sandbox"
+  },
+  {
+    "index": 2,
+    "id": "demo-controls",
+    "exit": 0,
+    "duration_s": "14.7",
+    "command": "npm test -- --grep @claim:demo-controls"
+  },
+  {
+    "index": 3,
+    "id": "card-fields",
+    "exit": 0,
+    "duration_s": "12.9",
+    "command": "npm test -- --grep @claim:card-fields"
+  },
+  {
+    "index": 4,
+    "id": "local-browser",
+    "exit": 0,
+    "duration_s": "13.6",
+    "command": "npm test -- --grep @claim:local-browser"
+  },
+  {
+    "index": 5,
+    "id": "free-core",
+    "exit": 0,
+    "duration_s": "15.3",
+    "command": "npm test -- --grep @claim:free-core"
+  },
+  {
+    "index": 6,
+    "id": "threshold-states",
+    "exit": 0,
+    "duration_s": "12.8",
+    "command": "npm test -- --grep @claim:threshold-states"
+  },
+  {
+    "index": 7,
+    "id": "offline-reload",
+    "exit": 0,
+    "duration_s": "13.3",
+    "command": "npm test -- --grep @claim:offline-reload"
+  },
+  {
+    "index": 8,
+    "id": "offline-sharing",
+    "exit": 0,
+    "duration_s": "15.4",
+    "command": "npm test -- --grep @claim:offline-sharing"
+  },
+  {
+    "index": 9,
+    "id": "question-update",
+    "exit": 0,
+    "duration_s": "13.3",
+    "command": "npm test -- --grep @claim:question-update"
+  },
+  {
+    "index": 10,
+    "id": "csv-import",
+    "exit": 0,
+    "duration_s": "14.0",
+    "command": "npm test -- --grep @claim:csv-import"
+  },
+  {
+    "index": 11,
+    "id": "csv-validation",
+    "exit": 0,
+    "duration_s": "24.0",
+    "command": "npm test -- --grep @claim:csv-validation"
+  },
+  {
+    "index": 12,
+    "id": "csv-schema",
+    "exit": 0,
+    "duration_s": "14.5",
+    "command": "npm test -- --grep @claim:csv-schema"
+  },
+  {
+    "index": 13,
+    "id": "csv-template",
+    "exit": 0,
+    "duration_s": "12.8",
+    "command": "npm test -- --grep @claim:csv-template"
+  },
+  {
+    "index": 14,
+    "id": "question-book-export",
+    "exit": 0,
+    "duration_s": "14.8",
+    "command": "npm test -- --grep @claim:question-book-export"
+  },
+  {
+    "index": 15,
+    "id": "answer-copy-security",
+    "exit": 0,
+    "duration_s": "13.2",
+    "command": "npm test -- --grep @claim:answer-copy-security"
+  },
+  {
+    "index": 16,
+    "id": "answer-copy-download",
+    "exit": 0,
+    "duration_s": "13.6",
+    "command": "npm test -- --grep @claim:answer-copy-download"
+  },
+  {
+    "index": 17,
+    "id": "expiring-share",
+    "exit": 0,
+    "duration_s": "14.5",
+    "command": "npm test -- --grep @claim:expiring-share"
+  },
+  {
+    "index": 18,
+    "id": "share-expiry-options",
+    "exit": 0,
+    "duration_s": "14.8",
+    "command": "npm test -- --grep @claim:share-expiry-options"
+  },
+  {
+    "index": 19,
+    "id": "share-redaction",
+    "exit": 0,
+    "duration_s": "13.7",
+    "command": "npm test -- --grep @claim:share-redaction"
+  },
+  {
+    "index": 20,
+    "id": "share-revocation",
+    "exit": 0,
+    "duration_s": "13.9",
+    "command": "npm test -- --grep @claim:share-revocation"
+  },
+  {
+    "index": 21,
+    "id": "least-privilege-input",
+    "exit": 0,
+    "duration_s": "13.9",
+    "command": "npm test -- --grep @claim:least-privilege-input"
+  },
+  {
+    "index": 22,
+    "id": "sample-sources",
+    "exit": 0,
+    "duration_s": "13.3",
+    "command": "npm test -- --grep @claim:sample-sources"
+  },
+  {
+    "index": 23,
+    "id": "snapshot-retention",
+    "exit": 0,
+    "duration_s": "1.3",
+    "command": "npm run test:api -- --test-name-pattern @claim:snapshot-retention"
+  },
+  {
+    "index": 24,
+    "id": "snapshot-storage-minimization",
+    "exit": 0,
+    "duration_s": "1.4",
+    "command": "npm run test:api -- --test-name-pattern @claim:snapshot-storage-minimization"
+  },
+  {
+    "index": 25,
+    "id": "api-rate-limit",
+    "exit": 0,
+    "duration_s": "1.6",
+    "command": "npm run test:api -- --test-name-pattern @claim:api-rate-limit"
+  },
+  {
+    "index": 26,
+    "id": "health-rate-limit",
+    "exit": 0,
+    "duration_s": "1.4",
+    "command": "npm run test:api -- --test-name-pattern @claim:health-rate-limit"
+  },
+  {
+    "index": 27,
+    "id": "deploy-integrity",
+    "exit": 0,
+    "duration_s": "1.4",
+    "command": "npm run test:api -- --test-name-pattern @claim:deploy-integrity"
+  },
+  {
+    "index": 28,
+    "id": "legacy-migration",
+    "exit": 0,
+    "duration_s": "1.3",
+    "command": "npm run test:api -- --test-name-pattern @claim:legacy-migration"
+  }
+]
