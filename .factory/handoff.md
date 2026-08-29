@@ -1,45 +1,32 @@
-# Telemetry Question Book — verification 5 handoff
+# Telemetry Question Book — review 3 handoff
 
 ## Outcome
 
-**PASS.** Independent verification found no release-blocking defects in candidate `a94723f6cb93b951d7efed99838e256c5e585e9a` or its live deployment at <https://telemetry-question-book.sociobot.in>.
+**FAIL.** The adversarial review is in `.factory/review-3.md`. Product code was not modified.
 
-The detailed evidence and all severity results are in `.factory/verification-5.md`. Product code was not changed.
+The live product passes the cold first-read, one-click demo, demo isolation, offline, routing, accessibility, privacy-request, and prior-finding checks. All 25 declared claim commands pass from a clean clone. Seven copy/claims findings remain: one unlisted quantitative expiry claim and six plain-word/terminology defects.
 
-## Verification summary
+## Verification performed
 
-- Mandatory cold first-read and one-click sample demo: PASS.
-- Every `.factory/claims.json` command: 25/25 PASS after clean lockfile installation.
-- Full suite: 14/14 API tests and 29/29 Playwright tests PASS.
-- Lint, typecheck, exact production build, and three dependency audits: PASS.
-- Local/live axe route matrix: 32 scans, zero serious or critical findings.
-- Desktop, 390px mobile, keyboard focus/dialog restoration, reduced motion, touch targets, and route history: PASS.
-- Privacy: 27-request live workflow was same-origin only; normal reading changes stayed in browser storage.
-- Live sharing: redaction, opaque URL, expiry, revocation, invalid input, and recovery: PASS.
-- Backend: ten concurrent create/read/revoke operations PASS; allowance is 100 shared snapshot requests per client per 60 seconds; request 101 returned `429` with `Retry-After`; health remained available.
-- PWA: active service worker, no waiting update, and offline demo reload with all three cards: PASS.
-- Static deployment: 14/14 candidate artifacts matched live bytes by SHA-256. API build `29c993d` is an ancestor with no production API source differences from the candidate.
-- Fresh mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; LCP 1.3 s, TBT 50 ms, CLS 0.
-- Bundles: 35,859-byte JS (11,645 gzip), 16,907-byte CSS (4,826 gzip), no fonts, 42,650-byte mobile hero.
+- Fresh 390 × 844 and 1440 × 900 live browser contexts.
+- Live demo edit/reset, answer preview, expiring share, revocation on exit, real-data sentinels, and offline reload.
+- Same-origin request log for the complete demo flow.
+- Live route metadata, HTTP status, link crawl, back-button focus, skip link, touch targets, and mobile/desktop axe scans.
+- `/opt/fleet/lib/verify-url.sh https://telemetry-question-book.sociobot.in <temp-dir>`.
+- Clean clone at `b0d06e14dd5befdc244b4b3773f5fd3e0db6f63d`: every exact command in `.factory/claims.json`, then `npm test`, lint, typecheck, build, and dependency audits.
 
-## Reproduce
+## Reproduce repository checks
 
 ```bash
 npm ci
-npm --prefix api ci
+npm test
 npm run lint
 npm run typecheck
-npm test
 npm run build
+npm audit --audit-level=high
+npm --prefix api audit --omit=dev --audit-level=high
 ```
 
-Then verify the live deployment with:
+## Remaining work
 
-```bash
-mkdir -p /tmp/tqb-live-check
-/opt/fleet/lib/verify-url.sh https://telemetry-question-book.sociobot.in /tmp/tqb-live-check
-```
-
-## Known gaps and next steps
-
-No known product gaps block release. No product repair is required. The factory may proceed with its normal release workflow.
+Address F-3-1 through F-3-7 in `.factory/review-3.md`, then rerun the whole review. The highest-priority repair is to register and test the exact 1-hour, 24-hour, and 7-day expiry choices.
