@@ -559,11 +559,17 @@ test('regression: visible product text never falls below the 16px reading minimu
   }
 });
 
-test('regression: mobile navigation and footer targets meet 44px', async ({ page }) => {
+test('regression: mobile navigation, footer, and contact targets meet 44px', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   for (const locator of [page.getByLabel('Telemetry Question Book home'), page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Demo' }), page.getByRole('navigation', { name: 'Footer navigation' }).getByRole('link', { name: 'Privacy' }), page.getByRole('navigation', { name: 'Footer navigation' }).getByRole('link', { name: 'Terms' })]) {
     const box = await locator.boundingBox();
+    expect(box?.width).toBeGreaterThanOrEqual(44);
+    expect(box?.height).toBeGreaterThanOrEqual(44);
+  }
+  for (const [route, address] of [['/privacy', 'privacy@sociobot.in'], ['/terms', 'support@sociobot.in']]) {
+    await page.goto(route);
+    const box = await page.getByRole('link', { name: address }).boundingBox();
     expect(box?.width).toBeGreaterThanOrEqual(44);
     expect(box?.height).toBeGreaterThanOrEqual(44);
   }

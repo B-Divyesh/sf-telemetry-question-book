@@ -30,6 +30,7 @@ button, input, select, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: #763417; text-decoration-thickness: 2px; text-underline-offset: 3px; }
 a:hover { color: var(--amber-dark); }
+a[href^="mailto:"] { min-height: 44px; display: inline-flex; align-items: center; }
 :focus-visible { outline: 3px solid var(--cream); outline-offset: 2px; box-shadow: 0 0 0 6px #713011; }
 img { max-width: 100%; height: auto; display: block; }
 [hidden] { display: none !important; }
