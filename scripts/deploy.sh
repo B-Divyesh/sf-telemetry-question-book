@@ -20,7 +20,7 @@ if [[ -n "$(git status --porcelain --untracked-files=all)" ]]; then
   exit 1
 fi
 
-npm run build
+BUILD_ID="$build_id" npm run build
 
 # Set identity before upload because managed Functions read settings while the
 # new API artifact is activated.

@@ -654,6 +654,7 @@ test('regression: static response policy has explicit routes and a CSP-safe 404'
   const config = JSON.parse(await readFile('public/staticwebapp.config.json', 'utf8'));
   expect(config.navigationFallback).toBeUndefined();
   expect(config.responseOverrides['404']).toEqual({ rewrite: '/404.html' });
+  expect(config.routes).toContainEqual({ route: '/build-info.json', headers: { 'Cache-Control': 'no-store' } });
   expect(config.globalHeaders['Content-Security-Policy']).not.toContain("'unsafe-inline'");
   expect(config.globalHeaders['Content-Security-Policy']).not.toContain('api.sociobot.in');
   const document = await readFile('public/404.html', 'utf8');

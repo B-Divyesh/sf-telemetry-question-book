@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src tests api scripts/verify-live-api.mjs playwright.config.ts eslint.config.js",
-    "build": "npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build",
+    "lint": "eslint src tests api scripts/*.mjs playwright.config.ts eslint.config.js",
+    "build": "npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs",
     "preview": "vite preview",
     "deploy": "bash scripts/deploy.sh",
     "verify:live-api": "node scripts/verify-live-api.mjs",

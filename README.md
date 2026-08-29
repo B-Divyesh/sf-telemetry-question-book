@@ -79,7 +79,7 @@ Deploy from a clean, committed checkout:
 npm run deploy
 ```
 
-The command builds `dist/` and the server functions in `api/`. It sets `BUILD_ID` to the commit being deployed. After deployment, it confirms that `/api/health` reports that commit. It also confirms that forged network-address headers cannot bypass the 100-request limit.
+The command builds `dist/` and the server functions in `api/`. It stamps `dist/build-info.json` and sets `BUILD_ID` to the same commit. After deployment, it confirms that both the static marker and `/api/health` report that commit. It also confirms that forged network-address headers cannot bypass the 100-request limit.
 
 The deployed app needs a secret `SnapshotStorage` setting for its approved Azure Storage account. The connection needs Table and Queue service access. Never commit its value.
 

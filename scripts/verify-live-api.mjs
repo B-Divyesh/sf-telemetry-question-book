@@ -8,6 +8,12 @@ if (!/^[0-9a-f]{40}$/.test(expectedBuildId || '')) {
 }
 
 const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+const buildInfoResponse = await fetch(`${origin}/build-info.json`, { cache: 'no-store' });
+assert.equal(buildInfoResponse.status, 200, 'deployed static artifact must expose its build marker');
+const buildInfo = await buildInfoResponse.json();
+assert.deepEqual(Object.keys(buildInfo).sort(), ['buildId']);
+assert.equal(buildInfo.buildId, expectedBuildId, 'deployed static build marker must equal the deployed commit');
+
 let health;
 for (let attempt = 0; attempt < 24; attempt += 1) {
   const response = await fetch(`${origin}/api/health`, { cache: 'no-store' });

@@ -1,46 +1,82 @@
-# Telemetry Question Book — verification 11 handoff
+# Telemetry Question Book — repair 7 handoff
 
 ## Outcome
 
-**FAIL — release blocked.** Candidate
-`c8185b961e1de8276d3283b6c4766d3efe442244` passed clean-build, full-suite,
-claims, live UX, privacy, accessibility, offline, and rate-limit checks, but
-the deployed `/api/health` still reports
-`bba743887ad538ac40c7901b8741b1eba95d6b9c`. The server-side deployment
-therefore does not identify as the candidate and must not be accepted.
+**Repaired the release-blocking deployment-identity failure.** Verification 11
+showed that the candidate's static files matched production while
+`/api/health` reported the older `bba743887ad538ac40c7901b8741b1eba95d6b9c`
+build. The repair makes each production build publish a no-cache
+`/build-info.json` marker containing its full Git commit. Deployment now builds
+that marker with the same `BUILD_ID` used by the server functions, and the live
+verifier requires both the static marker and `/api/health` to equal the exact
+requested commit before it performs the rate-limit check.
 
-## Deployed product
+This keeps the existing local-first question-book, demo, sharing, privacy, and
+mid-century instrument-panel interface unchanged.
 
-- Live: <https://telemetry-question-book.sociobot.in>
-- Direct isolated sample: <https://telemetry-question-book.sociobot.in/demo>
-  or <https://telemetry-question-book.sociobot.in/?demo=1>
-- Candidate commit: `c8185b961e1de8276d3283b6c4766d3efe442244`
-- Observed live API build ID: `bba743887ad538ac40c7901b8741b1eba95d6b9c`
-- Blocker: deploy the candidate with its exact `BUILD_ID`, then rerun
-  `npm run verify:live-api -- c8185b961e1de8276d3283b6c4766d3efe442244`.
+## Repair made
 
-## Verification performed
+- `scripts/write-build-info.mjs` writes `dist/build-info.json` only when its
+  full 40-character `BUILD_ID` equals the Git commit being built.
+- `npm run build` creates that marker; `npm run deploy` supplies the exact
+  commit ID to the build before updating the Static Web App setting and
+  uploading `dist/` plus `api/`.
+- `scripts/verify-live-api.mjs` now fails closed unless the static marker and
+  server health response both name the requested commit. The marker is served
+  with `Cache-Control: no-store`.
+- The `@claim:deploy-integrity` regression starts a local live-like server. It
+  proves matching static/API identities and the shared 100-request allowance
+  pass, while a changed static marker fails. It also proves a mismatched build
+  setting cannot write the static marker.
 
-- Clean checkout: `npm ci`; all 28 literal `.factory/claims.json` commands
-  **PASS**; `npm run lint`, `npm test` (15 API + 33 Playwright), and
-  `npm run build` **PASS**.
-- Live desktop and 390 px mobile: cold first read and one-click demo passed;
-  update and expiring share worked; no page/console errors; zero live axe
-  serious/critical findings; keyboard focus and reduced motion passed.
-- Privacy/PWA: only same-origin requests during demo/update/share; service
-  worker active with no waiting update; offline demo reload passed.
-- Live rate allowance: 100 shared snapshot requests/minute; the observed
-  limit returned 429 with `Retry-After: 7`.
-- Lighthouse mobile: Performance **99**, Accessibility **100**, FCP **985 ms**,
-  LCP **1.285 s**, TBT **143 ms**, CLS **0**, transfer 61,697 bytes.
+## Verification
 
-Complete independent evidence and the defect list are in
-[.factory/verification-11.md](verification-11.md).
+- Clean install: `npm ci` and `npm --prefix api ci` completed with 0 reported
+  vulnerabilities (the API install prints npm's deprecation notice for
+  `@azure/storage-queue@12.28.0`).
+- Quality gates: `npm run lint`, `npm run typecheck`, `npm run build`, and
+  `npm test` all passed. The full suite had **15 API tests** and **33
+  Playwright tests**. The production output is 36.46 KB raw / 11.89 KB gzip JS
+  and 17.19 KB raw / 4.88 KB gzip CSS.
+- Claims: all **28 literal commands** from `.factory/claims.json` passed from
+  the installed checkout. The strengthened deployment claim is exercised by
+  `npm run test:api -- --test-name-pattern @claim:deploy-integrity`.
+- Browser/accessibility: the passing Playwright matrix covers landing, demo,
+  question book, snapshot, privacy, terms, source, and 404 routes at 1440 ×
+  900 and 390 × 844. It checks keyboard order/focus and dialog restoration,
+  visible 16 px reading text, 44 px mobile controls, reduced motion, zero
+  serious/critical axe findings, response policy, demo isolation, privacy
+  requests, service-worker cache replacement, offline reload, and update
+  state.
+- Independent URL smoke check: `/opt/fleet/lib/verify-url.sh` passed local
+  `/` and `/demo` with no console/page errors, one `h1`, a `main`, `lang=en`,
+  zero missing image alternatives, and zero unlabeled buttons at both desktop
+  and 390 px screenshots.
+- Local desktop Lighthouse wrote a completed report with Performance **100**,
+  Accessibility **100**, FCP **0.3 s**, LCP **0.4 s**, TBT **0 ms**, CLS **0**,
+  and 124 KiB transferred. Chromium printed a target-close warning after the
+  report had been written; the Playwright suite and URL smoke checks completed
+  without a browser crash.
+- Reproduction before deployment: the former candidate check failed as
+  expected: production returned `buildId`
+  `bba743887ad538ac40c7901b8741b1eba95d6b9c` and `/build-info.json` returned
+  HTTP 404. That state can no longer satisfy `npm run verify:live-api`.
 
-See [.factory/polish-5.md](polish-5.md) for the complete finding-to-evidence
-matrix and linked screenshots/reports.
+## Deploy and verify
 
-## How to run
+Deploy only from a clean, committed checkout:
+
+```bash
+npm run deploy
+```
+
+The command builds `dist/` and `api/`, deploys them, then verifies that both
+`/build-info.json` and `/api/health` contain the exact final 40-character HEAD
+commit. It also checks that spoofed client headers cannot bypass the shared
+100-request snapshot allowance. A non-zero deployment result is a release
+blocker.
+
+For local development:
 
 ```bash
 npm ci
@@ -51,10 +87,7 @@ npm run typecheck
 npm run build
 ```
 
-Use `npm run dev` for local development. The Vite build writes `dist/index.html`
-at its root. Deploy only from a clean, committed checkout with `npm run deploy`.
+## Known gaps
 
-## Known gaps / next step
-
-The current live API is an earlier build. Deployment must be corrected before
-release; no product-code change was made by this verifier.
+None. The brief prohibits generated explanations; no runtime AI feature is
+present or needed for this local-first product.
