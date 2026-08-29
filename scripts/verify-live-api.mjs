@@ -13,9 +13,8 @@ let firstRemaining;
 for (let index = 0; index <= 100; index += 1) {
   const response = await fetch(`${origin}/api/snapshots/${probeToken}`, {
     headers: {
-      // Azure Front Door overwrites X-Azure-SocketIP. The other values are
-      // intentionally rotated to prove caller-controlled headers cannot reset
-      // the allowance.
+      // Every supplied value is intentionally rotated. The Azure Functions
+      // host appends its observed peer to X-Forwarded-For after these values.
       'X-Azure-SocketIP': `198.18.0.${(index % 200) + 1}`,
       'X-Azure-ClientIP': `198.51.100.${(index % 200) + 1}`,
       'X-Forwarded-For': `192.0.2.${(index % 200) + 1}`,

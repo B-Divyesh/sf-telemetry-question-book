@@ -68,9 +68,9 @@ test('@claim:api-rate-limit all sharing routes share one network-address minute 
   const open = require(getPath);
   const revoke = require(deletePath);
   const headersFor = (index) => ({
-    'x-azure-socketip': '203.0.113.9:443',
+    'x-azure-socketip': `198.18.0.${(index % 200) + 1}`,
     'x-azure-clientip': `198.51.100.${(index % 200) + 1}`,
-    'x-forwarded-for': `192.0.2.${(index % 200) + 1}, 10.0.0.1`,
+    'x-forwarded-for': `192.0.2.${(index % 200) + 1}, 203.0.113.9:443`,
     'client-ip': `2001:db8::${index + 1}`
   });
   const snapshot = {
@@ -100,7 +100,7 @@ test('@claim:api-rate-limit all sharing routes share one network-address minute 
     assert.equal(blocked.headers['Retry-After'], '60');
     assert.match(JSON.parse(blocked.body).error, /100 snapshot requests/);
 
-    const otherClient = await open({ bindingData: { token: 'd_missing' } }, { headers: { ...headersFor(101), 'x-azure-socketip': '203.0.113.10' } });
+    const otherClient = await open({ bindingData: { token: 'd_missing' } }, { headers: { ...headersFor(101), 'x-forwarded-for': '192.0.2.102, 203.0.113.10' } });
     assert.equal(otherClient.status, 404);
     assert.equal(otherClient.headers['X-RateLimit-Remaining'], '99');
   } finally {
@@ -112,19 +112,19 @@ test('@claim:api-rate-limit all sharing routes share one network-address minute 
   }
 });
 
-test('only the platform socket identity can split allowances', async () => {
+test('only the platform-appended forwarding hop can split allowances', async () => {
   const { clientAddress } = require('../lib/rate-limit');
   const attackerHeaders = {
-    'x-azure-socketip': '203.0.113.9:49152',
+    'x-azure-socketip': '198.18.0.1',
     'x-azure-clientip': '198.51.100.4:5000',
-    'x-forwarded-for': '192.0.2.44, 10.0.0.1',
+    'x-forwarded-for': '192.0.2.44, 203.0.113.9:49152',
     'client-ip': '2001:db8::99'
   };
   assert.equal(clientAddress({ headers: attackerHeaders, ip: '198.18.0.1' }), '203.0.113.9');
-  assert.equal(clientAddress({ headers: { ...attackerHeaders, 'x-azure-clientip': '198.51.100.5', 'x-forwarded-for': '192.0.2.45' } }), '203.0.113.9');
-  assert.equal(clientAddress({ headers: { 'x-azure-socketip': '[2001:db8::7]:49152' } }), '2001:db8::7');
-  assert.equal(clientAddress({ headers: { 'x-azure-socketip': '2001:db8::7' } }), '2001:db8::7');
-  assert.equal(clientAddress({ headers: { 'x-azure-clientip': '198.51.100.4', 'x-forwarded-for': '203.0.113.9' } }), 'unknown-platform-client');
+  assert.equal(clientAddress({ headers: { ...attackerHeaders, 'x-azure-clientip': '198.51.100.5', 'x-forwarded-for': '192.0.2.45, 203.0.113.9:58301' } }), '203.0.113.9');
+  assert.equal(clientAddress({ headers: { 'x-forwarded-for': '192.0.2.46, [2001:db8::7]:49152' } }), '2001:db8::7');
+  assert.equal(clientAddress({ headers: { 'x-forwarded-for': '192.0.2.47, 2001:db8::7' } }), '2001:db8::7');
+  assert.equal(clientAddress({ headers: { 'x-azure-clientip': '198.51.100.4', 'x-azure-socketip': '203.0.113.9' } }), 'unknown-platform-client');
   assert.equal(clientAddress({ headers: {}, socket: { remoteAddress: '203.0.113.11' } }), '203.0.113.11');
 });
 

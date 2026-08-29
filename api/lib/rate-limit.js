@@ -25,15 +25,18 @@ function normalizeAddress(value) {
 }
 
 function clientAddress(req) {
-  // Azure Front Door overwrites X-Azure-SocketIP with the TCP peer it observed.
-  // X-Azure-ClientIP and forwarding headers can be supplied by a caller and must
-  // never influence the allowance key.
-  const platformAddress = normalizeAddress(header(req, 'x-azure-socketip'));
-  if (platformAddress) return platformAddress;
+  // The Azure Functions host appends its observed peer to X-Forwarded-For.
+  // Caller-supplied values remain only as prefixes, so read from the trusted
+  // platform end of the chain. Azure-named client/socket headers can pass
+  // through Static Web Apps unchanged and must never influence the key.
+  const forwarded = String(header(req, 'x-forwarded-for') || '').split(',');
+  for (let index = forwarded.length - 1; index >= 0; index -= 1) {
+    const platformAddress = normalizeAddress(forwarded[index]);
+    if (platformAddress) return platformAddress;
+  }
 
   // This fallback is useful when the function is hosted directly. It is the
-  // server-observed peer, not an HTTP header. Managed SWA requests use the
-  // platform header above.
+  // server-observed peer, not an HTTP header.
   return normalizeAddress(req?.socket?.remoteAddress || req?.connection?.remoteAddress) || 'unknown-platform-client';
 }
 
