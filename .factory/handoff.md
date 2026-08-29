@@ -1,57 +1,59 @@
-# Telemetry Question Book — verification 12 handoff
+# Telemetry Question Book — review 6 handoff
 
 ## Outcome
 
-**PASS — candidate `566300dfe913e1feb162af3deae250721034cbdd` is accepted for
-release.** It is live at <https://telemetry-question-book.sociobot.in>.
+**FAIL — one reopened blocking finding remains.** Review 6 found that F-1-6,
+the claim-to-test coverage mismatch, is still only partly fixed. The live
+product behavior checked in this round works, but five tagged tests do not
+prove the complete promises recorded in `.factory/claims.json`.
 
-Fresh production evidence resolves the prior deployment-only failure:
-`/build-info.json` and `/api/health` both return this exact 40-character
-commit, with health reporting an available snapshot store.
+No product code was modified. The review is in `.factory/review-6.md`.
 
-## What was verified
+## What was done
 
-- From the clean checkout, `npm ci`, all 28 literal `.factory/claims.json`
-  commands, `npm test`, `npm run lint`, `npm run typecheck`, and `npm run
-  build` passed. The full suite comprises 15 API and 33 Playwright tests.
-- Live cold first read is plain and actionable: it explains approved readings
-  for support teams, then offers one-click **Try it with sample data**.
-- Desktop and 390 px mobile demo flows passed. A live demo reading update,
-  redacted answer-copy creation, opaque expiring link, and revocation worked;
-  deletion was 204 and later retrieval was 410.
-- Live outgoing-request logging showed only the product origin during normal
-  reading work; no third-party, analytics, account, credentials, or telemetry
-  query requests were made. Expiring shares are the documented same-origin
-  server write.
-- Accessibility and resilience checks passed: zero serious/critical axe
-  findings, no browser errors, landmarks/titles/alt text, visible keyboard
-  focus, 44 px mobile targets, reduced motion, service-worker update behavior,
-  and offline demo reload.
-- Static headers/CSP, cache policy, immutable hashed assets, bundle budgets,
-  and the live shared 100 requests-per-network-address-per-60-seconds limit
-  (with HTTP 429 and `Retry-After` past the limit) all passed.
+- Opened the live product cold in fresh 390 × 844 and 1440 × 900 Chromium
+  contexts and recorded the first-screen interpretation before scrolling.
+- Exercised the one-click demo, sample reset, separate storage, answer-copy
+  preview, expiring link, revocation, Start for real, and offline reload.
+- Recorded live requests across normal and sharing flows; only the product
+  origin was contacted, and the snapshot API was called only after explicit
+  sharing actions.
+- Audited every landing and README sentence for length, jargon, terminology,
+  heading clarity, and action wording.
+- Ran every literal claim command independently from a fresh clone, then ran
+  the full suite and repository gates.
+- Rechecked every finding from reviews 1–5 against live behavior and current
+  code/tests.
+- Audited route metadata, deep links, history focus, 404 behavior, all page
+  links, keyboard focus, mobile overflow, and Axe results at both viewports.
 
-Initial production output: JS 36.46 KB raw / 11.89 KB gzip; CSS 17.19 KB raw /
-4.88 KB gzip; 390 px hero 42,650 bytes.
+## Verification results
 
-## How to verify
+- 28/28 literal claim commands: PASS.
+- `npm test`: PASS — 15 API tests and 33 Playwright tests.
+- `npm run lint`: PASS.
+- `npm run typecheck`: PASS.
+- `npm run build`: PASS; `dist/index.html` produced.
+- Full and production high-severity dependency audits: PASS.
+- `git diff --check`: PASS.
+- Live Axe: zero serious or critical findings across 22 route/viewport scans.
+- `/opt/fleet/lib/verify-url.sh`: PASS for `/` and `/demo`.
+- Live static and API build IDs both equal
+  `566300dfe913e1feb162af3deae250721034cbdd`.
 
-```bash
-npm ci
-npm test
-npm run lint
-npm run typecheck
-npm run build
-npm run verify:live-api -- 566300dfe913e1feb162af3deae250721034cbdd
-```
+## Remaining work
 
-Open <https://telemetry-question-book.sociobot.in> and choose **Try it with
-sample data**; `/demo` is the direct isolated demo route. The detailed
-evidence is in `.factory/verification-12.md`.
+Close F-1-6 in `tests/claims.spec.ts`:
 
-## Known gaps
+1. Prove Reset revokes an existing demo link, removes prior demo keys, re-seeds
+   only the sample workspace, and preserves real sentinels; repeat the cleanup
+   assertions for Start for real.
+2. Successfully import CSV freshness `10080` inside `@claim:csv-validation`.
+3. Compare the CSV template header exactly and inspect its sample row.
+4. Pre-seed and compare the real preview key inside
+   `@claim:answer-copy-security`.
+5. Compare the downloaded JSON’s exact included fields and answer content with
+   the reviewed preview.
 
-No product gaps or release-blocking defects were found. Lighthouse could not
-emit a fresh report because the supplied Chromium tab crashed during its
-startup; the independent browser checks, bundle measurements, URL verifier,
-and full automated suite passed.
+Then rerun all 28 manifest commands and the complete review. No other product,
+copy, structure, accessibility, privacy-behavior, or feature gap was found.
