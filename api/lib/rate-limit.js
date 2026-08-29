@@ -1,4 +1,5 @@
 const { createHash } = require('node:crypto');
+const { isIP } = require('node:net');
 const { consumeRateLimit } = require('./store');
 
 const LIMIT = 100;
@@ -12,7 +13,16 @@ function header(req, name) {
 
 function clientAddress(req) {
   const forwarded = header(req, 'x-azure-clientip') || header(req, 'x-forwarded-for') || header(req, 'client-ip') || req?.ip || 'unknown';
-  return String(forwarded).split(',')[0].trim().slice(0, 128) || 'unknown';
+  const address = String(forwarded).split(',')[0].trim().slice(0, 128);
+  const bracketed = address.match(/^\[([^\]]+)](?::\d+)?$/);
+  if (bracketed && isIP(bracketed[1])) return bracketed[1];
+  const ipv4WithPort = address.match(/^(\d{1,3}(?:\.\d{1,3}){3}):\d+$/);
+  if (ipv4WithPort && isIP(ipv4WithPort[1]) === 4) return ipv4WithPort[1];
+  if (isIP(address)) return address;
+  const lastColon = address.lastIndexOf(':');
+  const possibleIpv6 = lastColon > 0 ? address.slice(0, lastColon) : '';
+  if (/^\d+$/.test(address.slice(lastColon + 1)) && isIP(possibleIpv6) === 6) return possibleIpv6;
+  return address || 'unknown';
 }
 
 function createRateLimiter(options = {}) {

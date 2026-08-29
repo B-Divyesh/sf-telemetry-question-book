@@ -65,6 +65,15 @@ test('@claim:api-rate-limit all snapshot routes share one per-client minute and 
   assert.equal(otherClient.allowed, true);
 });
 
+test('forwarded source ports cannot split one client into multiple allowances', async () => {
+  const { clientAddress } = require('../lib/rate-limit');
+  assert.equal(clientAddress({ headers: { 'x-forwarded-for': '203.0.113.9:49152' } }), '203.0.113.9');
+  assert.equal(clientAddress({ headers: { 'x-forwarded-for': '203.0.113.9:58301, 10.0.0.1' } }), '203.0.113.9');
+  assert.equal(clientAddress({ headers: { 'x-forwarded-for': '[2001:db8::7]:49152' } }), '2001:db8::7');
+  assert.equal(clientAddress({ headers: { 'x-forwarded-for': '2001:db8::7' } }), '2001:db8::7');
+  assert.equal(clientAddress({ headers: { 'x-azure-clientip': '198.51.100.4:5000', 'x-forwarded-for': '203.0.113.9:49152' } }), '198.51.100.4');
+});
+
 test('limiter fails closed with a plain retry response when shared storage is unavailable', async () => {
   const { createRateLimiter } = require('../lib/rate-limit');
   const limit = createRateLimiter({ consume: async () => { throw new Error('connection details must not leak'); } });
