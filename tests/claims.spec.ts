@@ -74,7 +74,7 @@ test('@claim:demo-controls reset sample changes and leave real data untouched', 
   expect(await page.evaluate(() => sessionStorage.getItem('tqb:snapshot-preview'))).toBe('REAL PREVIEW SENTINEL');
   expect(await page.evaluate(() => sessionStorage.getItem('demo:tqb:snapshot-preview'))).toContain('Northstar');
   await page.getByRole('button', { name: 'Create expiring link' }).click();
-  const demoToken = new URL(await page.getByLabel('Expiring answer link').inputValue()).pathname.split('/').pop()!;
+  const demoToken = new URL(await page.getByLabel('Expiring link').inputValue()).pathname.split('/').pop()!;
   expect((await request.get(`/api/snapshots/${demoToken}`)).status()).toBe(200);
   await page.getByRole('button', { name: 'Start for real' }).click();
   await expect(page).toHaveURL(/\/book$/);
@@ -149,7 +149,7 @@ test('@claim:free-core keeps all question workflows available without an account
   await page.getByRole('button', { name: 'Download JSON' }).click();
   expect(JSON.parse(await downloadedText(await download)).question).toBe('Did Northstar orders arrive?');
   await page.getByRole('button', { name: 'Create expiring link' }).click();
-  await expect(page.getByLabel('Expiring answer link')).toHaveValue(/\/s\/d_[a-f0-9]+$/);
+  await expect(page.getByLabel('Expiring link')).toHaveValue(/\/s\/d_[a-f0-9]+$/);
   await expect(page.locator('input[type="password"], a[href*="checkout"]')).toHaveCount(0);
 });
 
@@ -170,11 +170,11 @@ test('@claim:offline-sharing explains that links need a connection and recovers 
   await page.getByRole('button', { name: 'Make answer copy' }).first().click();
   await page.getByRole('button', { name: 'Review answer copy' }).click();
   await page.getByRole('button', { name: 'Create expiring link' }).click();
-  const token = new URL(await page.getByLabel('Expiring answer link').inputValue()).pathname.split('/').pop()!;
+  const token = new URL(await page.getByLabel('Expiring link').inputValue()).pathname.split('/').pop()!;
 
   await context.setOffline(true);
   await page.goto(`/s/${token}`);
-  await expect(page.getByText('You are offline. Reconnect and reload this page to open the answer link.')).toBeVisible();
+  await expect(page.getByText('You are offline. Reconnect and reload this page to open the expiring link.')).toBeVisible();
   await page.goto('/demo/snapshot');
   await page.getByRole('button', { name: 'Create expiring link' }).click();
   await expect(page.getByText('You are offline. Reconnect, then create the expiring link again.')).toBeVisible();
@@ -182,7 +182,7 @@ test('@claim:offline-sharing explains that links need a connection and recovers 
   await context.setOffline(false);
   await page.reload();
   await page.getByRole('button', { name: 'Create expiring link' }).click();
-  await expect(page.getByLabel('Expiring answer link')).toHaveCount(2);
+  await expect(page.getByLabel('Expiring link')).toHaveCount(2);
   await page.goto(`/s/${token}`);
   await expect(page.getByRole('heading', { name: 'Did Northstar orders arrive?' })).toBeVisible();
 });
@@ -371,7 +371,7 @@ test('@claim:expiring-share creates an opaque link that expires server-side and 
   await page.getByRole('button', { name: 'Make answer copy' }).first().click();
   await page.getByRole('button', { name: 'Review answer copy' }).click();
   await page.getByRole('button', { name: 'Create expiring link' }).click();
-  const link = page.getByLabel('Expiring answer link');
+  const link = page.getByLabel('Expiring link');
   await expect(link).toHaveValue(/\/s\/d_[a-f0-9]+$/);
   const sharedUrl = await link.inputValue();
   expect(sharedUrl).not.toContain('Northstar');
@@ -390,12 +390,41 @@ test('@claim:expiring-share creates an opaque link that expires server-side and 
   expect((await request.get(`/api/snapshots/${shortToken}`)).status()).toBe(410);
 });
 
+test('@claim:share-expiry-options sends and receives each advertised expiry duration', async ({ page }) => {
+  const options = [
+    { label: '1 hour', seconds: 3_600 },
+    { label: '24 hours', seconds: 86_400 },
+    { label: '7 days', seconds: 604_800 }
+  ];
+
+  for (const option of options) {
+    await page.goto('/demo');
+    await page.getByRole('button', { name: 'Make answer copy' }).first().click();
+    await page.locator('select[name="ttl"]').selectOption(String(option.seconds));
+    await page.getByRole('button', { name: 'Review answer copy' }).click();
+
+    const requestedAt = Date.now();
+    const responsePromise = page.waitForResponse((response) => response.url().endsWith('/api/snapshots') && response.request().method() === 'POST');
+    await page.getByRole('button', { name: 'Create expiring link' }).click();
+    const response = await responsePromise;
+    const body = response.request().postDataJSON() as { ttlSeconds?: number };
+    const result = await response.json() as { expiresAt?: string };
+
+    expect(response.status()).toBe(201);
+    expect(body.ttlSeconds).toBe(option.seconds);
+    expect(result.expiresAt).toBeTruthy();
+    const duration = Date.parse(result.expiresAt!) - requestedAt;
+    expect(duration).toBeGreaterThanOrEqual(option.seconds * 1_000 - 2_000);
+    expect(duration).toBeLessThanOrEqual(option.seconds * 1_000 + 2_000);
+  }
+});
+
 test('@claim:share-redaction keeps hidden fields out of the stored recipient payload', async ({ page, request }) => {
   await page.goto('/demo');
   await page.getByRole('button', { name: 'Make answer copy' }).first().click();
   await page.getByRole('button', { name: 'Review answer copy' }).click();
   await page.getByRole('button', { name: 'Create expiring link' }).click();
-  const token = new URL(await page.getByLabel('Expiring answer link').inputValue()).pathname.split('/').pop()!;
+  const token = new URL(await page.getByLabel('Expiring link').inputValue()).pathname.split('/').pop()!;
   const stored = await (await request.get(`/api/snapshots/${token}`)).json();
   expect(stored.snapshot).toMatchObject({ question: 'Did Northstar orders arrive?', redacted: true, demo: true });
   expect(stored.snapshot).not.toHaveProperty('owner');
@@ -411,10 +440,10 @@ test('@claim:share-revocation makes a recipient link unavailable immediately', a
   await page.getByRole('button', { name: 'Make answer copy' }).first().click();
   await page.getByRole('button', { name: 'Review answer copy' }).click();
   await page.getByRole('button', { name: 'Create expiring link' }).click();
-  const token = new URL(await page.getByLabel('Expiring answer link').inputValue()).pathname.split('/').pop()!;
+  const token = new URL(await page.getByLabel('Expiring link').inputValue()).pathname.split('/').pop()!;
   expect((await request.get(`/api/snapshots/${token}`)).status()).toBe(200);
   await page.reload();
-  await expect(page.getByLabel('Expiring answer link')).toHaveValue(new RegExp(`/s/${token}$`));
+  await expect(page.getByLabel('Expiring link')).toHaveValue(new RegExp(`/s/${token}$`));
   await page.getByRole('button', { name: 'Revoke link now' }).click();
   await expect(page.getByText('Link revoked.')).toBeVisible();
   expect((await request.get(`/api/snapshots/${token}`)).status()).toBe(410);

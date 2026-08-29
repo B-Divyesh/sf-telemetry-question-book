@@ -48,7 +48,7 @@ Audited 29 August 2026. Counts use whitespace-delimited words and treat hyphenat
 | 4 | Add an approved reading | Pass |
 | 10 | Paste a read-only link or import an approved CSV export. | Pass |
 | 3 | Share the answer | Pass |
-| 5 | Create an expiring answer link. | Pass; `expiring-share` |
+| 5 | Create an expiring link. | Pass; `expiring-share` |
 | 9 | Choose whether to hide the owner, source, and note. | Pass; `share-redaction` |
 | 7 | What the question book does not do | Pass |
 | 3 | It translates readings. | Pass |

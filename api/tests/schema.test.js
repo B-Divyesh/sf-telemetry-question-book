@@ -102,6 +102,6 @@ test('read handler removes malformed stored data and returns a plain unavailable
   const handler = require(handlerPath);
   const response = await handler({ bindingData: { token: 'r_bad' } }, { headers: {} });
   assert.equal(response.status, 410);
-  assert.deepEqual(JSON.parse(response.body), { error: 'This answer link is unavailable.', reason: 'invalid' });
+  assert.deepEqual(JSON.parse(response.body), { error: 'This expiring link is unavailable.', reason: 'invalid' });
   assert.deepEqual(removed, { token: 'r_bad', reason: 'invalid' });
 });

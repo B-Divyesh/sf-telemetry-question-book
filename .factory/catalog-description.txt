@@ -1,1 +1,1 @@
-Track recurring telemetry answers from approved readings, then share a time-limited link.
+Track recurring telemetry answers from approved readings and share expiring links.

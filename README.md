@@ -12,8 +12,8 @@ Try the isolated sample at `/demo`, `/?demo=1`, or <https://telemetry-question-b
 - Updates a recurring reading without making a duplicate card.
 - Imports new CSV rows and updates matching question names.
 - Marks readings as on track, needs attention, or stale.
-- Creates answer links with random IDs that expire after 1 hour, 24 hours, or 7 days.
-- Lets the creator revoke an answer link before it expires.
+- Creates expiring links with random IDs. Choose 1 hour, 24 hours, or 7 days.
+- Lets the creator revoke an expiring link before it expires.
 - Exports every saved question as a CSV backup.
 - Downloads dated answer copies as JSON.
 - Hides the owner, source, and note by default.
@@ -57,13 +57,13 @@ question,owner,source,sourceUrl,value,unit,threshold,comparison,observedAt,fresh
 
 ## Data and sharing
 
-Real questions use `tqb:v1`. Demo questions use `demo:tqb:v1`. Real and demo answer previews use separate session-storage keys. Preview data never enters the URL.
+Real questions use `tqb:v1`. Demo questions use `demo:tqb:v1`. The browser stores real and demo answer previews separately. Preview data never enters the URL.
 
 Creating an expiring link sends the reviewed copy to this site’s sharing service. The link contains a random ID, not the answer. The service checks expiry and revocation on every read. Demo link IDs start with `d_`. **Reset demo** and **Start for real** revoke them.
 
 The reviewed answer is stored separately until its chosen expiry time. Azure Storage removes it automatically at expiry, even when nobody opens the link. The service keeps only the link ID, expiry time, demo status, and a one-way revocation code. Revocation deletes the reviewed answer immediately.
 
-The anonymous snapshot routes share an allowance of 100 requests per client in each 60-second window. This allowance covers create, open, and revoke requests together. Request 101 returns HTTP `429` with `Retry-After`. `/api/health` is read-only and exempt.
+The sharing service groups requests by network address. Each address can create, open, or revoke 100 links in 60 seconds. The 101st request returns HTTP `429` with `Retry-After`. Health checks do not use this limit.
 
 Downloaded files do not expire or provide access control. Do not put secrets in them. The app has no account service or analytics. See `/privacy` and `/terms`.
 
@@ -73,13 +73,13 @@ This release is free and has no purchase flow.
 
 ## Deployment
 
-Run `npm run build`, then deploy `dist/` with the managed functions in `api/`:
+Run `npm run build`, then deploy `dist/` together with the server functions in `api/`:
 
 ```bash
 /opt/fleet/lib/deploy-static.sh telemetry-question-book dist
 ```
 
-The Static Web App needs a secret `SnapshotStorage` app setting that points to the approved first-party Azure Storage account. The connection needs Table and Queue service access. Never commit its value. Set non-secret `BUILD_ID` to the deployed commit; `/api/health` reports it for parity checks.
+The deployed app needs a secret `SnapshotStorage` setting for the approved Azure Storage account owned by this service. The connection needs Table and Queue service access. Never commit its value. Set non-secret `BUILD_ID` to the deployed commit so `/api/health` reports which commit is running.
 
 Run `npm --prefix api run cleanup:legacy` only when upgrading storage created before version 1.2.0. The command migrates active answers and removes expired ones.
 

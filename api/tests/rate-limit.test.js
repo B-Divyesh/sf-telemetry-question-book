@@ -37,7 +37,7 @@ test('shared atomic storage allowance admits 100 concurrent requests and rejects
   assert.equal(results.at(-1).resetAtMs, 1_060_000);
 });
 
-test('@claim:api-rate-limit all snapshot routes share one per-client minute and 429 includes Retry-After', async () => {
+test('@claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After', async () => {
   const ratePath = require.resolve('../lib/rate-limit');
   const storePath = require.resolve('../lib/store');
   const createPath = require.resolve('../snapshots-create');

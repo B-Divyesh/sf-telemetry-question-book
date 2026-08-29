@@ -245,7 +245,7 @@ function landingPage(): string {
         <ol class="steps">
           <li><span>01</span><h3>Name the question</h3><p>Write the customer question and assign its owner.</p></li>
           <li><span>02</span><h3>Add an approved reading</h3><p>Paste a read-only link or import an approved CSV export.</p></li>
-          <li><span>03</span><h3>Share the answer</h3><p>Create an expiring answer link. Choose whether to hide the owner, source, and note.</p></li>
+          <li><span>03</span><h3>Share the answer</h3><p>Create an expiring link. Choose whether to hide the owner, source, and note.</p></li>
         </ol>
       </section>
 
@@ -335,7 +335,7 @@ function snapshotTicket(snapshot: Snapshot, editable: boolean, expiresAt?: strin
 }
 
 function sharedSnapshotPage(): string {
-  return shell('<main id="main" class="snapshot-page"><section class="snapshot-ticket" id="shared-ticket"><p class="eyebrow">Shared answer copy</p><h1 tabindex="-1">Loading answer link</h1><p role="status">Checking its expiry and revocation status.</p></section></main>');
+  return shell('<main id="main" class="snapshot-page"><section class="snapshot-ticket" id="shared-ticket"><p class="eyebrow">Shared answer copy</p><h1 tabindex="-1">Loading expiring link</h1><p role="status">Checking its expiry and revocation status.</p></section></main>');
 }
 
 async function loadSharedSnapshot(path: string): Promise<void> {
@@ -346,15 +346,15 @@ async function loadSharedSnapshot(path: string): Promise<void> {
     if (!navigator.onLine) throw new Error('offline');
     const response = await fetch(`/api/snapshots/${encodeURIComponent(token)}`, { headers: { Accept: 'application/json' } });
     const result = await response.json() as { snapshot?: Snapshot; expiresAt?: string; error?: string };
-    if (!response.ok || !result.snapshot || !result.expiresAt) throw new Error(result.error || 'This answer link could not be opened.');
+    if (!response.ok || !result.snapshot || !result.expiresAt) throw new Error(result.error || 'This expiring link could not be opened.');
     activeSharedSnapshot = result.snapshot;
     ticket.outerHTML = snapshotTicket(result.snapshot, false, result.expiresAt);
     setMetadata(`${result.snapshot.question} — Telemetry Question Book`, 'A time-limited telemetry answer shared from Telemetry Question Book.', path, true);
   } catch (reason) {
     const message = !navigator.onLine
-      ? 'You are offline. Reconnect and reload this page to open the answer link.'
-      : reason instanceof Error ? reason.message : 'This answer link could not be opened.';
-    ticket.innerHTML = `<p class="eyebrow">Unavailable answer link</p><h1 tabindex="-1">This answer link is no longer available</h1><p>${escapeHtml(message)}</p><a class="button primary" href="/" data-link>Open Telemetry Question Book</a>`;
+      ? 'You are offline. Reconnect and reload this page to open the expiring link.'
+      : reason instanceof Error ? reason.message : 'This expiring link could not be opened.';
+    ticket.innerHTML = `<p class="eyebrow">Unavailable expiring link</p><h1 tabindex="-1">This expiring link is no longer available</h1><p>${escapeHtml(message)}</p><a class="button primary" href="/" data-link>Open Telemetry Question Book</a>`;
   }
   document.querySelector<HTMLElement>('h1')?.focus();
 }
@@ -399,8 +399,8 @@ const descriptions: Record<string, string> = {
   '/demo': 'Try Telemetry Question Book with three isolated sample readings.',
   '/demo/snapshot': 'Review a demo answer copy before creating a time-limited link.',
   '/book': 'Save, update, import, and share approved telemetry readings from this browser.',
-  '/privacy': 'Learn what Telemetry Question Book stores locally and what an expiring answer link sends.',
-  '/terms': 'Terms for using approved telemetry readings and expiring answer links.',
+  '/privacy': 'Learn what Telemetry Question Book stores locally and what an expiring link sends.',
+  '/terms': 'Terms for using approved telemetry readings and expiring links.',
   '/snapshot': 'Review an answer copy before downloading it or creating an expiring link.',
   '/404': 'This address does not match a Telemetry Question Book page.'
 };
@@ -593,7 +593,7 @@ function shareEntriesMarkup(demo: boolean): string {
   if (!shares.length) return '';
   return `<strong>Active expiring links</strong>${shares.map((share, index) => {
     const url = `${location.origin}/s/${share.token}`;
-    return `<div class="share-entry"><label for="share-url-${index}">Expiring answer link</label><div class="share-link"><input id="share-url-${index}" readonly value="${escapeHtml(url)}"><button class="button secondary" data-action="copy-share" data-url="${escapeHtml(url)}">Copy link</button></div><p>Expires ${new Date(share.expiresAt).toLocaleString()}.</p><button class="text-button danger-link" data-action="revoke-share" data-token="${escapeHtml(share.token)}" data-revoke-key="${escapeHtml(share.revokeKey)}">Revoke link now</button></div>`;
+    return `<div class="share-entry"><label for="share-url-${index}">Expiring link</label><div class="share-link"><input id="share-url-${index}" readonly value="${escapeHtml(url)}"><button class="button secondary" data-action="copy-share" data-url="${escapeHtml(url)}">Copy link</button></div><p>Expires ${new Date(share.expiresAt).toLocaleString()}.</p><button class="text-button danger-link" data-action="revoke-share" data-token="${escapeHtml(share.token)}" data-revoke-key="${escapeHtml(share.revokeKey)}">Revoke link now</button></div>`;
   }).join('')}`;
 }
 

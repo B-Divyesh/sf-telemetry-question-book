@@ -36,12 +36,12 @@ createServer(async (req, res) => {
   const match = url.pathname.match(/^\/api\/snapshots\/([a-z]_[a-f0-9]+)$/);
   if (match && req.method === 'GET') {
     const record = snapshots.get(match[1]);
-    if (revoked.has(match[1])) return json(res, 410, { error: 'This answer link has expired or was revoked.' });
-    if (!record) return json(res, 404, { error: 'This answer link was not found.' });
+    if (revoked.has(match[1])) return json(res, 410, { error: 'This expiring link has expired or was revoked.' });
+    if (!record) return json(res, 404, { error: 'This expiring link was not found.' });
     if (Date.parse(record.expiresAt) <= Date.now()) {
       snapshots.delete(match[1]);
       revoked.add(match[1]);
-      return json(res, 410, { error: 'This answer link has expired or was revoked.' });
+      return json(res, 410, { error: 'This expiring link has expired or was revoked.' });
     }
     return json(res, 200, { snapshot: record.snapshot, expiresAt: record.expiresAt });
   }
