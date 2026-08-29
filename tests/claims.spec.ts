@@ -75,13 +75,32 @@ test('@claim:demo-controls reset sample changes and leave real data untouched', 
     localStorage.setItem('tqb:v1', JSON.stringify([{ id: 'real', question: 'Real sentinel question', owner: 'Real owner', source: 'Real source', sourceUrl: 'https://example.test/real', value: 1, unit: 'event', threshold: 1, comparison: 'eq', observedAt: new Date().toISOString(), freshMinutes: 60, note: '' }]));
     sessionStorage.setItem('tqb:snapshot-preview', 'REAL PREVIEW SENTINEL');
     sessionStorage.setItem('tqb:shares', '[{"token":"real-share-sentinel"}]');
-    localStorage.setItem('demo:tqb:v1', '[]');
-    sessionStorage.setItem('demo:extra', 'remove me');
+    localStorage.setItem('demo:extra-local', 'remove me on reset');
+    sessionStorage.setItem('demo:extra-session', 'remove me on reset');
   });
-  await page.reload();
-  await expect(page.locator('.question-card')).toHaveCount(0);
+
+  const realData = async () => page.evaluate(() => ({
+    questions: localStorage.getItem('tqb:v1'),
+    preview: sessionStorage.getItem('tqb:snapshot-preview'),
+    shares: sessionStorage.getItem('tqb:shares')
+  }));
+  const realBefore = await realData();
+
+  await page.getByRole('button', { name: 'Make answer copy' }).first().click();
+  await page.getByRole('button', { name: 'Review answer copy' }).click();
+  await page.getByRole('button', { name: 'Create expiring link' }).click();
+  const resetToken = new URL(await page.getByLabel('Expiring link').inputValue()).pathname.split('/').pop()!;
+  expect(resetToken).toMatch(/^d_[a-f0-9]+$/);
+  expect((await request.get(`/api/snapshots/${resetToken}`)).status()).toBe(200);
+
   await page.getByRole('button', { name: 'Reset demo' }).click();
+  await expect(page).toHaveURL(/\/demo$/);
   await expect(page.locator('.question-card')).toHaveCount(3);
+  await expect(page.locator('.question-card').first().getByText('1,842', { exact: true })).toBeVisible();
+  expect((await request.get(`/api/snapshots/${resetToken}`)).status()).toBe(410);
+  expect(await page.evaluate(() => [...Object.keys(localStorage), ...Object.keys(sessionStorage)].filter((key) => key.startsWith('demo:')).sort())).toEqual(['demo:tqb:v1']);
+  expect(await realData()).toEqual(realBefore);
+
   await page.getByRole('button', { name: 'Make answer copy' }).first().click();
   await page.getByRole('button', { name: 'Review answer copy' }).click();
   await expect(page).toHaveURL(/\/demo\/snapshot$/);
@@ -89,15 +108,18 @@ test('@claim:demo-controls reset sample changes and leave real data untouched', 
   expect(await page.evaluate(() => sessionStorage.getItem('tqb:snapshot-preview'))).toBe('REAL PREVIEW SENTINEL');
   expect(await page.evaluate(() => sessionStorage.getItem('demo:tqb:snapshot-preview'))).toContain('Northstar');
   await page.getByRole('button', { name: 'Create expiring link' }).click();
-  const demoToken = new URL(await page.getByLabel('Expiring link').inputValue()).pathname.split('/').pop()!;
-  expect((await request.get(`/api/snapshots/${demoToken}`)).status()).toBe(200);
+  const startToken = new URL(await page.getByLabel('Expiring link').inputValue()).pathname.split('/').pop()!;
+  expect(startToken).toMatch(/^d_[a-f0-9]+$/);
+  expect((await request.get(`/api/snapshots/${startToken}`)).status()).toBe(200);
+  await page.evaluate(() => {
+    localStorage.setItem('demo:extra-local', 'remove me on start');
+    sessionStorage.setItem('demo:extra-session', 'remove me on start');
+  });
   await page.getByRole('button', { name: 'Start for real' }).click();
   await expect(page).toHaveURL(/\/book$/);
-  expect(await page.evaluate(() => localStorage.getItem('tqb:v1'))).toContain('Real sentinel question');
-  expect(await page.evaluate(() => sessionStorage.getItem('tqb:snapshot-preview'))).toBe('REAL PREVIEW SENTINEL');
-  expect(await page.evaluate(() => sessionStorage.getItem('tqb:shares'))).toContain('real-share-sentinel');
+  expect(await realData()).toEqual(realBefore);
   expect(await page.evaluate(() => [...Object.keys(localStorage), ...Object.keys(sessionStorage)].filter((key) => key.startsWith('demo:')))).toEqual([]);
-  expect((await request.get(`/api/snapshots/${demoToken}`)).status()).toBe(410);
+  expect((await request.get(`/api/snapshots/${startToken}`)).status()).toBe(410);
 });
 
 test('@claim:card-fields retains owner, freshness, threshold, and source across reload', async ({ page }) => {
@@ -252,6 +274,9 @@ test('@claim:csv-validation enforces required fields, HTTPS, and whole-minute li
   await page.locator('input[type="file"]').setInputFiles({ name: 'questions.csv', mimeType: 'text/csv', buffer: Buffer.from(validCsv(180, 'One minute').replace(',10080,', ',1,')) });
   await page.getByRole('button', { name: 'Import questions' }).click();
   await expect(page.getByRole('heading', { name: 'One minute' })).toBeVisible();
+  await importCsv(page, validCsv(180, 'Maximum freshness'));
+  await expect(page.getByRole('heading', { name: 'Maximum freshness' })).toBeVisible();
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('demo:tqb:v1') || '[]').find((item: { question: string }) => item.question === 'Maximum freshness')?.freshMinutes)).toBe(10080);
 
   await openQuestionForm(page);
   const question = page.locator('input[name="question"]');
@@ -284,7 +309,7 @@ test('@claim:csv-validation enforces required fields, HTTPS, and whole-minute li
   await page.locator('input[name="freshMinutes"]').fill('10080');
   await page.getByRole('button', { name: 'Save question' }).click();
   await expect(page.getByRole('heading', { name: 'Is Quasar delivery current?' })).toBeVisible();
-  await expect(page.locator('.question-card')).toHaveCount(6);
+  await expect(page.locator('.question-card')).toHaveCount(7);
 });
 
 test('@claim:csv-schema accepts three comparisons and valid ISO dates, and rejects unknown values and invalid dates', async ({ page }) => {
@@ -314,8 +339,10 @@ test('@claim:csv-template downloads a usable template', async ({ page }) => {
   const artifact = await pending;
   expect(artifact.suggestedFilename()).toBe('question-book-template.csv');
   const csv = await downloadedText(artifact);
-  expect(csv).toContain('question,owner,source,sourceUrl,value,unit,threshold,comparison,observedAt,freshMinutes,note');
-  expect(csv.trim().split('\n')).toHaveLength(2);
+  expect(csv.trim().split('\n')).toEqual([
+    'question,owner,source,sourceUrl,value,unit,threshold,comparison,observedAt,freshMinutes,note',
+    '"Did the daily feed arrive?",Data Platform,Approved Grafana view,https://telemetry-question-book.sociobot.in/sample-sources/northstar-orders,1820,events,1500,gte,2026-08-28T09:30:00Z,60,"Morning batch"'
+  ]);
 });
 
 test('@claim:question-book-export exports one workspace and round-trips every card without duplicates', async ({ page }) => {
@@ -346,6 +373,8 @@ test('@claim:question-book-export exports one workspace and round-trips every ca
 
 test('@claim:answer-copy-security keeps data out of URLs and ignores forged fragments', async ({ page }) => {
   await page.goto('/demo');
+  const realPreview = JSON.stringify({ sentinel: 'REAL PREVIEW MUST NOT CHANGE', version: 2 });
+  await page.evaluate((value) => sessionStorage.setItem('tqb:snapshot-preview', value), realPreview);
   await page.getByRole('button', { name: 'Make answer copy' }).first().click();
   await page.getByRole('button', { name: 'Review answer copy' }).click();
   expect(new URL(page.url()).hash).toBe('');
@@ -357,6 +386,7 @@ test('@claim:answer-copy-security keeps data out of URLs and ignores forged frag
   expect(snapshot).not.toHaveProperty('source');
   expect(snapshot).not.toHaveProperty('note');
   expect(snapshot).not.toHaveProperty('expiresAt');
+  expect(await page.evaluate(() => sessionStorage.getItem('tqb:snapshot-preview'))).toBe(realPreview);
 
   await page.evaluate(() => sessionStorage.clear());
   const forged = Buffer.from(JSON.stringify({ question: 'Forged customer answer', answer: 'CUSTOMER-SECRET-4242' })).toString('base64');
@@ -372,6 +402,10 @@ test('@claim:answer-copy-download exports exactly the reviewed redacted fields',
   await page.getByRole('button', { name: 'Make answer copy' }).first().click();
   await page.getByRole('button', { name: 'Review answer copy' }).click();
   await expect(page.getByText(/Downloaded files do not expire/)).toBeVisible();
+  const reviewed = await page.evaluate(() => JSON.parse(sessionStorage.getItem('demo:tqb:snapshot-preview') || 'null'));
+  expect(reviewed).toMatchObject({ answer: '1,842 orders', status: 'On track' });
+  expect(reviewed.observedAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
+  expect(reviewed.createdAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
   const pending = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download JSON' }).click();
   const artifact = await pending;
@@ -380,8 +414,18 @@ test('@claim:answer-copy-download exports exactly the reviewed redacted fields',
   const chunks: Buffer[] = [];
   for await (const chunk of stream) chunks.push(Buffer.from(chunk));
   const body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
-  expect(body).toMatchObject({ version: 2, question: 'Did Northstar orders arrive?', redacted: true });
-  expect(Object.keys(body)).not.toEqual(expect.arrayContaining(['owner', 'source', 'note', 'expiresAt']));
+  expect(Object.keys(body).sort()).toEqual(['answer', 'createdAt', 'demo', 'observedAt', 'question', 'redacted', 'status', 'version']);
+  expect(body).toEqual(reviewed);
+  expect(body).toMatchObject({
+    version: 2,
+    question: 'Did Northstar orders arrive?',
+    answer: '1,842 orders',
+    status: 'On track',
+    observedAt: reviewed.observedAt,
+    createdAt: reviewed.createdAt,
+    redacted: true,
+    demo: true
+  });
 });
 
 test('@claim:expiring-share creates an opaque link that expires server-side and rejects tampering', async ({ page, request }) => {
