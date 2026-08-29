@@ -21,6 +21,7 @@ Single light mode, painted explicitly. A dark mode would weaken the physical cre
 | `--cream` | `#FFF9E9` | text on dark panel |
 | `--amber` | `#D96F32` | primary action, active needle |
 | `--amber-dark` | `#8B3818` | action hover and outer focus contrast |
+| `--switch-ink` | `#000000` | primary switch labels; stays above 4.5:1 through the paper-grain overlay |
 | `--good` | `#2E6B51` | healthy state, paired with “On track” |
 | `--warn` | `#8A4D0E` | stale or watch state, paired with text |
 | `--danger` | `#92302C` | missed or error state, paired with text |

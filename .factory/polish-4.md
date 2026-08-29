@@ -67,4 +67,4 @@ Every finding below was rechecked in current code, tests, and the deployed produ
 
 ## Final result
 
-No blocking, major, or minor finding remains. The mid-century instrument-panel identity, static deployment class, legal routes, real 404, direct demo URL, isolated storage, expiring links, mobile layout, and accessibility behavior remain intact.
+No blocking, major, or minor finding remains. A final clean-clone replay found one texture-sensitive 3.96:1 primary-button label on mobile `/snapshot`; `--switch-ink: #000000` now keeps that control above 4.5:1, and the full Axe matrix passes. The mid-century instrument-panel identity, static deployment class, legal routes, real 404, direct demo URL, isolated storage, expiring links, mobile layout, and accessibility behavior remain intact.

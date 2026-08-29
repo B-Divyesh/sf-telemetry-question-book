@@ -1,0 +1,167 @@
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-yjLvK2T_.css  17.06 kB │ gzip:  4.85 kB
+dist/assets/index-Dy-1cvQq.js   36.53 kB │ gzip: 11.91 kB
+✓ built in 214ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment uploads the committed artifact, sets its exact BUILD_ID, and verifies live API identity
+ok 1 - @claim:deploy-integrity deployment uploads the committed artifact, sets its exact BUILD_ID, and verifies live API identity
+  ---
+  duration_ms: 93.569655
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 10.256761
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.324202
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 511.391831
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 7.194243
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 4.549727
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.412308
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.004212
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 2.540516
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.500503
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 10.801664
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 2.859017
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 288.221908
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.601403
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.738505
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 682.388245
+[WebServer] (node:23183) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 31 tests using 1 worker
+
+(node:23195) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:23195) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/claims.spec.ts:48:1 › @claim:demo-sandbox opens three realistic questions in isolated storage (668ms)
+  ✓   2 [chromium] › tests/claims.spec.ts:72:1 › @claim:demo-controls reset sample changes and leave real data untouched (1.3s)
+  ✓   3 [chromium] › tests/claims.spec.ts:103:1 › @claim:card-fields retains owner, freshness, threshold, and source across reload (439ms)
+  ✓   4 [chromium] › tests/claims.spec.ts:119:1 › @claim:threshold-states shows on track, needs attention, and stale (434ms)
+  ✓   5 [chromium] › tests/claims.spec.ts:133:1 › @claim:local-browser keeps question and answer-copy data local with no analytics (836ms)
+  ✓   6 [chromium] › tests/claims.spec.ts:150:1 › @claim:free-core keeps all question workflows available without an account or purchase (2.9s)
+  ✓   7 [chromium] › tests/claims.spec.ts:172:1 › @claim:offline-reload reloads the visited demo offline (659ms)
+  ✓   8 [chromium] › tests/claims.spec.ts:185:1 › @claim:offline-sharing explains that links need a connection and recovers after reconnecting (2.5s)
+  ✓   9 [chromium] › tests/claims.spec.ts:208:1 › @claim:question-update changes one recurring card without a duplicate (634ms)
+  ✓  10 [chromium] › tests/claims.spec.ts:221:1 › @claim:csv-import adds a new row and updates a matching recurring question (1.7s)
+  ✓  11 [chromium] › tests/claims.spec.ts:232:1 › @claim:csv-validation enforces required fields, HTTPS, and whole-minute limits in both inputs (6.4s)
+  ✓  12 [chromium] › tests/claims.spec.ts:290:1 › @claim:csv-schema accepts three comparisons and valid ISO dates, and rejects unknown values and invalid dates (1.9s)
+  ✓  13 [chromium] › tests/claims.spec.ts:310:1 › @claim:csv-template downloads a usable template (341ms)
+  ✓  14 [chromium] › tests/claims.spec.ts:321:1 › @claim:question-book-export exports one workspace and round-trips every card without duplicates (2.6s)
+  ✓  15 [chromium] › tests/claims.spec.ts:347:1 › @claim:answer-copy-security keeps data out of URLs and ignores forged fragments (540ms)
+  ✓  16 [chromium] › tests/claims.spec.ts:370:1 › @claim:answer-copy-download exports exactly the reviewed redacted fields (796ms)
+  ✓  17 [chromium] › tests/claims.spec.ts:387:1 › @claim:expiring-share creates an opaque link that expires server-side and rejects tampering (2.0s)
+  ✓  18 [chromium] › tests/claims.spec.ts:411:1 › @claim:share-expiry-options sends and receives each advertised expiry duration (3.2s)
+  ✓  19 [chromium] › tests/claims.spec.ts:440:1 › @claim:share-redaction keeps hidden fields out of the stored recipient payload (953ms)
+  ✓  20 [chromium] › tests/claims.spec.ts:456:1 › @claim:share-revocation makes a recipient link unavailable immediately (1.4s)
+  ✓  21 [chromium] › tests/claims.spec.ts:472:1 › @claim:least-privilege-input accepts HTTPS links and never asks for credentials (1.6s)
+  ✓  22 [chromium] › tests/claims.spec.ts:484:1 › @claim:sample-sources gives every demo card a working local source page (547ms)
+  ✓  23 [chromium] › tests/claims.spec.ts:498:1 › regression: every route has a distinct title, metadata, and navigation focus (1.1s)
+  ✓  24 [chromium] › tests/claims.spec.ts:521:1 › regression: desktop and mobile routes have no serious accessibility issues (10.9s)
+  ✓  25 [chromium] › tests/claims.spec.ts:535:1 › regression: mobile navigation and footer targets meet 44px (330ms)
+  ✓  26 [chromium] › tests/claims.spec.ts:545:1 › regression: the complete first-screen facts fit phone and desktop viewports (674ms)
+  ✓  27 [chromium] › tests/claims.spec.ts:558:1 › regression: a focused mobile skip link does not block Demo navigation (362ms)
+  ✓  28 [chromium] › tests/claims.spec.ts:567:1 › regression: keyboard focus and dialog restoration remain visible (409ms)
+  ✓  29 [chromium] › tests/claims.spec.ts:584:1 › regression: answer-copy dialog keeps visible keyboard focus through both tab boundaries (669ms)
+  ✓  30 [chromium] › tests/claims.spec.ts:612:1 › regression: static response policy has explicit routes and a CSP-safe 404 (19ms)
+  ✓  31 [chromium] › tests/claims.spec.ts:628:1 › regression: service worker replaces old caches and has no waiting update (376ms)
+
+  31 passed (51.1s)

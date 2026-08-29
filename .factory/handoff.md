@@ -6,6 +6,8 @@
 
 Round 4 narrows the first-screen privacy and offline facts to what the product proves. It also rewrites deployment guidance as observable steps and registers result-level deployment and legacy-migration claims. The product-specific mid-century instrument-panel visual system and static-web deployment class are unchanged.
 
+The final clean-clone replay exposed one texture-sensitive 3.96:1 primary-button label on mobile `/snapshot`. The dedicated black switch-label token keeps it above 4.5:1 without changing the amber control or visual direction.
+
 ## Exact verification
 
 - Fresh clone at `400f4bdd3e4be39c56dbbb3ae2e4490f2497a6f8`: all 28 exact `.factory/claims.json` commands passed. Evidence: `.factory/evidence/polish-4/clean-claims.txt`.
