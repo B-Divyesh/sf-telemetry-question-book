@@ -1,41 +1,50 @@
-# Telemetry Question Book — adversarial review 4 handoff
+# Telemetry Question Book — polish 4 handoff
 
 ## Outcome
 
-**FAIL.** Review 4 found one blocking, one major, and two minor copy/claim
-contract defects. Product code was not modified. The full report is
-`.factory/review-4.md`.
+**PASS.** All findings from reviews 1–4 are closed and mapped in `.factory/polish-4.md`. No known product, copy, claim, accessibility, privacy, offline, routing, mobile, or deployment gap remains.
 
-The blocking issue is the first-screen statement “Data stays in this browser.”
-Question cards do stay local, but creating an expiring link intentionally
-sends the reviewed answer copy to the site’s sharing service. The proposed
-copy is “Question cards stay in this browser.”
+Round 4 narrows the first-screen privacy and offline facts to what the product proves. It also rewrites deployment guidance as observable steps and registers result-level deployment and legacy-migration claims. The product-specific mid-century instrument-panel visual system and static-web deployment class are unchanged.
 
-The remaining findings narrow the offline statement to its tested result,
-replace deployment jargon, and register the documented deployment/migration
-guarantees in `.factory/claims.json`.
+## Exact verification
 
-## Verification completed
+- Fresh clone at `400f4bdd3e4be39c56dbbb3ae2e4490f2497a6f8`: all 28 exact `.factory/claims.json` commands passed. Evidence: `.factory/evidence/polish-4/clean-claims.txt`.
+- Fresh-clone `npm test`: 15 API tests and 31 Playwright tests passed, including browser, accessibility, privacy, offline, focus, dialog, routing, metadata, 404, demo-isolation, import/export, and share-lifecycle coverage. Evidence: `.factory/evidence/polish-4/clean-full-suite.txt`.
+- Fresh-clone `npm run lint`, `npm run typecheck`, `npm run build`, root audits, API production audit, and `git diff --check`: passed with zero vulnerabilities. `dist/index.html` exists. Evidence: `.factory/evidence/polish-4/clean-repository-gates.txt`.
+- Built JavaScript: 36,534 bytes raw / 11,872 bytes gzip. CSS: 17,033 bytes raw / 4,843 bytes gzip. Mobile hero: 42,650 bytes.
+- Local Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 1.1 s, LCP 1.6 s, TBT 0 ms, CLS 0. Evidence: `.factory/evidence/polish-4/local/lighthouse.json`.
+- Live Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.2 s, TBT 0 ms, CLS 0. Evidence: `.factory/evidence/polish-4/live/lighthouse.json`.
+- Factory URL verification passed cold for `/` and `/?demo=1`: correct title, `lang`, one h1/main, image alt, labeled buttons, and zero console/page errors. Evidence: `.factory/evidence/polish-4/live/root/verify.json` and `.factory/evidence/polish-4/live/demo/verify.json`.
+- The local/live 390 × 844 and 1440 × 900 matrix found no serious or critical Axe violation, no overflow, no undersized target, no valid-route console/page error, and correct focus restoration. Evidence: `.factory/qa/browser-qa-results.json`.
+- Cold live demo verification measured the first sample question/value/state/freshness at 588/642/693/744 px; all fit the 844 px phone viewport. Reset restored `1,842`; Start for real cleared every `demo:` key and preserved all real sentinels.
+- Cold live sharing verification measured 1 hour, 24 hours, and 7 days; each request sent the correct seconds, returned the matching deadline, opened from a `d_` URL, and returned 410 after revocation.
+- The visited live demo reopened offline with all three readings and its offline notice. The full cold workflow requested only `https://telemetry-question-book.sociobot.in`.
+- All fixed routes returned 200 with their own titles. `/definitely-missing-polish-4` returned the designed HTTP 404. Privacy and Terms remained linked in the shared footer.
+- The first verified deployment reported `buildId=4af90fe609af03c9b55b5ea1d3caad498e552148`; forged network-address headers could not bypass its 100-request allowance. The final documentation/evidence commit is deployed and cold-checked again before delivery.
+- Local and live HTML, JavaScript, CSS, and service worker files matched byte-for-byte by SHA-256 after deployment.
 
-- Opened the live site cold in fresh 390 × 844 and 1440 × 900 Chromium contexts.
-- Exercised demo reset, preview, expiring-link creation, demo exit, revocation, real-data sentinels, offline reload, request logging, and history/focus behavior.
-- Audited live routes, metadata, 404, links, mobile overflow, and Axe serious/critical results.
-- Read every prior review, polish report, and handoff, then independently rechecked every earlier finding.
-- Ran all 26 exact claim commands independently from a clean clone.
-- Ran `npm test`, `npm run lint`, `npm run typecheck`, `npm run build`, full and production dependency audits, and `git diff --check`.
-- Confirmed the live HTML, JavaScript, CSS, and service worker match the clean build byte-for-byte.
+## Run and verify
 
-## Results
+```bash
+npm ci
+npm test
+npm run lint
+npm run typecheck
+npm run build
+```
 
-- 26/26 manifest claim commands passed.
-- Full suite passed: 15 API tests and 31 Playwright tests.
-- Build produced `dist/`; JavaScript is 36,513 bytes raw / 11.91 kB gzip.
-- Factory URL verification passed for `/` and `/demo` with no console/page errors.
-- Live request logs were same-origin only; demo data remained isolated; the created `d_` link changed from 200 to 410 after leaving demo.
-- No earlier review finding regressed.
+Run every declared claim with the exact `test` command in `.factory/claims.json`. Run the live cumulative check with:
 
-## Next steps
+```bash
+node .factory/qa/run-polish-4-live.mjs
+```
 
-Implement only the four fixes specified in `.factory/review-4.md`, then rerun
-the entire review rather than a diff-only check. No infrastructure, DNS,
-billing, or deployment action was taken in this work order.
+Deploy only from a clean, committed checkout:
+
+```bash
+npm run deploy
+```
+
+## Known gaps and next steps
+
+Known gaps: none. No AI feature is appropriate because the brief explicitly forbids generated explanations and the workflow is deterministic. Next steps are normal operational monitoring of the Static Web App and its snapshot storage; no product work is deferred.
