@@ -1,0 +1,20 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["post"],
+      "route": "snapshots"
+    },
+    { "type": "http", "direction": "out", "name": "$return" },
+    {
+      "type": "table",
+      "direction": "out",
+      "name": "snapshotTable",
+      "tableName": "TelemetryQuestionSnapshots",
+      "connection": "AzureWebJobsStorage"
+    }
+  ]
+}

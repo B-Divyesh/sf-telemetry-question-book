@@ -30,11 +30,23 @@ type Snapshot = {
   demo: boolean;
 };
 
+type SharedSnapshot = {
+  token: string;
+  revokeKey: string;
+  expiresAt: string;
+};
+
 const REAL_KEY = 'tqb:v1';
 const DEMO_KEY = 'demo:tqb:v1';
 const SNAPSHOT_KEY = 'tqb:snapshot-preview';
+const DEMO_SNAPSHOT_KEY = 'demo:tqb:snapshot-preview';
+const DEMO_SHARES_KEY = 'demo:tqb:shares';
+const SNAPSHOT_TTL_KEY = 'tqb:snapshot-ttl';
+const DEMO_SNAPSHOT_TTL_KEY = 'demo:tqb:snapshot-ttl';
+const REAL_SHARES_KEY = 'tqb:shares';
 const app = document.querySelector<HTMLDivElement>('#app')!;
 let firstRender = true;
+let activeSharedSnapshot: Snapshot | null = null;
 
 const sampleQuestions = (): Question[] => {
   const ago = (minutes: number) => new Date(Date.now() - minutes * 60_000).toISOString();
@@ -95,11 +107,19 @@ function uid(): string {
 function currentPath(): string {
   if (new URLSearchParams(location.search).get('demo') === '1') return '/demo';
   const path = location.pathname.replace(/\/+$/, '') || '/';
-  return ['/demo', '/book', '/privacy', '/terms', '/snapshot'].includes(path) || path.startsWith('/sample-sources/') ? path : path === '/' ? '/' : '/404';
+  return ['/demo', '/demo/snapshot', '/book', '/privacy', '/terms', '/snapshot'].includes(path) || path.startsWith('/sample-sources/') || /^\/s\/[a-z]_[a-f0-9]+$/.test(path) ? path : path === '/' ? '/' : '/404';
 }
 
 function isDemo(): boolean {
-  return currentPath() === '/demo' || new URLSearchParams(location.search).get('demo') === '1';
+  return currentPath().startsWith('/demo') || new URLSearchParams(location.search).get('demo') === '1';
+}
+
+function snapshotKey(demo = isDemo()): string {
+  return demo ? DEMO_SNAPSHOT_KEY : SNAPSHOT_KEY;
+}
+
+function snapshotTtlKey(demo = isDemo()): string {
+  return demo ? DEMO_SNAPSHOT_TTL_KEY : SNAPSHOT_TTL_KEY;
 }
 
 function loadQuestions(demo = isDemo()): Question[] {
@@ -168,7 +188,7 @@ function header(): string {
       <a class="wordmark" href="/" data-link aria-label="Telemetry Question Book home"><span class="wordmark-dial" aria-hidden="true"></span><span>Telemetry<br>Question Book</span></a>
       <nav aria-label="Main navigation">
         <a href="/demo" data-link>Demo</a>
-        <a href="/book" data-link>My book</a>
+        <a href="/book" data-link>My question book</a>
         <a href="/privacy" data-link>Privacy</a>
       </nav>
     </header>`;
@@ -179,7 +199,7 @@ function footer(): string {
     <footer class="site-footer">
       <p>Plain answers from approved telemetry readings.</p>
       <nav aria-label="Footer navigation"><a href="/privacy" data-link>Privacy</a><a href="/terms" data-link>Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></nav>
-      <p>Version 1.1.0 · Generated illustration disclosed in the design notes.</p>
+      <p>Version 1.2.0 · Generated illustration disclosed in the design notes.</p>
     </footer>`;
 }
 
@@ -199,8 +219,8 @@ function landingPage(): string {
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">Approved readings · plain answers</p>
-          <h1 tabindex="-1">Answer recurring telemetry questions safely</h1>
-          <p class="hero-lede">For support teams who need current answers without broad dashboard access.</p>
+          <h1 tabindex="-1">Track recurring answers from approved readings</h1>
+          <p class="hero-lede">For support teams: enter a reading or approved CSV. The app does not query dashboards.</p>
           <div class="hero-action"><a class="button primary" href="/demo" data-link>Try it with sample data</a><span>Opens a filled question book in one click.</span></div>
           <ul class="plain-facts" aria-label="Product facts">
             <li><span aria-hidden="true">●</span> Data stays in this browser.</li>
@@ -210,26 +230,26 @@ function landingPage(): string {
         </div>
         <figure class="hero-art">
           <picture><source media="(max-width: 700px)" srcset="/assets/question-console-960.webp"><img src="/assets/question-console-1536.webp" width="1536" height="1024" alt="An instrument console turns telemetry paper into a blank answer ticket." fetchpriority="high" decoding="async"></picture>
-          <figcaption>One governed reading in. One support-ready answer out.</figcaption>
+          <figcaption>One approved reading in. One answer copy out.</figcaption>
         </figure>
       </section>
 
       <section class="live-preview" aria-labelledby="preview-title">
-        <div class="section-lead"><p class="eyebrow">Live preview</p><h2 id="preview-title">Read the answer before the dashboard</h2><p>Each question carries its owner, freshness limit, threshold, and approved source.</p></div>
+        <div class="section-lead"><p class="eyebrow">Live preview</p><h2 id="preview-title">Check the latest approved readings</h2><p>Each question keeps its owner, freshness limit, threshold, and approved source.</p></div>
         <div class="panel-preview">${previews.map((q) => questionCard(q, true)).join('')}</div>
       </section>
 
       <section class="how" aria-labelledby="how-title">
-        <div class="section-lead"><p class="eyebrow">A small operating loop</p><h2 id="how-title">How the question book works</h2></div>
+        <div class="section-lead"><p class="eyebrow">Three steps to keep answers current</p><h2 id="how-title">How the question book works</h2></div>
         <ol class="steps">
           <li><span>01</span><h3>Name the question</h3><p>Write the customer question and assign its owner.</p></li>
           <li><span>02</span><h3>Add an approved reading</h3><p>Paste a read-only link or import an approved CSV export.</p></li>
-          <li><span>03</span><h3>Export the answer</h3><p>Download a point-in-time answer copy with optional redaction.</p></li>
+          <li><span>03</span><h3>Share the answer</h3><p>Create an expiring answer link. Choose whether to hide the owner, source, and note.</p></li>
         </ol>
       </section>
 
       <section class="limits" aria-labelledby="limits-title">
-        <div><p class="eyebrow">Firm boundaries</p><h2 id="limits-title">It translates readings. It does not replace telemetry.</h2></div>
+        <div><p class="eyebrow">What the question book does not do</p><h2 id="limits-title">It translates readings. It does not replace telemetry.</h2></div>
         <ul><li>It does not ingest logs or metrics.</li><li>It does not write query language.</li><li>It does not alert or monitor systems.</li><li>It never asks for dashboard credentials.</li></ul>
       </section>
 
@@ -251,7 +271,7 @@ function bookPage(): string {
   const demo = isDemo();
   const questions = loadQuestions(demo);
   return shell(`
-    <main id="main" class="book-page">
+    <main id="main" class="book-page${demo ? ' demo-book' : ''}">
       <section class="book-heading"><div><p class="eyebrow">${demo ? 'Sample workspace' : 'Local workspace'}</p><h1 tabindex="-1">Check the approved questions</h1><p>${demo ? `${questions.length} sample question${questions.length === 1 ? '' : 's'} use a separate demo storage space.` : 'Add a question or import an approved CSV export.'}</p></div><button class="button primary" data-action="show-add">Add a question</button></section>
       <section class="book-controls" aria-label="Question book controls">
         <button class="button secondary" data-action="show-import">Import CSV</button>
@@ -262,7 +282,7 @@ function bookPage(): string {
       <section aria-labelledby="current-title"><div class="list-heading"><h2 id="current-title">Current answers</h2><p>Readings use the time and threshold saved on each card.</p></div>
         <div class="question-list">${questions.length ? questions.map((q) => questionCard(q)).join('') : emptyState()}</div>
       </section>
-      <dialog id="snapshot-dialog" aria-labelledby="snapshot-title"><form method="dialog" id="snapshot-form"><div class="dialog-head"><div><p class="eyebrow">Export a reading</p><h2 id="snapshot-title">Make answer copy</h2></div><button class="icon-button" value="cancel" aria-label="Close answer copy dialog">×</button></div><input type="hidden" name="id"><label class="check"><input type="checkbox" name="redact" checked> Hide owner, source, and note</label><p>The preview stays in this browser session. Downloaded copies do not expire, so do not include secrets.</p><div class="dialog-actions"><button class="button secondary" value="cancel">Cancel</button><button class="button primary" value="default" data-action="create-snapshot">Review answer copy</button></div></form></dialog>
+      <dialog id="snapshot-dialog" aria-labelledby="snapshot-title"><form method="dialog" id="snapshot-form"><div class="dialog-head"><div><p class="eyebrow">Share a reading</p><h2 id="snapshot-title">Make answer copy</h2></div><button class="icon-button" value="cancel" aria-label="Close answer copy dialog">×</button></div><input type="hidden" name="id"><label class="check"><input type="checkbox" name="redact" checked> Hide owner, source, and note</label><label>Link expires after<select name="ttl"><option value="3600">1 hour</option><option value="86400" selected>24 hours</option><option value="604800">7 days</option></select></label><p>Creating a link sends this reviewed answer copy to this site’s snapshot service. You can revoke it early.</p><div class="dialog-actions"><button class="button secondary" value="cancel">Cancel</button><button class="button primary" value="default" data-action="create-snapshot">Review answer copy</button></div></form></dialog>
     </main>`);
 }
 
@@ -302,18 +322,44 @@ function importForm(): string {
 function snapshotPage(): string {
   let snapshot: Snapshot | null;
   try {
-    snapshot = JSON.parse(sessionStorage.getItem(SNAPSHOT_KEY) || 'null') as Snapshot | null;
+    snapshot = JSON.parse(sessionStorage.getItem(snapshotKey()) || 'null') as Snapshot | null;
   } catch { snapshot = null; }
-  if (!snapshot || snapshot.version !== 2) return shell(`<main id="main" class="snapshot-page"><section class="snapshot-ticket"><p class="eyebrow">Local answer copy</p><h1 tabindex="-1">No answer copy is open</h1><p>Open a question and choose Make answer copy. Answer data is never loaded from a URL.</p><a class="button primary" href="/book" data-link>Open my question book</a></section></main>`);
-  return shell(`<main id="main" class="snapshot-page"><article class="snapshot-ticket"><p class="eyebrow">Local answer copy</p><h1 tabindex="-1">${escapeHtml(snapshot.question)}</h1><div class="snapshot-answer"><span>${escapeHtml(snapshot.status)}</span><strong>${escapeHtml(snapshot.answer)}</strong></div><dl><div><dt>Observed</dt><dd>${new Date(snapshot.observedAt).toLocaleString()}</dd></div><div><dt>Created</dt><dd>${new Date(snapshot.createdAt).toLocaleString()}</dd></div>${snapshot.owner ? `<div><dt>Owner</dt><dd>${escapeHtml(snapshot.owner)}</dd></div>` : ''}${snapshot.source ? `<div><dt>Source</dt><dd>${escapeHtml(snapshot.source)}</dd></div>` : ''}</dl>${snapshot.note ? `<p>${escapeHtml(snapshot.note)}</p>` : ''}${snapshot.redacted ? '<p class="redacted">Owner, source, and internal note were hidden.</p>' : ''}<p class="snapshot-warning"><strong>Handle this file yourself.</strong> Downloaded copies do not expire and are not access controlled.</p><div class="snapshot-actions"><button class="button primary" data-action="copy-snapshot">Copy answer text</button><button class="button secondary" data-action="download-snapshot">Download JSON</button><a class="button secondary" href="${snapshot.demo ? '/demo' : '/book'}" data-link>Back to questions</a></div></article></main>`);
+  if (!snapshot || snapshot.version !== 2) return shell(`<main id="main" class="snapshot-page"><section class="snapshot-ticket"><p class="eyebrow">Answer copy</p><h1 tabindex="-1">No answer copy is open</h1><p>Open a question and choose Make answer copy. Answer data is never loaded from a URL.</p><a class="button primary" href="${isDemo() ? '/demo' : '/book'}" data-link>Open my question book</a></section></main>`);
+  return shell(`<main id="main" class="snapshot-page">${snapshotTicket(snapshot, true)}</main>`);
+}
+
+function snapshotTicket(snapshot: Snapshot, editable: boolean, expiresAt?: string): string {
+  return `<article class="snapshot-ticket"><p class="eyebrow">${editable ? 'Review before sharing' : 'Shared answer copy'}</p><h1 tabindex="-1">${escapeHtml(snapshot.question)}</h1><div class="snapshot-answer"><span>${escapeHtml(snapshot.status)}</span><strong>${escapeHtml(snapshot.answer)}</strong></div><dl><div><dt>Observed</dt><dd>${new Date(snapshot.observedAt).toLocaleString()}</dd></div><div><dt>Created</dt><dd>${new Date(snapshot.createdAt).toLocaleString()}</dd></div>${expiresAt ? `<div><dt>Link expires</dt><dd>${new Date(expiresAt).toLocaleString()}</dd></div>` : ''}${snapshot.owner ? `<div><dt>Owner</dt><dd>${escapeHtml(snapshot.owner)}</dd></div>` : ''}${snapshot.source ? `<div><dt>Source</dt><dd>${escapeHtml(snapshot.source)}</dd></div>` : ''}</dl>${snapshot.note ? `<p>${escapeHtml(snapshot.note)}</p>` : ''}${snapshot.redacted ? '<p class="redacted">Owner, source, and internal note were hidden.</p>' : ''}${editable ? '<p class="snapshot-warning"><strong>Choose how to share it.</strong> Expiring links can be revoked. Downloaded files do not expire.</p><div id="share-result" class="share-result" role="status" aria-live="polite"></div>' : '<p class="snapshot-warning">This link stops working at the expiry time shown above.</p>'}<div class="snapshot-actions">${editable ? '<button class="button primary" data-action="create-share">Create expiring link</button><button class="button secondary" data-action="download-snapshot">Download JSON</button>' : ''}<button class="button secondary" data-action="copy-snapshot">Copy answer text</button>${editable ? `<a class="button secondary" href="${snapshot.demo ? '/demo' : '/book'}" data-link>Back to questions</a>` : '<a class="button secondary" href="/" data-link>Open Telemetry Question Book</a>'}</div></article>`;
+}
+
+function sharedSnapshotPage(): string {
+  return shell('<main id="main" class="snapshot-page"><section class="snapshot-ticket" id="shared-ticket"><p class="eyebrow">Shared answer copy</p><h1 tabindex="-1">Loading answer link</h1><p role="status">Checking its expiry and revocation status.</p></section></main>');
+}
+
+async function loadSharedSnapshot(path: string): Promise<void> {
+  const token = path.split('/').pop() || '';
+  const ticket = document.querySelector<HTMLElement>('#shared-ticket');
+  if (!ticket) return;
+  try {
+    const response = await fetch(`/api/snapshots/${encodeURIComponent(token)}`, { headers: { Accept: 'application/json' } });
+    const result = await response.json() as { snapshot?: Snapshot; expiresAt?: string; error?: string };
+    if (!response.ok || !result.snapshot || !result.expiresAt) throw new Error(result.error || 'This answer link could not be opened.');
+    activeSharedSnapshot = result.snapshot;
+    ticket.outerHTML = snapshotTicket(result.snapshot, false, result.expiresAt);
+    setMetadata(`${result.snapshot.question} — Telemetry Question Book`, 'A time-limited telemetry answer shared from Telemetry Question Book.', path, true);
+  } catch (reason) {
+    const message = reason instanceof Error ? reason.message : 'This answer link could not be opened.';
+    ticket.innerHTML = `<p class="eyebrow">Unavailable answer link</p><h1 tabindex="-1">This answer link is no longer available</h1><p>${escapeHtml(message)}</p><a class="button primary" href="/" data-link>Open Telemetry Question Book</a>`;
+  }
+  document.querySelector<HTMLElement>('h1')?.focus();
 }
 
 function privacyPage(): string {
-  return shell(`<main id="main" class="legal"><p class="eyebrow">Policy · 28 August 2026</p><h1 tabindex="-1">Your question book stays local</h1><p>Question cards are stored in this browser. The app has no account service or analytics.</p><h2>Demo data</h2><p>Demo changes use a separate browser storage key. Resetting or leaving the demo deletes that key.</p><h2>Answer copies</h2><p>A preview stays in session storage and never enters the URL. A downloaded copy does not expire or have access controls.</p><h2>Your controls</h2><p>Clear this site’s browser storage to remove questions. Contact <a href="mailto:privacy@sociobot.in">privacy@sociobot.in</a> with policy questions.</p></main>`);
+  return shell(`<main id="main" class="legal"><p class="eyebrow">Policy · 29 August 2026</p><h1 tabindex="-1">Control where each answer copy goes</h1><p>Question cards stay in this browser. The app has no account service or analytics.</p><h2>Demo data</h2><p>Demo changes use keys that start with <code>demo:</code>. Resetting or leaving the demo deletes those keys and revokes its links.</p><h2>Expiring links</h2><p>Creating a link sends only the reviewed answer copy to this site. The service stores it until expiry or revocation.</p><p>The opaque link contains no answer data. The default setting hides the owner, source, and internal note.</p><h2>Downloaded files</h2><p>A downloaded answer copy stays under your control. The file does not expire or have access controls.</p><h2>Your controls</h2><p>Clear this site’s browser storage to remove questions. Contact <a href="mailto:privacy@sociobot.in">privacy@sociobot.in</a> with policy questions.</p></main>`);
 }
 
 function termsPage(): string {
-  return shell(`<main id="main" class="legal"><p class="eyebrow">Terms · 28 August 2026</p><h1 tabindex="-1">Use approved, read-only telemetry sources</h1><p>You are responsible for the questions, source links, readings, and answer copies you create.</p><h2>Safe use</h2><p>Do not enter passwords, access tokens, or customer secrets. Check each source link before sharing an answer copy.</p><h2>Service</h2><p>The free app is provided as-is under the MIT License. It does not monitor systems or guarantee that a reading is correct.</p><h2>Contact</h2><p>Email <a href="mailto:support@sociobot.in">support@sociobot.in</a> for help.</p></main>`);
+  return shell(`<main id="main" class="legal"><p class="eyebrow">Terms · 29 August 2026</p><h1 tabindex="-1">Use approved, read-only telemetry sources</h1><p>You are responsible for the questions, source links, readings, and answer copies you create.</p><h2>Safe use</h2><p>Do not enter passwords, access tokens, or customer secrets. Check each answer before creating a link.</p><h2>Expiring links</h2><p>A link works until its stated expiry unless its creator revokes it first. Do not rely on a link as a permanent record.</p><h2>Service</h2><p>The free app is provided as-is under the MIT License. It does not monitor systems or guarantee that a reading is correct.</p><h2>Contact</h2><p>Email <a href="mailto:support@sociobot.in">support@sociobot.in</a> for help.</p></main>`);
 }
 
 const sampleSources: Record<string, { title: string; source: string; reading: string; observed: string }> = {
@@ -333,21 +379,49 @@ function notFoundPage(): string {
 }
 
 const titles: Record<string, string> = {
-  '/': 'Telemetry Question Book — answer telemetry safely',
+  '/': 'Telemetry Question Book — track approved readings',
   '/demo': 'Demo — Telemetry Question Book',
-  '/book': 'My book — Telemetry Question Book',
+  '/demo/snapshot': 'Demo answer copy — Telemetry Question Book',
+  '/book': 'My question book — Telemetry Question Book',
   '/privacy': 'Privacy — Telemetry Question Book',
   '/terms': 'Terms — Telemetry Question Book',
   '/snapshot': 'Answer copy — Telemetry Question Book',
   '/404': 'Not found — Telemetry Question Book'
 };
 
+const descriptions: Record<string, string> = {
+  '/': 'Track recurring telemetry answers from readings you enter or import. Built for support teams without broad dashboard access.',
+  '/demo': 'Try Telemetry Question Book with three isolated sample readings.',
+  '/demo/snapshot': 'Review a demo answer copy before creating a time-limited link.',
+  '/book': 'Save, update, import, and share approved telemetry readings from this browser.',
+  '/privacy': 'Learn what Telemetry Question Book stores locally and what an expiring answer link sends.',
+  '/terms': 'Terms for using approved telemetry readings and expiring answer links.',
+  '/snapshot': 'Review an answer copy before downloading it or creating an expiring link.',
+  '/404': 'This address does not match a Telemetry Question Book page.'
+};
+
+function setMetadata(title: string, description: string, path: string, noindex = false): void {
+  document.title = title;
+  document.querySelector<HTMLMetaElement>('meta[name="description"]')?.setAttribute('content', description);
+  document.querySelector<HTMLMetaElement>('meta[property="og:title"]')?.setAttribute('content', title);
+  document.querySelector<HTMLMetaElement>('meta[property="og:description"]')?.setAttribute('content', description);
+  document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]')?.setAttribute('content', title);
+  document.querySelector<HTMLMetaElement>('meta[name="twitter:description"]')?.setAttribute('content', description);
+  document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute('href', `https://telemetry-question-book.sociobot.in${path}`);
+  let robots = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
+  if (noindex && !robots) { robots = document.createElement('meta'); robots.name = 'robots'; document.head.append(robots); }
+  if (robots) robots.content = noindex ? 'noindex, nofollow' : 'index, follow';
+}
+
 function render(): void {
   const path = currentPath();
-  document.title = titles[path] ?? (sampleSources[path] ? `Sample source — Telemetry Question Book` : titles['/404']);
-  document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute('href', `https://telemetry-question-book.sociobot.in${path === '/404' ? '/404' : path}`);
-  app.innerHTML = path === '/' ? landingPage() : path === '/demo' || path === '/book' ? bookPage() : path === '/privacy' ? privacyPage() : path === '/terms' ? termsPage() : path === '/snapshot' ? snapshotPage() : sampleSources[path] ? sampleSourcePage(path) : notFoundPage();
+  const source = sampleSources[path];
+  const title = titles[path] ?? (source ? `${source.title} — Telemetry Question Book` : path.startsWith('/s/') ? 'Shared answer — Telemetry Question Book' : titles['/404']);
+  const description = descriptions[path] ?? (source ? `${source.source}: ${source.reading}. This is sample data.` : path.startsWith('/s/') ? 'A time-limited telemetry answer shared from Telemetry Question Book.' : descriptions['/404']);
+  setMetadata(title, description, path === '/404' ? '/404' : path, path === '/snapshot' || path === '/demo/snapshot' || path.startsWith('/s/') || path === '/404');
+  app.innerHTML = path === '/' ? landingPage() : path === '/demo' || path === '/book' ? bookPage() : path === '/privacy' ? privacyPage() : path === '/terms' ? termsPage() : path === '/snapshot' || path === '/demo/snapshot' ? snapshotPage() : path.startsWith('/s/') ? sharedSnapshotPage() : source ? sampleSourcePage(path) : notFoundPage();
   updateOnlineState();
+  if (path.startsWith('/s/')) void loadSharedSnapshot(path);
   if (!firstRender) {
     const heading = document.querySelector<HTMLElement>('h1');
     heading?.focus();
@@ -477,7 +551,29 @@ function makeSnapshot(question: Question, redacted: boolean): Snapshot {
 }
 
 function snapshotFromPage(): Snapshot | null {
-  try { return JSON.parse(sessionStorage.getItem(SNAPSHOT_KEY) || 'null') as Snapshot | null; } catch { return null; }
+  try { return JSON.parse(sessionStorage.getItem(snapshotKey()) || 'null') as Snapshot | null; } catch { return null; }
+}
+
+function storedShares(demo = isDemo()): SharedSnapshot[] {
+  try { return JSON.parse(sessionStorage.getItem(demo ? DEMO_SHARES_KEY : REAL_SHARES_KEY) || '[]') as SharedSnapshot[]; } catch { return []; }
+}
+
+function saveShare(share: SharedSnapshot, demo = isDemo()): void {
+  sessionStorage.setItem(demo ? DEMO_SHARES_KEY : REAL_SHARES_KEY, JSON.stringify([...storedShares(demo), share]));
+}
+
+async function revokeShare(share: SharedSnapshot): Promise<boolean> {
+  try {
+    const response = await fetch(`/api/snapshots/${encodeURIComponent(share.token)}`, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ revokeKey: share.revokeKey }) });
+    return response.ok;
+  } catch { return false; }
+}
+
+async function clearDemoData(): Promise<void> {
+  await Promise.all(storedShares(true).map(revokeShare));
+  for (const storage of [localStorage, sessionStorage]) {
+    Object.keys(storage).filter((key) => key.startsWith('demo:')).forEach((key) => storage.removeItem(key));
+  }
 }
 
 function updateOnlineState(): void {
@@ -485,7 +581,7 @@ function updateOnlineState(): void {
   if (note) note.hidden = navigator.onLine;
 }
 
-document.addEventListener('click', (event) => {
+document.addEventListener('click', async (event) => {
   const target = (event.target as HTMLElement).closest<HTMLElement>('[data-link], [data-action]');
   if (!target) return;
   if (target.matches('[data-link]')) {
@@ -494,8 +590,8 @@ document.addEventListener('click', (event) => {
     return;
   }
   const action = target.dataset.action;
-  if (action === 'reset-demo') { localStorage.removeItem(DEMO_KEY); render(); showNotice('Demo reset to its original sample data.'); }
-  if (action === 'start-real') { localStorage.removeItem(DEMO_KEY); navigate('/book'); }
+  if (action === 'reset-demo') { await clearDemoData(); if (currentPath() === '/demo') { render(); showNotice('Demo reset to its original sample data.'); } else navigate('/demo'); }
+  if (action === 'start-real') { await clearDemoData(); navigate('/book'); }
   if (action === 'show-add') showEditor(questionForm());
   if (action === 'edit-question') {
     const question = loadQuestions().find((item) => item.id === target.dataset.id);
@@ -519,12 +615,45 @@ document.addEventListener('click', (event) => {
     const data = new FormData(form);
     const question = loadQuestions().find((item) => item.id === data.get('id'));
     if (question) {
-      sessionStorage.setItem(SNAPSHOT_KEY, JSON.stringify(makeSnapshot(question, data.get('redact') === 'on')));
-      navigate('/snapshot');
+      sessionStorage.setItem(snapshotKey(), JSON.stringify(makeSnapshot(question, data.get('redact') === 'on')));
+      sessionStorage.setItem(snapshotTtlKey(), String(data.get('ttl') || '86400'));
+      navigate(isDemo() ? '/demo/snapshot' : '/snapshot');
+    }
+  }
+  if (action === 'create-share') {
+    const snapshot = snapshotFromPage();
+    const result = document.querySelector<HTMLElement>('#share-result');
+    if (!snapshot || !result) return;
+    target.setAttribute('disabled', '');
+    result.textContent = 'Creating the expiring link…';
+    try {
+      const ttlSeconds = Number(sessionStorage.getItem(snapshotTtlKey()) || '86400');
+      const response = await fetch('/api/snapshots', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ snapshot, ttlSeconds, demo: snapshot.demo }) });
+      const share = await response.json() as SharedSnapshot & { error?: string };
+      if (!response.ok || !share.token || !share.revokeKey) throw new Error(share.error || 'The link could not be created.');
+      saveShare(share, snapshot.demo);
+      const url = `${location.origin}/s/${share.token}`;
+      result.innerHTML = `<label for="share-url">Expiring answer link</label><div class="share-link"><input id="share-url" readonly value="${escapeHtml(url)}"><button class="button secondary" data-action="copy-share" data-url="${escapeHtml(url)}">Copy link</button></div><p>Expires ${new Date(share.expiresAt).toLocaleString()}.</p><button class="text-button danger-link" data-action="revoke-share" data-token="${escapeHtml(share.token)}" data-revoke-key="${escapeHtml(share.revokeKey)}">Revoke link now</button>`;
+    } catch (reason) {
+      result.textContent = `${reason instanceof Error ? reason.message : 'The link could not be created.'} Check your connection and try again.`;
+      target.removeAttribute('disabled');
+    }
+  }
+  if (action === 'copy-share') {
+    navigator.clipboard.writeText(target.dataset.url || '').then(() => showNotice('Expiring link copied.')).catch(() => showNotice('The link could not be copied. Select it and copy it instead.', 'error'));
+  }
+  if (action === 'revoke-share') {
+    const share = { token: target.dataset.token || '', revokeKey: target.dataset.revokeKey || '', expiresAt: '' };
+    target.setAttribute('disabled', '');
+    if (await revokeShare(share)) {
+      target.closest<HTMLElement>('#share-result')!.innerHTML = '<p><strong>Link revoked.</strong> It no longer opens the answer copy.</p>';
+    } else {
+      target.removeAttribute('disabled');
+      showNotice('The link could not be revoked. Check your connection and try again.', 'error');
     }
   }
   if (action === 'copy-snapshot') {
-    const snapshot = snapshotFromPage();
+    const snapshot = snapshotFromPage() ?? activeSharedSnapshot;
     const text = snapshot ? `${snapshot.question}\n${snapshot.status}: ${snapshot.answer}\nObserved: ${snapshot.observedAt}` : '';
     navigator.clipboard.writeText(text).then(() => showNotice('Answer text copied.')).catch(() => showNotice('The answer could not be copied. Download the JSON file instead.', 'error'));
   }

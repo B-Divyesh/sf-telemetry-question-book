@@ -1,0 +1,1 @@
+Track recurring telemetry answers from approved readings without sharing broad dashboard access.

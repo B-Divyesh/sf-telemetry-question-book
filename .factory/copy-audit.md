@@ -1,42 +1,80 @@
 # Landing-page copy audit
 
-Audited 2026-08-28. Counts treat hyphenated terms as one word. Headings, labels, and buttons are included. No sentence exceeds 22 words. No banned term appears.
+Audited 29 August 2026. Counts use whitespace-delimited words and treat hyphenated terms as one word. No line exceeds 22 words. No banned term appears.
 
-| Copy | Words | Result |
-| --- | ---: | --- |
-| Answer recurring telemetry questions safely | 5 | Pass |
-| For support teams who need current answers without broad dashboard access. | 10 | Pass |
-| Try it with sample data | 5 | Pass |
-| Opens a filled question book in one click. | 8 | Pass |
-| Data stays in this browser. | 5 | Pass |
-| Works after the first visit, even offline. | 7 | Pass |
-| Free to use. | 3 | Pass |
-| No account needed. | 3 | Pass |
-| One governed reading in. | 4 | Pass |
-| One support-ready answer out. | 4 | Pass |
-| Read the answer before the dashboard | 6 | Pass |
-| Each question carries its owner, freshness limit, threshold, and approved source. | 10 | Pass |
-| Write the customer question and assign its owner. | 8 | Pass |
-| Paste a read-only link or import an approved CSV export. | 10 | Pass |
-| Download a point-in-time answer copy with optional redaction. | 9 | Pass |
-| It translates readings. | 3 | Pass |
-| It does not replace telemetry. | 5 | Pass |
-| It does not ingest logs or metrics. | 7 | Pass |
-| It does not write query language. | 6 | Pass |
-| It does not alert or monitor systems. | 7 | Pass |
-| It never asks for dashboard credentials. | 6 | Pass |
+| Words | Exact copy | Result |
+| ---: | --- | --- |
+| 4 | Skip to main content | Pass |
+| 3 | Telemetry Question Book | Pass |
+| 1 | Demo | Pass |
+| 3 | My question book | Pass |
+| 1 | Privacy | Pass |
+| 5 | Approved readings · plain answers | Pass |
+| 6 | Track recurring answers from approved readings | Pass; job-first headline |
+| 9 | For support teams: enter a reading or approved CSV. | Pass |
+| 6 | The app does not query dashboards. | Pass |
+| 5 | Try it with sample data | Pass; primary action |
+| 8 | Opens a filled question book in one click. | Pass |
+| 5 | Data stays in this browser. | Pass; `local-browser` |
+| 7 | Works after the first visit, even offline. | Pass; `offline-reload` |
+| 3 | Free to use. | Pass; `free-core` |
+| 3 | No account needed. | Pass; `free-core` |
+| 11 | An instrument console turns telemetry paper into a blank answer ticket. | Pass; image alt |
+| 4 | One approved reading in. | Pass |
+| 4 | One answer copy out. | Pass |
+| 2 | Live preview | Pass |
+| 5 | Check the latest approved readings | Pass |
+| 11 | Each question keeps its owner, freshness limit, threshold, and approved source. | Pass; `card-fields` |
+| 3 | Approved Grafana view | Pass |
+| 4 | Did Northstar orders arrive? | Pass |
+| 2 | 1,842 orders | Pass |
+| 2 | On track | Pass |
+| 3 | 12 min ago | Pass |
+| 4 | Fresh for 60 min | Pass |
+| 3 | Owner Data Platform | Pass |
+| 6 | Passes when at least 1,500 orders | Pass |
+| 3 | Read-only Kibana link | Pass |
+| 4 | Are Atlas webhooks clearing? | Pass |
+| 2 | 7 queued | Pass |
+| 2 | On track | Pass |
+| 3 | 26 min ago | Pass |
+| 4 | Fresh for 45 min | Pass |
+| 2 | Owner Reliability | Pass |
+| 6 | Passes when at most 10 queued | Pass |
+| 6 | Three steps to keep answers current | Pass |
+| 5 | How the question book works | Pass |
+| 3 | Name the question | Pass |
+| 8 | Write the customer question and assign its owner. | Pass |
+| 4 | Add an approved reading | Pass |
+| 10 | Paste a read-only link or import an approved CSV export. | Pass |
+| 3 | Share the answer | Pass |
+| 5 | Create an expiring answer link. | Pass; `expiring-share` |
+| 9 | Choose whether to hide the owner, source, and note. | Pass; `share-redaction` |
+| 7 | What the question book does not do | Pass |
+| 3 | It translates readings. | Pass |
+| 5 | It does not replace telemetry. | Pass |
+| 7 | It does not ingest logs or metrics. | Pass; `local-browser` |
+| 6 | It does not write query language. | Pass; `local-browser` |
+| 7 | It does not alert or monitor systems. | Pass; `local-browser` |
+| 6 | It never asks for dashboard credentials. | Pass; `least-privilege-input` |
+| 6 | Plain answers from approved telemetry readings. | Pass |
+| 1 | Privacy | Pass |
+| 1 | Terms | Pass |
+| 6 | Built by Param Factory (external site) | Pass |
+| 10 | Version 1.2.0 · Generated illustration disclosed in the design notes. | Pass |
 
 ## Terminology
 
-| Concept | Term used |
+| Concept | One term |
 | --- | --- |
-| A reusable customer-impact check | question |
-| The collection of questions | question book |
-| A saved measurement | reading |
-| A portable point-in-time result | answer copy |
+| Reusable customer-impact check | question |
+| Collection of questions | question book |
+| Saved measurement | reading |
+| Reviewed portable result | answer copy |
+| Recipient URL with a deadline | expiring link |
 | Maximum reading age | freshness limit |
 | Allowed result boundary | threshold |
 | Authorized external destination | approved source |
 | Isolated sample workspace | demo |
 
-Catalog description: **Answer recurring telemetry questions from approved readings.** (58 characters)
+Catalog description: **Track recurring telemetry answers from approved readings without sharing broad dashboard access.** (91 characters)

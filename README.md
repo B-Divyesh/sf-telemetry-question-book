@@ -1,10 +1,10 @@
 # Telemetry Question Book
 
-Answer recurring telemetry questions from approved readings. This local-first web app is for engineering and support pairs who cannot share raw Grafana, Kibana, or log access.
+Track recurring answers from approved readings. This browser-based app is for engineering and support pairs who cannot share broad dashboard access.
 
-The free book stores named questions with owners, freshness limits, thresholds, and HTTPS source links. It updates recurring readings, imports approved CSV rows, and exports answer copies with optional redaction. It works after the first visit, even offline.
+Enter a reading or import an approved CSV. The app does not query dashboards. The free question book keeps each owner, freshness limit, threshold, and HTTPS source link. It works after the first visit, even offline.
 
-Try the isolated sample at `/demo` or `https://telemetry-question-book.sociobot.in/demo`. Demo changes use a separate storage key and never touch the real book.
+Try the isolated sample at `/demo`, `/?demo=1`, or <https://telemetry-question-book.sociobot.in/demo>. Demo changes use `demo:` storage keys and never read or change the real question book.
 
 ## What it does
 
@@ -12,7 +12,9 @@ Try the isolated sample at `/demo` or `https://telemetry-question-book.sociobot.
 - Updates a recurring reading without making a duplicate card.
 - Imports new CSV rows and updates matching question names.
 - Marks readings as on track, needs attention, or stale.
-- Downloads point-in-time answer copies as JSON.
+- Creates opaque answer links that expire after 1 hour, 24 hours, or 7 days.
+- Lets the creator revoke an answer link before it expires.
+- Downloads dated answer copies as JSON.
 - Hides the owner, source, and note by default.
 - Accepts approved HTTPS links and never asks for dashboard credentials.
 
@@ -27,7 +29,7 @@ npm ci
 npm run dev
 ```
 
-Open `http://localhost:5173`. The direct demo URL is `http://localhost:5173/demo`.
+Open `http://localhost:5173`. The direct demo URL is `http://localhost:5173/?demo=1`.
 
 ## Test and build
 
@@ -38,13 +40,13 @@ npm run typecheck
 npm run build
 ```
 
-`npm test` builds the production app and runs the Playwright claim and accessibility suite. The exact deploy command is `npm run build`. Static output lands in `dist/`, with `dist/index.html` at its root.
+`npm test` builds the app and runs the Playwright claims, browser, offline, and accessibility suite. Static output lands in `dist/`, with `dist/index.html` at its root.
 
-The production service worker caches the visited shell. The test suite proves the demo reloads after the browser goes offline.
+After one online visit, the app caches the files it needs to reopen offline. Creating or opening an expiring link still needs a connection.
 
 ## CSV format
 
-Use the **Download CSV template** action in the book. Required columns are:
+Use **Download CSV template** in the question book. Required columns are:
 
 ```text
 question,owner,source,sourceUrl,value,unit,threshold,comparison,observedAt,freshMinutes,note
@@ -54,17 +56,25 @@ question,owner,source,sourceUrl,value,unit,threshold,comparison,observedAt,fresh
 
 ## Data and sharing
 
-Real questions use the browser key `tqb:v1`. Demo questions use `demo:tqb:v1`. Answer-copy previews use session storage and never enter the URL. Downloaded files do not expire or provide access control, so do not put secrets in them.
+Real questions use `tqb:v1`. Demo questions use `demo:tqb:v1`. Real and demo answer previews use separate session-storage keys. Preview data never enters the URL.
 
-The app has no account service or analytics. See the in-app `/privacy` and `/terms` pages.
+Creating an expiring link sends the reviewed copy to the first-party snapshot API. The URL holds only an opaque token. The service checks expiry and revocation on every read. Demo links use a separate token prefix and are revoked when the demo resets or closes.
+
+Downloaded files do not expire or provide access control. Do not put secrets in them. The app has no account service or analytics. See `/privacy` and `/terms`.
 
 ## Pricing
 
-This release is free and has no purchase flow. The researched brief proposed a one-time Support Pack, but its checkout was not registered. The product does not advertise unavailable paid features.
+This release is free and has no purchase flow.
 
 ## Deployment
 
-Deploy `dist/` as a static site. `public/staticwebapp.config.json` provides the SPA fallback, 404 behavior, cache rules, and security headers for Azure Static Web Apps.
+Run `npm run build`, then deploy `dist/` with the managed functions in `api/`:
+
+```bash
+/opt/fleet/lib/deploy-static.sh telemetry-question-book dist
+```
+
+`public/staticwebapp.config.json` routes app pages, serves the styled 404, sets cache rules, and adds browser security protections. Azure Static Web Apps reads it during deployment.
 
 ## Project notes
 

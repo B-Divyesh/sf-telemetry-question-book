@@ -16,5 +16,10 @@ export default tseslint.config(
       }
     }
   },
+  {
+    files: ['api/**/*.js', 'tests/**/*.mjs'],
+    languageOptions: { globals: { require: 'readonly', module: 'readonly', Buffer: 'readonly', process: 'readonly', URL: 'readonly', structuredClone: 'readonly' } },
+    rules: { '@typescript-eslint/no-require-imports': 'off' }
+  },
   { ignores: ['dist/**', 'node_modules/**', '.factory/**'] }
 );

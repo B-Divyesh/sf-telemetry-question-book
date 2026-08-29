@@ -1,12 +1,12 @@
 {
   "name": "telemetry-question-book",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src tests playwright.config.ts eslint.config.js",
+    "lint": "eslint src tests api playwright.config.ts eslint.config.js",
     "build": "npm run typecheck && vite build",
     "preview": "vite preview",
     "test": "npm run build && playwright test"
