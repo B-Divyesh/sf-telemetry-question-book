@@ -1,64 +1,59 @@
-# Telemetry Question Book — repair 4 handoff
+# Telemetry Question Book — independent verification 7 handoff
 
 ## Outcome
 
-**PASS.** Both release blockers in `verification-6.md` are repaired and verified against the deployed Azure Static Web App.
+**FAIL.** Candidate `6a2940213c7c0e69fb1f70e004f09decd153f45e`
+was verified on 2026-08-29 at
+<https://telemetry-question-book.sociobot.in>. Do not release it yet.
 
-The artifact remains a Vite and TypeScript static web app with managed Azure Functions. The researched scope, local-first storage model, demo isolation, sharing behavior, and visual system are unchanged.
+The former deployment-only failures are fixed: live static artifacts match the
+checkout byte-for-byte, `/api/health` reports the exact commit, and spoofed
+client headers cannot split the 100-request sharing allowance. One new
+release-blocking keyboard defect remains.
 
-## Repairs
+## Blocking defect
 
-### Spoof-resistant sharing allowance
+The answer-copy dialog loses focus to `<body>` at each keyboard cycle boundary.
+`Shift+Tab` from the initially focused close button and `Tab` after the final
+review button both produce an invisible focus stop outside the dialog. Escape
+and opener restoration work, but focus containment and visible focus do not.
 
-- The limiter no longer trusts `X-Azure-ClientIP`, `Client-IP`, `X-Azure-SocketIP`, or the caller-controlled prefix of `X-Forwarded-For`.
-- It keys the allowance from the final address that the Azure Functions host appends to `X-Forwarded-For`.
-- A direct host can fall back to its server-observed socket. A missing trusted address uses one fail-safe shared bucket.
-- The API claim now rotates every caller-controlled address field across create, open, and revoke requests. All 100 requests share one allowance, request 101 returns `429` with `Retry-After`, and a different platform hop remains independent.
-- The deployment-only probe repeats that attack through the real Azure edge. It rotates all supplied address headers and requires the remaining count to decrease monotonically to `429`.
+Fix the Tab and Shift+Tab cycle, then add a regression that checks the active
+element stays inside the open dialog and keeps a visible focus treatment.
 
-### Exact deployed build identity
+## Verification summary
 
-- `npm run deploy` refuses a dirty checkout and reads the full 40-character ID from `git rev-parse HEAD`.
-- It sets the managed API `BUILD_ID` before uploading the matching static and Functions artifacts.
-- Deployment cannot report success until `/api/health` returns that exact commit ID.
-- An integration test uses fake Git, Azure, deployment, and npm commands to lock the required order and exact value.
+- All 26 exact `.factory/claims.json` commands passed.
+- `npm test` passed: 15 API and 30 Playwright tests.
+- `npm run lint`, `npm run typecheck`, exact `npm run build`, dependency audits,
+  and `git diff --check` passed. `shellcheck` was unavailable.
+- Build: JS 35.84 kB raw / 11.68 kB gzip; CSS 16.91 kB raw / 4.82 kB gzip;
+  mobile hero 42.65 kB; no downloaded fonts.
+- Live mobile Lighthouse: 100 Performance, 100 Accessibility, 100 Best
+  Practices, 100 SEO; FCP 0.9 s, LCP 1.2 s, TBT 40 ms, CLS 0.
+- Desktop and 390 px route scans: zero serious/critical axe findings, page
+  errors, unexpected console errors, or horizontal overflow.
+- Live demo update, invalid-input recovery, CSV error recovery, redacted share,
+  reconnect, revocation, and expiry behavior passed.
+- Privacy request logs contained only the product origin. Security headers,
+  immutable asset caching, offline reload, and service-worker update passed.
+- Live API allowance observed: 100 combined create/open/revoke requests per
+  network address per 60 seconds; the next returned 429 with `Retry-After`.
+- Live build ID exactly matched the candidate commit.
 
-## Verification evidence
+Full evidence and reproduction steps are in
+[`.factory/verification-7.md`](verification-7.md).
 
-- Clean install: `npm ci` and `npm --prefix api ci` passed with zero reported vulnerabilities.
-- Claims: every exact command in `.factory/claims.json` passed independently, **26/26**.
-- Complete suite: `npm test` passed **15 API tests and 30 Playwright tests**.
-- Static checks: `npm run lint`, `npm run typecheck`, `git diff --check`, and `shellcheck scripts/deploy.sh` passed.
-- Production build: `npm run build` produced `dist/index.html`; JavaScript is **35.84 kB raw / 11.68 kB gzip** and CSS is **16.91 kB raw / 4.82 kB gzip**.
-- Dependency checks: root production, root full, and API `npm audit --audit-level=high` checks found zero vulnerabilities.
-- Browser matrix: `.factory/qa/browser-qa-results.json` covers local and live routes at **1440 × 900** and **390 × 844**. Across 32 route/viewport rows it records zero serious or critical axe findings, page errors, non-404 console errors, horizontal overflows, or undersized controls.
-- Keyboard and motion: the skip link and demo action have visible 3 px focus outlines. Enter opens the demo, Escape closes the dialog, focus returns to its trigger, and reduced motion lowers the ticket animation to `0.00001s`.
-- Privacy: both browser flows contacted only their own origin. Normal reading changes stayed in local storage, while sharing requests occurred only after an explicit action.
-- Offline and update: the visited live demo reloaded offline with its notice and all three cards. Its service worker was active and controlling, and `registration.update()` left no waiting worker.
-- URL verifier: local and live roots returned one titled English document with one `h1`, one `main`, complete image alt text, labeled buttons, and no load errors.
-- Response policy: the live root returned CSP, HSTS, nosniff, referrer, and permissions headers. The hashed JS returned `Cache-Control: public, max-age=31536000, immutable`.
-- Mobile Lighthouse on the live URL: Performance **100**, Accessibility **100**, Best Practices **100**, SEO **100**; FCP **0.95 s**, LCP **1.25 s**, TBT **0 ms**, CLS **0**. Summary: `.factory/qa/lighthouse-summary.json`.
-- Live API repair: the deployment probe exhausted one allowance while rotating all supplied client headers and reached `429`. The final `/api/health` assertion matched `buildId` to the full output of `git rev-parse HEAD`.
-
-The verifier’s failed pre-repair responses were also reproduced: rotating only `X-Azure-ClientIP` returned a fresh `99` allowance, and health returned the old `telemetry-question-book-repair-3-29c993d` label.
-
-## Run and verify
+## Run again
 
 ```bash
 npm ci
-npm --prefix api ci
 npm test
 npm run lint
 npm run typecheck
 npm run build
-npm audit --audit-level=high
-npm audit --omit=dev --audit-level=high
-npm --prefix api audit --audit-level=high
-npm run deploy
+npm run verify:live-api -- 6a2940213c7c0e69fb1f70e004f09decd153f45e
 ```
 
-Use `https://telemetry-question-book.sociobot.in/demo` for the isolated sample. The deploy command includes the live rate-limit and build-identity regression.
-
-## Known gaps
-
-None.
+Use <https://telemetry-question-book.sociobot.in/demo> for the isolated sample.
+No product code was changed during verification.
