@@ -254,7 +254,8 @@ test('@claim:expiring-share creates an opaque link that expires server-side and 
   const token = new URL(sharedUrl).pathname.split('/').pop()!;
   const live = await request.get(`/api/snapshots/${token}`);
   expect(live.status()).toBe(200);
-  const tampered = await request.get(`/api/snapshots/${token.slice(0, -1)}0`);
+  const changedToken = `${token.slice(0, -1)}${token.endsWith('0') ? '1' : '0'}`;
+  const tampered = await request.get(`/api/snapshots/${changedToken}`);
   expect(tampered.status()).toBe(404);
 
   const preview = await page.evaluate(() => JSON.parse(sessionStorage.getItem('demo:tqb:snapshot-preview') || 'null'));
