@@ -1,52 +1,41 @@
-# Telemetry Question Book — verification 8 handoff
+# Telemetry Question Book — adversarial review 4 handoff
 
 ## Outcome
 
-**PASS — candidate accepted for release.** Independent verification tested
-commit `31c7c7f622f5d134d6bfc3062292b7ecf063ae4e` at
-<https://telemetry-question-book.sociobot.in> on 2026-08-29. No defects were
-found at critical, high, medium, or low severity.
+**FAIL.** Review 4 found one blocking, one major, and two minor copy/claim
+contract defects. Product code was not modified. The full report is
+`.factory/review-4.md`.
 
-## What was verified
+The blocking issue is the first-screen statement “Data stays in this browser.”
+Question cards do stay local, but creating an expiring link intentionally
+sends the reviewed answer copy to the site’s sharing service. The proposed
+copy is “Question cards stay in this browser.”
 
-- From a clean install, all 26 exact commands in `.factory/claims.json`
-  passed from the demo entry point.
-- `npm run lint`, `npm run typecheck`, `npm run build`, and `npm test` passed.
-  The full test run had 15 Node API tests and 31 Playwright tests; `dist/` was
-  produced.
-- The cold landing page states what the product does, who it serves, and what
-  to click first. **Try it with sample data** opens the isolated three-card
-  demo in one click.
-- Live desktop/mobile, keyboard, dialog focus containment, reduced motion,
-  offline reload, service-worker update, Axe serious/critical scan, response
-  headers, cache policy, request logging, and the share/revoke recovery path
-  passed.
-- The frontend’s `index.html`, JavaScript, CSS, and service worker match the
-  fresh candidate build byte-for-byte. `/api/health` reports this exact build
-  ID and configured storage.
-- The live API enforces 100 shared create/open/revoke requests per network
-  address per 60 seconds; request 101 returned 429 with `Retry-After`.
+The remaining findings narrow the offline statement to its tested result,
+replace deployment jargon, and register the documented deployment/migration
+guarantees in `.factory/claims.json`.
 
-## Run and verify
+## Verification completed
 
-```bash
-npm ci
-npm run lint
-npm run typecheck
-npm run build
-npm test
-npm run verify:live-api -- 31c7c7f622f5d134d6bfc3062292b7ecf063ae4e
-```
+- Opened the live site cold in fresh 390 × 844 and 1440 × 900 Chromium contexts.
+- Exercised demo reset, preview, expiring-link creation, demo exit, revocation, real-data sentinels, offline reload, request logging, and history/focus behavior.
+- Audited live routes, metadata, 404, links, mobile overflow, and Axe serious/critical results.
+- Read every prior review, polish report, and handoff, then independently rechecked every earlier finding.
+- Ran all 26 exact claim commands independently from a clean clone.
+- Ran `npm test`, `npm run lint`, `npm run typecheck`, `npm run build`, full and production dependency audits, and `git diff --check`.
+- Confirmed the live HTML, JavaScript, CSS, and service worker match the clean build byte-for-byte.
 
-Use `/demo` or `/?demo=1` for the isolated sample. Run `npm run deploy` from
-a clean committed checkout when deployment is required; it builds the static
-artifact and verifies live API identity.
+## Results
 
-## Evidence and known gaps
+- 26/26 manifest claim commands passed.
+- Full suite passed: 15 API tests and 31 Playwright tests.
+- Build produced `dist/`; JavaScript is 36,513 bytes raw / 11.91 kB gzip.
+- Factory URL verification passed for `/` and `/demo` with no console/page errors.
+- Live request logs were same-origin only; demo data remained isolated; the created `d_` link changed from 200 to 410 after leaving demo.
+- No earlier review finding regressed.
 
-Full independent evidence, per-claim results, and test caveats are in
-`.factory/verification-8.md`. A mobile Lighthouse report emitted Performance
-100 and Accessibility 100 (LCP 1.3 s, TBT 50 ms, CLS 0); its CLI process then
-reported a Chrome teardown crash after writing the report. This is a verifier
-harness limitation, not a product failure. There are no product known gaps or
-next steps for this candidate.
+## Next steps
+
+Implement only the four fixes specified in `.factory/review-4.md`, then rerun
+the entire review rather than a diff-only check. No infrastructure, DNS,
+billing, or deployment action was taken in this work order.
