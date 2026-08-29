@@ -1,26 +1,49 @@
-# Telemetry Question Book — review 5 handoff
+# Telemetry Question Book — polish 5 handoff
 
 ## Outcome
 
-Review 5 is **FAIL** with one minor finding: landing heading F-5-1, “It
-translates readings. It does not replace telemetry.”, does not name its limits
-section when read out of context. Product code was not changed.
+**PASS.** Deployed build `bba743887ad538ac40c7901b8741b1eba95d6b9c` fixes the
+last review finding: the limits section now uses the self-contained h2 “What
+the question book does not do.” The small change retains the distinct
+mid-century instrument-panel identity while making the heading usable in a
+screen-reader heading list. The catalog description is now this 57-character,
+verb-first sentence: “Track recurring telemetry answers from approved
+readings.”
 
-## What was verified
+## Deployed product
 
-- Fresh phone and desktop visits explain the job, audience, and first action.
-- The one-click demo shows realistic data, a persistent demo banner, isolated
-  `demo:` storage, working reset, and unchanged real sentinels.
-- All 28 exact `.factory/claims.json` commands passed independently from
-  `/tmp/tqb-review-5` after a clean install.
-- Full suite passed: 15 API tests and 32 Playwright tests. Lint, typecheck,
-  build, and both dependency audits passed.
-- Live route, metadata, link, focus/back, accessibility, privacy-request,
-  sitemap, robots, 404, and visual-identity checks passed.
-- All earlier findings were independently confirmed fixed except the new F-5-1
-  copy finding.
+- Live: <https://telemetry-question-book.sociobot.in>
+- Direct isolated sample: <https://telemetry-question-book.sociobot.in/demo>
+  or <https://telemetry-question-book.sociobot.in/?demo=1>
+- Repair commit/build ID: `bba743887ad538ac40c7901b8741b1eba95d6b9c`
+- Deployment: `npm run deploy` completed; `/api/health` reports the exact build
+  ID, configured snapshot storage, and the live forged-header rate-limit check
+  passed.
 
-## How to verify
+## Verification performed
+
+- Fresh clean clone `/tmp/tqb-polish-5-clean`: `npm ci`, `npm --prefix api ci`,
+  then every one of the 28 exact `.factory/claims.json` commands independently:
+  **28/28 PASS**.
+- Fresh clean clone full quality gate: `npm test` **PASS** (15 API + 33
+  Playwright), `npm run lint`, `npm run typecheck`, `npm run build`, both
+  high-severity dependency audits, and `git diff --check`: **PASS**.
+- Local and live browser matrix: all audited pages at 390 × 844 and 1440 × 900
+  have route-specific metadata, one h1/main, no horizontal overflow, zero
+  serious/critical Axe findings, designed keyboard focus, reduced-motion
+  support, and no undersized visible targets.
+- Live cold root/demo: only same-origin product requests; no normal-load
+  console/page error; direct demo, persistent banner, reset/leave isolation,
+  all expiring-share choices, redaction, revocation, offline reload, legal
+  routes, titles, focus, and the styled 404 passed.
+- `/opt/fleet/lib/verify-url.sh` passed root and demo. Live Lighthouse recorded
+  Performance **100**, Accessibility **100**, FCP **906 ms**, LCP **1.281 s**,
+  TBT **1 ms**, CLS **0**, and 61,284 transferred bytes.
+
+See [.factory/polish-5.md](polish-5.md) for the complete finding-to-evidence
+matrix and linked screenshots/reports.
+
+## How to run
 
 ```bash
 npm ci
@@ -31,12 +54,11 @@ npm run typecheck
 npm run build
 ```
 
-For the live demo, open `https://telemetry-question-book.sociobot.in/demo` at
-390 px width and confirm the Northstar sample, banner, Reset demo, and Start
-for real controls.
+Use `npm run dev` for local development. The Vite build writes `dist/index.html`
+at its root. Deploy only from a clean, committed checkout with `npm run deploy`.
 
-## Known gap and next step
+## Known gaps
 
-Replace the limits h2 with “What the question book does not do” and remove the
-duplicate eyebrow. Then repeat the complete review from fresh browser contexts
-and a clean clone.
+None. No AI feature was added because the brief expressly forbids generated
+explanations and the existing CSV, JSON, local storage, and revocable expiring
+link flows cover the product’s actual job.

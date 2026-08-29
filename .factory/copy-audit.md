@@ -75,4 +75,4 @@ Audited 29 August 2026. Counts use whitespace-delimited words and treat hyphenat
 | Authorized external destination | approved source |
 | Isolated sample workspace | demo |
 
-Catalog description: **Track recurring telemetry answers from approved readings.** (55 characters, verb first)
+Catalog description: **Track recurring telemetry answers from approved readings.** (57 characters, verb first)

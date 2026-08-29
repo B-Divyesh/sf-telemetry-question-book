@@ -1,0 +1,18 @@
+{
+  "fetchTime": "2026-08-29T20:57:53.443Z",
+  "url": "https://telemetry-question-book.sociobot.in/",
+  "scores": {
+    "performance": 100,
+    "accessibility": 100
+  },
+  "metrics": {
+    "fcpMs": 905.945,
+    "lcpMs": 1280.945,
+    "tbtMs": 1,
+    "cls": 0
+  },
+  "transfer": {
+    "requests": 5,
+    "totalBytes": 61284
+  }
+}
