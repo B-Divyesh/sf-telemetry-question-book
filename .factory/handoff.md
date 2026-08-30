@@ -1,29 +1,75 @@
-# Telemetry Question Book — review 7 handoff
+# Telemetry Question Book — polish 7 handoff
 
 ## Outcome
 
-**FAIL.** No product code was modified. Review 7 found one minor issue:
-`F-7-1`, the 390 px header hides the visible Telemetry Question Book wordmark,
-leaving a dial icon without visible home/product identification.
+**PASS.** Review 7's remaining mobile-header defect is fixed, and every finding
+from reviews 1–7 has been rechecked. The 390 px header visibly names Telemetry
+Question Book and keeps the home control identifiable. At 320 px the wordmark
+and navigation stack without overlap. The original instrument-panel visual
+system and static-web deployment class remain unchanged.
+
+The functional repair is commit
+`91e44ba21a75dbda1d8a329cec870fbdb3a042b4`. The first evidence-bearing live
+deployment is `178f1351b27609a5ac6d1403ba5c03e023b2550b`. The final
+documentation-only deployment repeats the repository's static/API identity
+check.
+
+## What changed
+
+- Kept the full wordmark visible beside the instrument dial at 390 px.
+- Uses the compact visible label “Questions” for the mobile `/book` link while
+  retaining its accessible name “My question book.”
+- Stacks wordmark and navigation below 350 px to avoid overlap.
+- Added a regression across six app routes at 390 px and 320 px that checks
+  visible product text, viewport bounds, and non-overlap.
+- Updated the catalog sentence to 93 characters, verb first.
+- Extended the reusable browser matrix to record and assert visible phone
+  wordmarks on app and 404 routes.
 
 ## Verification
 
-- Fresh live 390 px and desktop first reads clearly identify the job, audience,
-  and **Try it with sample data** action.
-- The one-click demo showed realistic sample data before the phone fold, used
-  demo-only storage, displayed its banner, and revoked a `d_` share on Reset.
-- `npm ci` then `npm test` passed 15 API and 33 Playwright tests. The six API
-  claim commands were additionally run at their exact manifest patterns.
-- Live request logging was same-origin only. Build, route, link, metadata,
-  back/focus, 404, and Axe checks passed apart from F-7-1's visual wordmark
-  requirement.
+- Clean clone: all 28 literal commands in `.factory/claims.json` passed.
+- Full suite: 15 API tests and 34 Playwright tests passed.
+- `npm run lint`, `npm run typecheck`, `npm run build`, `git diff --check`, and
+  root/production/API high-severity audits passed.
+- Build output: 36,612-byte JS (11,882 gzip) and 17,547-byte CSS (4,954 gzip),
+  well below the static-product budgets.
+- Local Lighthouse: Performance 100, Accessibility 100, Best Practices 100,
+  SEO 100; LCP 1.425 s, TBT 45 ms, CLS 0.
+- Live Lighthouse: Performance 100, Accessibility 100, Best Practices 100,
+  SEO 100; LCP 1.211 s, TBT 0 ms, CLS 0.
+- Local and live route matrices each covered 16 route/viewport combinations:
+  zero serious/critical Axe findings, valid-route console/page errors,
+  horizontal overflows, or undersized controls.
+- The live cold flow verified one-click `?demo=1`, the persistent banner,
+  real-data sentinels, Reset/Start cleanup, 1-hour/24-hour/7-day links,
+  revocation, offline reopen, route titles, legal pages, and HTTP 404.
+- The deployment check matched `/build-info.json` and `/api/health`, confirmed
+  snapshot storage, and proved forged address headers cannot bypass the shared
+  request limit.
 
-## Reproduce
+Evidence is indexed in [.factory/polish-7.md](polish-7.md). The complete clean
+run is [clean-verification.txt](evidence/polish-7/clean-verification.txt), the
+live cold result is
+[cold-browser-check.json](evidence/polish-7/live/browser/cold-browser-check.json),
+and the live phone capture is
+[screenshot-mobile.png](evidence/polish-7/live/root/screenshot-mobile.png).
+
+## Run and deploy
 
 ```bash
 npm ci
 npm test
+npm run lint
 npm run build
+npm run deploy
 ```
 
-See `.factory/review-7.md` for the exact finding and complete copy audit.
+`npm run deploy` requires a clean committed checkout. It builds `dist/`, deploys
+the server functions in `api/`, and verifies the committed build identity and
+live rate-limit behavior.
+
+## Known gaps and next steps
+
+None. No AI feature was added because the brief explicitly prohibits generated
+explanations; CSV import/export and expiring links already complete the job.

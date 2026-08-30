@@ -24,6 +24,11 @@ const seriousAxe = async () => (await new AxeBuilder({ page }).analyze()).violat
 
 await page.goto(base, { waitUntil: 'networkidle' });
 assert.deepEqual(await page.evaluate(() => ({ local: Object.keys(localStorage), session: Object.keys(sessionStorage) })), { local: [], session: [] });
+const wordmark = page.getByRole('link', { name: 'Telemetry Question Book home' });
+assert.equal(await wordmark.isVisible(), true);
+assert.match(await wordmark.innerText(), /Telemetry\s*Question Book/i);
+const wordmarkBounds = await wordmark.boundingBox();
+assert.ok(wordmarkBounds && wordmarkBounds.x >= 0 && wordmarkBounds.x + wordmarkBounds.width <= 390);
 await page.getByText('Question cards stay in this browser.').waitFor();
 await page.getByText('Saved questions reopen offline after one online visit.').waitFor();
 assert.equal(await page.getByRole('heading', { level: 2, name: 'What the question book does not do' }).count(), 1);
@@ -190,6 +195,7 @@ assert.deepEqual(unexpectedConsoleErrors, []);
 const result = {
   generatedAt: new Date().toISOString(),
   base,
+  wordmark: { text: await wordmark.innerText(), bounds: wordmarkBounds },
   factBounds,
   firstReadingBounds,
   shares,
