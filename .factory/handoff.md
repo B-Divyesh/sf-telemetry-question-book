@@ -1,12 +1,15 @@
-# Telemetry Question Book — polish 7 handoff
+# Telemetry Question Book — verification 14 handoff
 
 ## Outcome
 
-**PASS.** Review 7's remaining mobile-header defect is fixed, and every finding
-from reviews 1–7 has been rechecked. The 390 px header visibly names Telemetry
-Question Book and keeps the home control identifiable. At 320 px the wordmark
-and navigation stack without overlap. The original instrument-panel visual
-system and static-web deployment class remain unchanged.
+**PASS** for candidate `22cb671252954e59ac26369452f6a29b2e4bb53a` at
+`https://telemetry-question-book.sociobot.in`.
+
+Independent verification confirms matching live static/API build IDs, a
+plain-language first screen with a one-click sample-data demo, and all release
+gates passing. The exact evidence and the only low-severity observation are in
+[verification-14.md](verification-14.md). This report supersedes the older
+polish-7 conclusion below, which remains as historical repair context.
 
 The functional repair is commit
 `91e44ba21a75dbda1d8a329cec870fbdb3a042b4`. The first evidence-bearing live
@@ -71,5 +74,9 @@ live rate-limit behavior.
 
 ## Known gaps and next steps
 
-None. No AI feature was added because the brief explicitly prohibits generated
-explanations; CSV import/export and expiring links already complete the job.
+No release-blocking gaps. At mobile widths the demo intentionally hides **Add a
+question**, although the real workspace retains it; see
+[verification-14.md](verification-14.md) for the verified scope and suggested
+follow-up. No AI feature was added because the brief explicitly prohibits
+generated explanations; CSV import/export and expiring links already complete
+the job.
