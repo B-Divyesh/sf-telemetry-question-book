@@ -619,6 +619,26 @@ test('regression: mobile navigation, footer, and contact targets meet 44px', asy
   }
 });
 
+test('regression: the mobile header keeps the product wordmark visible', async ({ page }) => {
+  for (const width of [390, 320]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const route of ['/', '/demo', '/book', '/privacy', '/terms', '/snapshot']) {
+      await page.goto(route);
+      const home = page.getByRole('link', { name: 'Telemetry Question Book home' });
+      const name = home.locator('.wordmark-name');
+
+      await expect(home).toBeVisible();
+      await expect(name).toBeVisible();
+      await expect(name).toHaveText(/Telemetry\s*Question Book/);
+      const homeBox = await home.boundingBox();
+      const navBox = await page.getByRole('navigation', { name: 'Main navigation' }).boundingBox();
+      expect(homeBox && homeBox.x >= 0 && homeBox.x + homeBox.width <= width, `wordmark must fit on ${route} at ${width}px`).toBeTruthy();
+      expect(navBox && navBox.x >= 0 && navBox.x + navBox.width <= width, `navigation must fit on ${route} at ${width}px`).toBeTruthy();
+      expect(homeBox && navBox && (homeBox.y + homeBox.height <= navBox.y || navBox.x >= homeBox.x + homeBox.width), `wordmark and navigation must not overlap on ${route} at ${width}px`).toBeTruthy();
+    }
+  }
+});
+
 test('regression: the complete first-screen facts fit phone and desktop viewports', async ({ page }) => {
   for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
     await page.setViewportSize(viewport);

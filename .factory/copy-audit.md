@@ -1,6 +1,6 @@
 # Landing-page copy audit
 
-Audited 29 August 2026. Counts use whitespace-delimited words and treat hyphenated terms as one word. No line exceeds 22 words. No banned term appears.
+Audited 30 August 2026. Counts use whitespace-delimited words and treat hyphenated terms as one word. No line exceeds 22 words. No banned term appears.
 
 | Words | Exact copy | Result |
 | ---: | --- | --- |
@@ -75,4 +75,4 @@ Audited 29 August 2026. Counts use whitespace-delimited words and treat hyphenat
 | Authorized external destination | approved source |
 | Isolated sample workspace | demo |
 
-Catalog description: **Track recurring telemetry answers from readings your team enters or imports.** (76 characters, verb first)
+Catalog description: **Track recurring telemetry answers from approved readings your support team enters or imports.** (93 characters, verb first)

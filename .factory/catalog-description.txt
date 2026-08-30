@@ -1,1 +1,1 @@
-Track recurring telemetry answers from readings your team enters or imports.
+Track recurring telemetry answers from approved readings your support team enters or imports.

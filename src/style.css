@@ -43,6 +43,7 @@ body:has(.demo-banner) .skip-link { top: 152px; }
 .site-header { min-height: 88px; padding: 16px clamp(20px, 5vw, 80px); display: flex; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--line); position: relative; z-index: 3; }
 .wordmark { min-width: 44px; min-height: 44px; color: var(--ink); display: inline-flex; align-items: center; gap: 12px; font: 800 16px/1.05 var(--display); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
 .wordmark-dial { width: 38px; height: 38px; flex: 0 0 auto; border: 3px solid var(--panel); border-radius: 50%; background: radial-gradient(circle at 50% 50%, var(--amber) 0 4px, transparent 5px), conic-gradient(from 35deg, transparent 0 10%, var(--panel) 10% 12%, transparent 12% 100%); box-shadow: inset 0 0 0 5px var(--paper); }
+.book-link-compact { display: none; }
 .site-header nav, .site-footer nav { display: flex; align-items: center; gap: clamp(12px, 3vw, 32px); }
 .site-header nav a { color: var(--ink); min-width: 44px; min-height: 44px; padding-inline: 6px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
 
@@ -206,10 +207,13 @@ dialog :focus { outline: 3px solid var(--cream); outline-offset: 2px; box-shadow
 
 @media (max-width: 620px) {
   body:has(.demo-banner) .skip-link { top: 190px; }
-  .site-header { align-items: flex-start; }
-  .site-header nav { gap: 8px; font-size: 16px; }
-  .site-header nav a { min-height: 48px; }
-  .wordmark span:last-child { display: none; }
+  .site-header { padding-inline: 12px; align-items: center; gap: 8px; }
+  .site-header nav { flex: 0 1 auto; gap: 0; font-size: 16px; }
+  .site-header nav a { min-height: 48px; padding-inline: 4px; }
+  .wordmark { gap: 6px; letter-spacing: .02em; }
+  .wordmark-dial { width: 32px; height: 32px; }
+  .book-link-full { display: none; }
+  .book-link-compact { display: inline; }
   .demo-banner { align-items: flex-start; flex-wrap: wrap; gap: 4px 12px; padding-block: 12px; }
   .demo-banner strong { letter-spacing: 0; }
   .demo-banner > span { font: 400 16px/1.55 var(--display); }
@@ -250,6 +254,12 @@ dialog :focus { outline: 3px solid var(--cream); outline-offset: 2px; box-shadow
   .demo-book .book-controls { order: 3; margin-top: 32px; }
   .demo-book .editor { order: 4; }
   .share-link { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 350px) {
+  .site-header { align-items: stretch; flex-direction: column; gap: 4px; }
+  .site-header nav { justify-content: space-between; }
+  .wordmark { align-self: flex-start; }
 }
 
 @media (prefers-reduced-motion: reduce) {

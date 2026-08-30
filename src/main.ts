@@ -186,10 +186,10 @@ function header(): string {
   return `
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header">
-      <a class="wordmark" href="/" data-link aria-label="Telemetry Question Book home"><span class="wordmark-dial" aria-hidden="true"></span><span>Telemetry<br>Question Book</span></a>
+      <a class="wordmark" href="/" data-link aria-label="Telemetry Question Book home"><span class="wordmark-dial" aria-hidden="true"></span><span class="wordmark-name">Telemetry<br>Question Book</span></a>
       <nav aria-label="Main navigation">
         <a href="/demo" data-link>Demo</a>
-        <a href="/book" data-link>My question book</a>
+        <a href="/book" data-link aria-label="My question book"><span class="book-link-full">My question book</span><span class="book-link-compact" aria-hidden="true">Questions</span></a>
         <a href="/privacy" data-link>Privacy</a>
       </nav>
     </header>`;

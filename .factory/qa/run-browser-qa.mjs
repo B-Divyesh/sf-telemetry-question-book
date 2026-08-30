@@ -35,7 +35,22 @@ async function routeAudit(label, base, viewport) {
       scrollWidth: document.body.scrollWidth,
       innerWidth,
       canonical: document.querySelector('link[rel="canonical"]')?.href || null,
+      wordmark: (() => {
+        const element = document.querySelector('.wordmark');
+        if (!element) return null;
+        const bounds = element.getBoundingClientRect();
+        return {
+          text: element instanceof HTMLElement ? element.innerText.replace(/\s+/g, ' ').trim() : '',
+          visible: getComputedStyle(element).display !== 'none' && bounds.width > 0 && bounds.height > 0,
+          bounds: bounds.toJSON(),
+        };
+      })(),
     }));
+    if (viewport.width === 390) {
+      assert.match(info.wordmark?.text || '', /Telemetry Question Book/i, `${path} keeps a visible product wordmark`);
+      assert.equal(info.wordmark?.visible, true, `${path} keeps the product wordmark visible`);
+      assert.ok(info.wordmark.bounds.right <= viewport.width, `${path} keeps the product wordmark inside the phone viewport`);
+    }
     rows.push({ path, status: response?.status(), ...info, origins: [...origins], consoleErrors, pageErrors, serious });
     if (path === '/') await page.screenshot({ path: `.factory/qa/${label}-${viewport.width}-landing.png`, fullPage: true });
     if (path === '/demo') await page.screenshot({ path: `.factory/qa/${label}-${viewport.width}-demo.png`, fullPage: true });
