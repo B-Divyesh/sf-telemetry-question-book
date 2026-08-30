@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T23:09:13.875Z",
+  "generatedAt": "2026-08-30T00:36:00.421Z",
   "bases": {
     "local": {
       "desktop": [
@@ -14,6 +14,20 @@
           "scrollWidth": 1440,
           "innerWidth": 1440,
           "canonical": "https://telemetry-question-book.sociobot.in/",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 72,
+              "y": 21.5,
+              "width": 202.65625,
+              "height": 44,
+              "top": 21.5,
+              "right": 274.65625,
+              "bottom": 65.5,
+              "left": 72
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -32,6 +46,20 @@
           "scrollWidth": 1440,
           "innerWidth": 1440,
           "canonical": "https://telemetry-question-book.sociobot.in/demo",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 72,
+              "y": 21.5,
+              "width": 202.65625,
+              "height": 44,
+              "top": 21.5,
+              "right": 274.65625,
+              "bottom": 65.5,
+              "left": 72
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -50,6 +78,20 @@
           "scrollWidth": 1440,
           "innerWidth": 1440,
           "canonical": "https://telemetry-question-book.sociobot.in/book",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 72,
+              "y": 21.5,
+              "width": 202.65625,
+              "height": 44,
+              "top": 21.5,
+              "right": 274.65625,
+              "bottom": 65.5,
+              "left": 72
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -68,6 +110,20 @@
           "scrollWidth": 1440,
           "innerWidth": 1440,
           "canonical": "https://telemetry-question-book.sociobot.in/privacy",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 72,
+              "y": 21.5,
+              "width": 202.65625,
+              "height": 44,
+              "top": 21.5,
+              "right": 274.65625,
+              "bottom": 65.5,
+              "left": 72
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -86,6 +142,20 @@
           "scrollWidth": 1440,
           "innerWidth": 1440,
           "canonical": "https://telemetry-question-book.sociobot.in/terms",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 72,
+              "y": 21.5,
+              "width": 202.65625,
+              "height": 44,
+              "top": 21.5,
+              "right": 274.65625,
+              "bottom": 65.5,
+              "left": 72
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -104,6 +174,20 @@
           "scrollWidth": 1440,
           "innerWidth": 1440,
           "canonical": "https://telemetry-question-book.sociobot.in/snapshot",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 72,
+              "y": 21.5,
+              "width": 202.65625,
+              "height": 44,
+              "top": 21.5,
+              "right": 274.65625,
+              "bottom": 65.5,
+              "left": 72
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -122,6 +206,20 @@
           "scrollWidth": 1440,
           "innerWidth": 1440,
           "canonical": "https://telemetry-question-book.sociobot.in/sample-sources/northstar-orders",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 72,
+              "y": 21.5,
+              "width": 202.65625,
+              "height": 44,
+              "top": 21.5,
+              "right": 274.65625,
+              "bottom": 65.5,
+              "left": 72
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -140,6 +238,20 @@
           "scrollWidth": 1440,
           "innerWidth": 1440,
           "canonical": "https://telemetry-question-book.sociobot.in/404",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 72,
+              "y": 21.5,
+              "width": 274.546875,
+              "height": 44,
+              "top": 21.5,
+              "right": 346.546875,
+              "bottom": 65.5,
+              "left": 72
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -162,6 +274,20 @@
           "scrollWidth": 390,
           "innerWidth": 390,
           "canonical": "https://telemetry-question-book.sociobot.in/",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 12,
+              "y": 18.296875,
+              "width": 141.328125,
+              "height": 50.390625,
+              "top": 18.296875,
+              "right": 153.328125,
+              "bottom": 68.6875,
+              "left": 12
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -180,6 +306,20 @@
           "scrollWidth": 390,
           "innerWidth": 390,
           "canonical": "https://telemetry-question-book.sociobot.in/demo",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 12,
+              "y": 18.296875,
+              "width": 141.328125,
+              "height": 50.390625,
+              "top": 18.296875,
+              "right": 153.328125,
+              "bottom": 68.6875,
+              "left": 12
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -198,6 +338,20 @@
           "scrollWidth": 390,
           "innerWidth": 390,
           "canonical": "https://telemetry-question-book.sociobot.in/book",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 12,
+              "y": 18.296875,
+              "width": 141.328125,
+              "height": 50.390625,
+              "top": 18.296875,
+              "right": 153.328125,
+              "bottom": 68.6875,
+              "left": 12
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -216,6 +370,20 @@
           "scrollWidth": 390,
           "innerWidth": 390,
           "canonical": "https://telemetry-question-book.sociobot.in/privacy",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 12,
+              "y": 18.296875,
+              "width": 141.328125,
+              "height": 50.390625,
+              "top": 18.296875,
+              "right": 153.328125,
+              "bottom": 68.6875,
+              "left": 12
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -234,6 +402,20 @@
           "scrollWidth": 390,
           "innerWidth": 390,
           "canonical": "https://telemetry-question-book.sociobot.in/terms",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 12,
+              "y": 18.296875,
+              "width": 141.328125,
+              "height": 50.390625,
+              "top": 18.296875,
+              "right": 153.328125,
+              "bottom": 68.6875,
+              "left": 12
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -252,6 +434,20 @@
           "scrollWidth": 390,
           "innerWidth": 390,
           "canonical": "https://telemetry-question-book.sociobot.in/snapshot",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 12,
+              "y": 18.296875,
+              "width": 141.328125,
+              "height": 50.390625,
+              "top": 18.296875,
+              "right": 153.328125,
+              "bottom": 68.6875,
+              "left": 12
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -270,6 +466,20 @@
           "scrollWidth": 390,
           "innerWidth": 390,
           "canonical": "https://telemetry-question-book.sociobot.in/sample-sources/northstar-orders",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 12,
+              "y": 18.296875,
+              "width": 141.328125,
+              "height": 50.390625,
+              "top": 18.296875,
+              "right": 153.328125,
+              "bottom": 68.6875,
+              "left": 12
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
@@ -288,390 +498,25 @@
           "scrollWidth": 390,
           "innerWidth": 390,
           "canonical": "https://telemetry-question-book.sociobot.in/404",
+          "wordmark": {
+            "text": "TELEMETRY QUESTION BOOK",
+            "visible": true,
+            "bounds": {
+              "x": 20,
+              "y": 14,
+              "width": 157.28125,
+              "height": 90.390625,
+              "top": 14,
+              "right": 177.28125,
+              "bottom": 104.390625,
+              "left": 20
+            }
+          },
           "origins": [
             "http://127.0.0.1:4173"
           ],
           "consoleErrors": [
             "Failed to load resource: the server responded with a status of 404 (Not Found)"
-          ],
-          "pageErrors": [],
-          "serious": []
-        }
-      ],
-      "keyboardAndMotion": {
-        "firstFocus": {
-          "text": "Skip to main content",
-          "rect": {
-            "x": 12,
-            "y": 92,
-            "width": 224.65625,
-            "height": 48.796875,
-            "top": 92,
-            "right": 236.65625,
-            "bottom": 140.796875,
-            "left": 12
-          },
-          "outline": "rgb(255, 249, 233) solid 3px"
-        },
-        "demoFocus": {
-          "text": "Try it with sample data",
-          "outline": "rgb(255, 249, 233) solid 3px"
-        },
-        "dialogFocus": [
-          {
-            "step": "initial close control",
-            "label": "Close answer copy dialog",
-            "inDialog": true,
-            "outlineStyle": "solid",
-            "outlineWidth": 3
-          },
-          {
-            "step": "reverse wrap to review control",
-            "label": "Review answer copy",
-            "inDialog": true,
-            "outlineStyle": "solid",
-            "outlineWidth": 3
-          },
-          {
-            "step": "forward wrap to close control",
-            "label": "Close answer copy dialog",
-            "inDialog": true,
-            "outlineStyle": "solid",
-            "outlineWidth": 3
-          },
-          {
-            "step": "redaction control",
-            "label": "Hide owner, source, and note",
-            "inDialog": true,
-            "outlineStyle": "solid",
-            "outlineWidth": 3
-          },
-          {
-            "step": "expiry control",
-            "label": "Link expires after1 hour24 hours7 days",
-            "inDialog": true,
-            "outlineStyle": "solid",
-            "outlineWidth": 3
-          },
-          {
-            "step": "cancel control",
-            "label": "Cancel",
-            "inDialog": true,
-            "outlineStyle": "solid",
-            "outlineWidth": 3
-          },
-          {
-            "step": "review control",
-            "label": "Review answer copy",
-            "inDialog": true,
-            "outlineStyle": "solid",
-            "outlineWidth": 3
-          },
-          {
-            "step": "forward wrap to close control again",
-            "label": "Close answer copy dialog",
-            "inDialog": true,
-            "outlineStyle": "solid",
-            "outlineWidth": 3
-          }
-        ],
-        "restoredFocus": "Make answer copy",
-        "animationDuration": "1e-05s",
-        "undersizedTargets": []
-      }
-    },
-    "live": {
-      "desktop": [
-        {
-          "path": "/",
-          "status": 200,
-          "title": "Telemetry Question Book — track approved readings",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 1440,
-          "innerWidth": 1440,
-          "canonical": "https://telemetry-question-book.sociobot.in/",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/demo",
-          "status": 200,
-          "title": "Demo — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 1440,
-          "innerWidth": 1440,
-          "canonical": "https://telemetry-question-book.sociobot.in/demo",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/book",
-          "status": 200,
-          "title": "My question book — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 1440,
-          "innerWidth": 1440,
-          "canonical": "https://telemetry-question-book.sociobot.in/book",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/privacy",
-          "status": 200,
-          "title": "Privacy — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 1440,
-          "innerWidth": 1440,
-          "canonical": "https://telemetry-question-book.sociobot.in/privacy",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/terms",
-          "status": 200,
-          "title": "Terms — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 1440,
-          "innerWidth": 1440,
-          "canonical": "https://telemetry-question-book.sociobot.in/terms",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/snapshot#broken",
-          "status": 200,
-          "title": "Answer copy — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 1440,
-          "innerWidth": 1440,
-          "canonical": "https://telemetry-question-book.sociobot.in/snapshot",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/sample-sources/northstar-orders",
-          "status": 200,
-          "title": "Northstar order feed — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 1440,
-          "innerWidth": 1440,
-          "canonical": "https://telemetry-question-book.sociobot.in/sample-sources/northstar-orders",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/not-a-route",
-          "status": 404,
-          "title": "Not found — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 1440,
-          "innerWidth": 1440,
-          "canonical": "https://telemetry-question-book.sociobot.in/404",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [
-            "Failed to load resource: the server responded with a status of 404 ()"
-          ],
-          "pageErrors": [],
-          "serious": []
-        }
-      ],
-      "mobile": [
-        {
-          "path": "/",
-          "status": 200,
-          "title": "Telemetry Question Book — track approved readings",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 390,
-          "innerWidth": 390,
-          "canonical": "https://telemetry-question-book.sociobot.in/",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/demo",
-          "status": 200,
-          "title": "Demo — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 390,
-          "innerWidth": 390,
-          "canonical": "https://telemetry-question-book.sociobot.in/demo",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/book",
-          "status": 200,
-          "title": "My question book — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 390,
-          "innerWidth": 390,
-          "canonical": "https://telemetry-question-book.sociobot.in/book",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/privacy",
-          "status": 200,
-          "title": "Privacy — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 390,
-          "innerWidth": 390,
-          "canonical": "https://telemetry-question-book.sociobot.in/privacy",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/terms",
-          "status": 200,
-          "title": "Terms — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 390,
-          "innerWidth": 390,
-          "canonical": "https://telemetry-question-book.sociobot.in/terms",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/snapshot#broken",
-          "status": 200,
-          "title": "Answer copy — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 390,
-          "innerWidth": 390,
-          "canonical": "https://telemetry-question-book.sociobot.in/snapshot",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/sample-sources/northstar-orders",
-          "status": 200,
-          "title": "Northstar order feed — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 390,
-          "innerWidth": 390,
-          "canonical": "https://telemetry-question-book.sociobot.in/sample-sources/northstar-orders",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [],
-          "pageErrors": [],
-          "serious": []
-        },
-        {
-          "path": "/not-a-route",
-          "status": 404,
-          "title": "Not found — Telemetry Question Book",
-          "lang": "en",
-          "h1": 1,
-          "main": 1,
-          "missingAlt": 0,
-          "scrollWidth": 390,
-          "innerWidth": 390,
-          "canonical": "https://telemetry-question-book.sociobot.in/404",
-          "origins": [
-            "https://telemetry-question-book.sociobot.in"
-          ],
-          "consoleErrors": [
-            "Failed to load resource: the server responded with a status of 404 ()"
           ],
           "pageErrors": [],
           "serious": []
@@ -766,30 +611,6 @@
       "templateDownloadObserved": true,
       "redactedUrlLength": 30,
       "unredactedUrlLength": 30,
-      "dialogFocus": {
-        "inDialog": true,
-        "label": "Close answer copy dialog"
-      },
-      "storageBefore": {
-        "real": true,
-        "demo": true
-      },
-      "storageAfter": {
-        "real": true,
-        "demo": null
-      },
-      "backFocus": {
-        "tag": "H1",
-        "text": "Track recurring answers from approved readings"
-      },
-      "consoleErrors": [],
-      "pageErrors": []
-    },
-    "live": {
-      "csvError": "The CSV is missing source, sourceUrl, value, unit, threshold, comparison, observedAt, freshMinutes. Use the template and import again.",
-      "templateDownloadObserved": true,
-      "redactedUrlLength": 52,
-      "unredactedUrlLength": 52,
       "dialogFocus": {
         "inDialog": true,
         "label": "Close answer copy dialog"

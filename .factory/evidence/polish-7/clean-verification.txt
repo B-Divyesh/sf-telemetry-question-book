@@ -1,0 +1,3918 @@
+Clean clone: /tmp/tqb-polish-7-clean-xEgdDI/repo
+Commit: 91e44ba21a75dbda1d8a329cec870fbdb3a042b4
+Started: 2026-08-30T00:37:49Z
+
+added 105 packages, and audited 106 packages in 2s
+
+33 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+npm warn deprecated @azure/storage-queue@12.28.0: Unplanned Release
+
+added 29 packages, and audited 30 packages in 2s
+
+8 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+CLAIM START demo-sandbox: npm test -- --grep @claim:demo-sandbox
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:demo-sandbox
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 229ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 969.686528
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 7.887836
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.266201
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 588.893928
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 11.686552
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.65103
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.968409
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.17831
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 3.414816
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.948904
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 11.503951
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.676808
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 366.331836
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.497102
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.246105
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1051.174491
+[WebServer] (node:4266) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:4278) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4278) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:48:1 › @claim:demo-sandbox opens three realistic questions in isolated storage (699ms)
+
+  1 passed (2.7s)
+CLAIM PASS demo-sandbox
+CLAIM START demo-controls: npm test -- --grep @claim:demo-controls
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:demo-controls
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 218ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 974.873051
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 4.44262
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.189101
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 580.731192
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 11.567352
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.528029
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.954309
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.137009
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.808608
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.365001
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 12.695756
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.839708
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 319.625927
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.753203
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.048805
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1085.695746
+[WebServer] (node:4556) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:4568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4568) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:72:1 › @claim:demo-controls reset sample changes and leave real data untouched (2.4s)
+
+  1 passed (4.2s)
+CLAIM PASS demo-controls
+CLAIM START card-fields: npm test -- --grep @claim:card-fields
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:card-fields
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 231ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 1024.969661
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 6.855226
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.274001
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 673.869905
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 11.335644
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.188724
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.949908
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 3.698114
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.997108
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.624102
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 10.890442
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.541106
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 367.798922
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.681203
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.004503
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1173.282535
+[WebServer] (node:4865) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:4877) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4877) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:125:1 › @claim:card-fields retains owner, freshness, threshold, and source across reload (564ms)
+
+  1 passed (2.3s)
+CLAIM PASS card-fields
+CLAIM START local-browser: npm test -- --grep @claim:local-browser
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:local-browser
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 241ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 1088.797707
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 7.421328
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.415502
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 598.766414
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 13.588153
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.737226
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 2.239008
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.345905
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.193305
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.538702
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 40.385556
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.245605
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 405.239166
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.611202
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.043704
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1169.809121
+[WebServer] (node:5157) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5169) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5169) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:155:1 › @claim:local-browser keeps question and answer-copy data local with no analytics (963ms)
+
+  1 passed (2.6s)
+CLAIM PASS local-browser
+CLAIM START free-core: npm test -- --grep @claim:free-core
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:free-core
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 227ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 1059.671595
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 7.531829
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.243101
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 643.524487
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 11.782846
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 5.04762
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.373505
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.378509
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 2.75641
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.489602
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 14.389455
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.464205
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 317.298527
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.711703
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.013804
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1225.623936
+[WebServer] (node:5447) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5459) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5459) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:172:1 › @claim:free-core keeps all question workflows available without an account or purchase (3.8s)
+
+  1 passed (5.6s)
+CLAIM PASS free-core
+CLAIM START threshold-states: npm test -- --grep @claim:threshold-states
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:threshold-states
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 207ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 936.935221
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 4.588917
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.1839
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 680.316029
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 7.626929
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 5.326021
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.276105
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.957607
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.769707
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.489402
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 11.593544
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.775907
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 322.966248
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.598502
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.859504
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1063.63591
+[WebServer] (node:5737) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:5749) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5749) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:141:1 › @claim:threshold-states shows on track, needs attention, and stale (523ms)
+
+  1 passed (2.2s)
+CLAIM PASS threshold-states
+CLAIM START offline-reload: npm test -- --grep @claim:offline-reload
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:offline-reload
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 224ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 976.778175
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 6.327924
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.201601
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 611.502763
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 26.955804
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.449224
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 2.107808
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 3.332313
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.199905
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.331101
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 8.492633
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.657906
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 348.342346
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.731703
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.071305
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1060.8817
+[WebServer] (node:6045) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6057) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6057) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:194:1 › @claim:offline-reload reloads the visited demo offline (761ms)
+
+  1 passed (2.4s)
+CLAIM PASS offline-reload
+CLAIM START offline-sharing: npm test -- --grep @claim:offline-sharing
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:offline-sharing
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 215ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 988.806421
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 6.980727
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.265101
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 600.763221
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 14.401856
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 7.521229
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 2.231309
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.865907
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 2.141108
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.589103
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 47.626584
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.788707
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 382.169877
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.909204
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.359906
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1120.785531
+[WebServer] (node:6331) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6343) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6343) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:207:1 › @claim:offline-sharing explains that links need a connection and recovers after reconnecting (2.6s)
+
+  1 passed (4.3s)
+CLAIM PASS offline-sharing
+CLAIM START question-update: npm test -- --grep @claim:question-update
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:question-update
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 214ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 928.987185
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 4.440024
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.181701
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 526.530268
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 12.092664
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.172932
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.650608
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.290212
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 2.268312
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.475503
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 12.011663
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.579308
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 369.533443
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.622003
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.719404
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1080.32748
+[WebServer] (node:6619) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6631) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6631) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:230:1 › @claim:question-update changes one recurring card without a duplicate (966ms)
+
+  1 passed (2.6s)
+CLAIM PASS question-update
+CLAIM START csv-import: npm test -- --grep @claim:csv-import
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:csv-import
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 224ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 977.60894
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 4.551324
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.220402
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 598.274446
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 11.190559
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.532835
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.91311
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.023411
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.78221
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.489303
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 11.507861
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.284107
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 319.306779
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.566603
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.054106
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1110.54114
+[WebServer] (node:6928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:6940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6940) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:243:1 › @claim:csv-import adds a new row and updates a matching recurring question (1.8s)
+
+  1 passed (3.4s)
+CLAIM PASS csv-import
+CLAIM START csv-validation: npm test -- --grep @claim:csv-validation
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:csv-validation
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 209ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 1022.608377
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 6.865836
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.259202
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 575.771027
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 9.754551
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 5.76983
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.284007
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.907915
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 3.908021
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.608904
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 15.978584
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.94081
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 360.158293
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 1.002405
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 2.02951
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1106.80312
+[WebServer] (node:7218) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7230) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7230) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:254:1 › @claim:csv-validation enforces required fields, HTTPS, and whole-minute limits in both inputs (10.3s)
+
+  1 passed (12.0s)
+CLAIM PASS csv-validation
+CLAIM START csv-schema: npm test -- --grep @claim:csv-schema
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:csv-schema
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 238ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 980.071754
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 8.654346
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.280602
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 554.777317
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 18.426797
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 4.284722
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.358007
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.389507
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.125006
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.359002
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 7.300239
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.232107
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 357.784281
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.495602
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.432308
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1101.23159
+[WebServer] (node:7507) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7519) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7519) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:315:1 › @claim:csv-schema accepts three comparisons and valid ISO dates, and rejects unknown values and invalid dates (1.7s)
+
+  1 passed (3.4s)
+CLAIM PASS csv-schema
+CLAIM START csv-template: npm test -- --grep @claim:csv-template
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:csv-template
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 212ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 977.887942
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 10.270354
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.408803
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 630.702716
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 11.025658
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 4.361223
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 44.489234
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.402207
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.361807
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.357702
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 11.810663
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.789909
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 322.085094
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.767804
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.834704
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1063.182691
+[WebServer] (node:7797) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:7809) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7809) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:335:1 › @claim:csv-template downloads a usable template (461ms)
+
+  1 passed (2.1s)
+CLAIM PASS csv-template
+CLAIM START question-book-export: npm test -- --grep @claim:question-book-export
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:question-book-export
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 220ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 948.729088
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 7.346038
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.282201
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 682.66719
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 11.964163
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.720935
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 3.71382
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.269712
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.188606
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.336002
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 13.438671
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.250407
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 378.235488
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.833405
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.212106
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1041.737178
+[WebServer] (node:8107) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8119) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8119) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:348:1 › @claim:question-book-export exports one workspace and round-trips every card without duplicates (2.2s)
+
+  1 passed (3.8s)
+CLAIM PASS question-book-export
+CLAIM START answer-copy-security: npm test -- --grep @claim:answer-copy-security
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:answer-copy-security
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 224ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 949.265766
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 4.613726
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.194101
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 616.698386
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 13.457476
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.838739
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.282007
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.033512
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.385907
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.320601
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 7.732643
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.248207
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 330.82037
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.803605
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.202807
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1076.865687
+[WebServer] (node:8396) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8408) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8408) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:374:1 › @claim:answer-copy-security keeps data out of URLs and ignores forged fragments (671ms)
+
+  1 passed (2.3s)
+CLAIM PASS answer-copy-security
+CLAIM START answer-copy-download: npm test -- --grep @claim:answer-copy-download
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:answer-copy-download
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 209ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 938.866407
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 7.751244
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.312701
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 565.337495
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 11.149863
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.508137
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 2.022211
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.942211
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.817311
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.496303
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 11.290964
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.67111
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 301.565305
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.454002
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.797904
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1069.467845
+[WebServer] (node:8684) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:8696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:400:1 › @claim:answer-copy-download exports exactly the reviewed redacted fields (969ms)
+
+  1 passed (2.6s)
+CLAIM PASS answer-copy-download
+CLAIM START expiring-share: npm test -- --grep @claim:expiring-share
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:expiring-share
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 209ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 963.701548
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 4.483425
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.179801
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 526.605377
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 11.139863
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.521137
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 2.046112
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 21.622422
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 2.006111
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.538303
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 10.271858
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.698709
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 305.017025
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.544603
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.825905
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1062.039003
+[WebServer] (node:8992) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:9004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:431:1 › @claim:expiring-share creates an opaque link that expires server-side and rejects tampering (2.1s)
+
+  1 passed (3.8s)
+CLAIM PASS expiring-share
+CLAIM START share-expiry-options: npm test -- --grep @claim:share-expiry-options
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:share-expiry-options
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 210ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 953.58979
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 7.14234
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.267601
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 513.860705
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 7.684843
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 40.355628
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.417608
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.364707
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.146607
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.318502
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 9.710755
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.70371
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 327.975454
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.599703
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.971506
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1053.898058
+[WebServer] (node:9289) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:9301) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9301) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:455:1 › @claim:share-expiry-options sends and receives each advertised expiry duration (4.4s)
+
+  1 passed (6.1s)
+CLAIM PASS share-expiry-options
+CLAIM START share-redaction: npm test -- --grep @claim:share-redaction
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:share-redaction
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 215ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 938.661806
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 4.413825
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.183101
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 589.613933
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 47.464168
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 8.91105
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 2.031811
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.904611
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.72071
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.461603
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 10.804661
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.713909
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 357.066919
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.734804
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.005206
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1076.273883
+[WebServer] (node:9578) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:9590) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9590) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:484:1 › @claim:share-redaction keeps hidden fields out of the stored recipient payload (1.0s)
+
+  1 passed (2.7s)
+CLAIM PASS share-redaction
+CLAIM START share-revocation: npm test -- --grep @claim:share-revocation
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:share-revocation
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 207ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 943.646134
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 7.09994
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.264202
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 566.855105
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 12.590471
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 8.81775
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 2.014811
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.388908
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.126606
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.406803
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 8.208546
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.294707
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 330.78537
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.639004
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.329807
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1081.499113
+[WebServer] (node:9869) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:9881) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9881) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:500:1 › @claim:share-revocation makes a recipient link unavailable immediately (1.4s)
+
+  1 passed (3.1s)
+CLAIM PASS share-revocation
+CLAIM START least-privilege-input: npm test -- --grep @claim:least-privilege-input
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:least-privilege-input
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 221ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 959.69237
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 27.782032
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.219901
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 610.513207
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 10.38485
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.622732
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.474207
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.187811
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.848909
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.491702
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 13.830566
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.745108
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 329.51867
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.799403
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.557908
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1105.994968
+[WebServer] (node:10178) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:10190) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10190) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:516:1 › @claim:least-privilege-input accepts HTTPS links and never asks for credentials (1.2s)
+
+  1 passed (2.9s)
+CLAIM PASS least-privilege-input
+CLAIM START sample-sources: npm test -- --grep @claim:sample-sources
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test --grep @claim:sample-sources
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 210ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 938.57487
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 6.38153
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.256301
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 598.55825
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 12.53996
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 8.50614
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 2.039309
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.922009
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.273406
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.313102
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 7.639836
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.102606
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 380.320111
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.580703
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.740103
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1040.707556
+[WebServer] (node:10467) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:10479) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10479) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/claims.spec.ts:528:1 › @claim:sample-sources gives every demo card a working local source page (710ms)
+
+  1 passed (2.7s)
+CLAIM PASS sample-sources
+CLAIM START snapshot-retention: npm run test:api -- --test-name-pattern @claim:snapshot-retention
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js --test-name-pattern @claim:snapshot-retention
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 995.889542
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 7.432835
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.268101
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 510.12043
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 7.349635
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 5.458126
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.298207
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.922409
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 44.484812
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.578303
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 13.012562
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.866609
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 374.346383
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.452703
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.727304
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1073.734313
+CLAIM PASS snapshot-retention
+CLAIM START snapshot-storage-minimization: npm run test:api -- --test-name-pattern @claim:snapshot-storage-minimization
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js --test-name-pattern @claim:snapshot-storage-minimization
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 971.998829
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 4.667322
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.226701
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 684.60766
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 11.344654
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.838033
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 2.07451
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.10171
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 2.280511
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.505803
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 53.910557
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.767709
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 295.935709
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.505702
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.916604
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1072.253007
+CLAIM PASS snapshot-storage-minimization
+CLAIM START api-rate-limit: npm run test:api -- --test-name-pattern @claim:api-rate-limit
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js --test-name-pattern @claim:api-rate-limit
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 960.799976
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 6.35183
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.192401
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 607.156992
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 11.833457
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.981333
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.960009
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 2.02261
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.777709
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.479002
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 39.594288
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 7.566136
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 367.850952
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 1.044205
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.213606
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1084.908666
+CLAIM PASS api-rate-limit
+CLAIM START health-rate-limit: npm run test:api -- --test-name-pattern @claim:health-rate-limit
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js --test-name-pattern @claim:health-rate-limit
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 997.378449
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 12.242458
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.273001
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 589.476907
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 10.350149
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 5.593926
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 3.969218
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.92241
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 2.244911
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.606303
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 9.239644
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.210406
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 314.233196
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.803404
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.083505
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1077.498431
+CLAIM PASS health-rate-limit
+CLAIM START deploy-integrity: npm run test:api -- --test-name-pattern @claim:deploy-integrity
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js --test-name-pattern @claim:deploy-integrity
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 974.658742
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 7.749537
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.281402
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 593.362525
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 10.42575
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 6.766032
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.456507
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.947409
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.898909
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.488802
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 11.275754
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.672208
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 316.278406
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.578603
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.991704
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1084.067662
+CLAIM PASS deploy-integrity
+CLAIM START legacy-migration: npm run test:api -- --test-name-pattern @claim:legacy-migration
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js --test-name-pattern @claim:legacy-migration
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 994.953138
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 6.988533
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.277102
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 619.847152
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 62.325497
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 7.194734
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 2.08711
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.893409
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 2.635013
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 4.855523
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 13.447364
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.880109
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 372.467474
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.497303
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 0.942105
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1090.533794
+CLAIM PASS legacy-migration
+CLAIMS PASSED 28
+FULL SUITE START
+
+> telemetry-question-book@1.3.0 test
+> npm run build && npm run test:api && playwright test
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 217ms
+
+> telemetry-question-book@1.3.0 test:api
+> node --test api/tests/*.test.js
+
+TAP version 13
+# Subtest: @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+ok 1 - @claim:deploy-integrity deployment stamps and uploads one committed artifact, then verifies static and API identity
+  ---
+  duration_ms: 946.539208
+  type: 'test'
+  ...
+# Subtest: @claim:health-rate-limit health stays read-only and available after more than 100 requests
+ok 2 - @claim:health-rate-limit health stays read-only and available after more than 100 requests
+  ---
+  duration_ms: 4.511321
+  type: 'test'
+  ...
+# Subtest: health sanitizes an accidental unsafe build label
+ok 3 - health sanitizes an accidental unsafe build label
+  ---
+  duration_ms: 0.185801
+  type: 'test'
+  ...
+# Subtest: shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+ok 4 - shared atomic storage allowance admits 100 concurrent requests and rejects the rest
+  ---
+  duration_ms: 610.749009
+  type: 'test'
+  ...
+# Subtest: @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+ok 5 - @claim:api-rate-limit all sharing routes share one network-address minute and 429 includes Retry-After
+  ---
+  duration_ms: 13.073562
+  type: 'test'
+  ...
+# Subtest: only the platform-appended forwarding hop can split allowances
+ok 6 - only the platform-appended forwarding hop can split allowances
+  ---
+  duration_ms: 41.9609
+  type: 'test'
+  ...
+# Subtest: limiter fails closed with a plain retry response when shared storage is unavailable
+ok 7 - limiter fails closed with a plain retry response when shared storage is unavailable
+  ---
+  duration_ms: 1.773208
+  type: 'test'
+  ...
+# Subtest: accepts the exact redacted and unredacted snapshot schemas
+ok 8 - accepts the exact redacted and unredacted snapshot schemas
+  ---
+  duration_ms: 1.91811
+  type: 'test'
+  ...
+# Subtest: rejects every malformed type from the verifier reproduction with one plain recovery error
+ok 9 - rejects every malformed type from the verifier reproduction with one plain recovery error
+  ---
+  duration_ms: 1.620207
+  type: 'test'
+  ...
+# Subtest: rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+ok 10 - rejects invalid dates, enums, lengths, extra keys, demo mismatches, and broken redaction invariants
+  ---
+  duration_ms: 0.457302
+  type: 'test'
+  ...
+# Subtest: create handler rejects the exact malformed payload before storage
+ok 11 - create handler rejects the exact malformed payload before storage
+  ---
+  duration_ms: 14.087167
+  type: 'test'
+  ...
+# Subtest: read handler removes malformed stored data and returns a plain unavailable response
+ok 12 - read handler removes malformed stored data and returns a plain unavailable response
+  ---
+  duration_ms: 1.691908
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+ok 13 - @claim:snapshot-retention payload storage uses service-enforced TTL and table metadata contains no customer payload
+  ---
+  duration_ms: 321.983334
+  type: 'test'
+  ...
+# Subtest: @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+ok 14 - @claim:snapshot-storage-minimization stores only link controls in metadata and deletes answer data on revocation
+  ---
+  duration_ms: 0.689003
+  type: 'test'
+  ...
+# Subtest: @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+ok 15 - @claim:legacy-migration removes expired data and moves active payloads to TTL storage without reading either token
+  ---
+  duration_ms: 1.052905
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1065.256473
+[WebServer] (node:11394) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 34 tests using 1 worker
+
+(node:11406) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11406) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/claims.spec.ts:48:1 › @claim:demo-sandbox opens three realistic questions in isolated storage (650ms)
+  ✓   2 [chromium] › tests/claims.spec.ts:72:1 › @claim:demo-controls reset sample changes and leave real data untouched (2.1s)
+  ✓   3 [chromium] › tests/claims.spec.ts:125:1 › @claim:card-fields retains owner, freshness, threshold, and source across reload (488ms)
+  ✓   4 [chromium] › tests/claims.spec.ts:141:1 › @claim:threshold-states shows on track, needs attention, and stale (375ms)
+  ✓   5 [chromium] › tests/claims.spec.ts:155:1 › @claim:local-browser keeps question and answer-copy data local with no analytics (964ms)
+  ✓   6 [chromium] › tests/claims.spec.ts:172:1 › @claim:free-core keeps all question workflows available without an account or purchase (3.5s)
+  ✓   7 [chromium] › tests/claims.spec.ts:194:1 › @claim:offline-reload reloads the visited demo offline (634ms)
+  ✓   8 [chromium] › tests/claims.spec.ts:207:1 › @claim:offline-sharing explains that links need a connection and recovers after reconnecting (2.5s)
+  ✓   9 [chromium] › tests/claims.spec.ts:230:1 › @claim:question-update changes one recurring card without a duplicate (799ms)
+  ✓  10 [chromium] › tests/claims.spec.ts:243:1 › @claim:csv-import adds a new row and updates a matching recurring question (1.6s)
+  ✓  11 [chromium] › tests/claims.spec.ts:254:1 › @claim:csv-validation enforces required fields, HTTPS, and whole-minute limits in both inputs (9.8s)
+  ✓  12 [chromium] › tests/claims.spec.ts:315:1 › @claim:csv-schema accepts three comparisons and valid ISO dates, and rejects unknown values and invalid dates (2.0s)
+  ✓  13 [chromium] › tests/claims.spec.ts:335:1 › @claim:csv-template downloads a usable template (344ms)
+  ✓  14 [chromium] › tests/claims.spec.ts:348:1 › @claim:question-book-export exports one workspace and round-trips every card without duplicates (2.4s)
+  ✓  15 [chromium] › tests/claims.spec.ts:374:1 › @claim:answer-copy-security keeps data out of URLs and ignores forged fragments (541ms)
+  ✓  16 [chromium] › tests/claims.spec.ts:400:1 › @claim:answer-copy-download exports exactly the reviewed redacted fields (795ms)
+  ✓  17 [chromium] › tests/claims.spec.ts:431:1 › @claim:expiring-share creates an opaque link that expires server-side and rejects tampering (2.1s)
+  ✓  18 [chromium] › tests/claims.spec.ts:455:1 › @claim:share-expiry-options sends and receives each advertised expiry duration (3.1s)
+  ✓  19 [chromium] › tests/claims.spec.ts:484:1 › @claim:share-redaction keeps hidden fields out of the stored recipient payload (955ms)
+  ✓  20 [chromium] › tests/claims.spec.ts:500:1 › @claim:share-revocation makes a recipient link unavailable immediately (1.5s)
+  ✓  21 [chromium] › tests/claims.spec.ts:516:1 › @claim:least-privilege-input accepts HTTPS links and never asks for credentials (1.0s)
+  ✓  22 [chromium] › tests/claims.spec.ts:528:1 › @claim:sample-sources gives every demo card a working local source page (535ms)
+  ✓  23 [chromium] › tests/claims.spec.ts:542:1 › regression: every route has a distinct title, metadata, and navigation focus (1.1s)
+  ✓  24 [chromium] › tests/claims.spec.ts:565:1 › regression: desktop and mobile routes have no serious accessibility issues (10.9s)
+  ✓  25 [chromium] › tests/claims.spec.ts:579:1 › regression: visible product text never falls below the 16px reading minimum (2.0s)
+  ✓  26 [chromium] › tests/claims.spec.ts:606:1 › regression: mobile navigation, footer, and contact targets meet 44px (463ms)
+  ✓  27 [chromium] › tests/claims.spec.ts:622:1 › regression: the mobile header keeps the product wordmark visible (1.5s)
+  ✓  28 [chromium] › tests/claims.spec.ts:642:1 › regression: the complete first-screen facts fit phone and desktop viewports (693ms)
+  ✓  29 [chromium] › tests/claims.spec.ts:655:1 › regression: the limits section names its boundary in the heading list (436ms)
+  ✓  30 [chromium] › tests/claims.spec.ts:663:1 › regression: a focused mobile skip link does not block Demo navigation (349ms)
+  ✓  31 [chromium] › tests/claims.spec.ts:672:1 › regression: keyboard focus and dialog restoration remain visible (426ms)
+  ✓  32 [chromium] › tests/claims.spec.ts:689:1 › regression: answer-copy dialog keeps visible keyboard focus through both tab boundaries (652ms)
+  ✓  33 [chromium] › tests/claims.spec.ts:717:1 › regression: static response policy has explicit routes and a CSP-safe 404 (19ms)
+  ✓  34 [chromium] › tests/claims.spec.ts:734:1 › regression: service worker replaces old caches and has no waiting update (394ms)
+
+  34 passed (59.7s)
+FULL SUITE PASS
+
+> telemetry-question-book@1.3.0 lint
+> eslint src tests api scripts/*.mjs playwright.config.ts eslint.config.js
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+
+> telemetry-question-book@1.3.0 build
+> npm run typecheck && npm --prefix api ci --omit=dev --silent && vite build && node scripts/write-build-info.mjs
+
+
+> telemetry-question-book@1.3.0 typecheck
+> tsc --noEmit
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 4 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  1.79 kB │ gzip:  0.59 kB
+dist/assets/index-QJtTCGPG.css  17.55 kB │ gzip:  4.95 kB
+dist/assets/index-CGvcO00v.js   36.61 kB │ gzip: 11.92 kB
+✓ built in 226ms
+found 0 vulnerabilities
+found 0 vulnerabilities
+found 0 vulnerabilities
+36612	dist/assets/index-CGvcO00v.js
+17547	dist/assets/index-QJtTCGPG.css
+11882
+4954
+Finished: 2026-08-30T00:43:02Z
