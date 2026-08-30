@@ -1,82 +1,52 @@
-# Telemetry Question Book — verification 14 handoff
+# Telemetry Question Book — review 8 handoff
 
 ## Outcome
 
-**PASS** for candidate `22cb671252954e59ac26369452f6a29b2e4bb53a` at
-`https://telemetry-question-book.sociobot.in`.
+**PASS** for adversarial review 8. The live product has zero blocking, major,
+or minor findings, and no untested claim remains. The full report is
+[`review-8.md`](review-8.md).
 
-Independent verification confirms matching live static/API build IDs, a
-plain-language first screen with a one-click sample-data demo, and all release
-gates passing. The exact evidence and the only low-severity observation are in
-[verification-14.md](verification-14.md). This report supersedes the older
-polish-7 conclusion below, which remains as historical repair context.
+## What was done
 
-The functional repair is commit
-`91e44ba21a75dbda1d8a329cec870fbdb3a042b4`. The first evidence-bearing live
-deployment is `178f1351b27609a5ac6d1403ba5c03e023b2550b`. The final
-documentation-only deployment repeats the repository's static/API identity
-check.
+- Opened the live site cold at 390 × 844 and 1440 × 900 before scrolling.
+- Audited every landing and README copy unit for length, clarity, terminology,
+  claim coverage, headings, and action labels.
+- Exercised the one-click demo, Reset, Start for real, answer-copy sharing,
+  demo-link revocation, real-data sentinels, and offline reopening.
+- Read all earlier review, polish, and handoff files and independently rechecked
+  every numbered and carried-forward finding in live behavior and current code.
+- Crawled routes and links; checked titles, metadata, landmarks, focus/history,
+  404 behavior, wordmark visibility, request origins, and Axe results.
+- Replayed all 28 manifest commands independently from a clean clone.
 
-## What changed
-
-- Kept the full wordmark visible beside the instrument dial at 390 px.
-- Uses the compact visible label “Questions” for the mobile `/book` link while
-  retaining its accessible name “My question book.”
-- Stacks wordmark and navigation below 350 px to avoid overlap.
-- Added a regression across six app routes at 390 px and 320 px that checks
-  visible product text, viewport bounds, and non-overlap.
-- Updated the catalog sentence to 93 characters, verb first.
-- Extended the reusable browser matrix to record and assert visible phone
-  wordmarks on app and 404 routes.
+No product code was changed.
 
 ## Verification
 
-- Clean clone: all 28 literal commands in `.factory/claims.json` passed.
-- Full suite: 15 API tests and 34 Playwright tests passed.
-- `npm run lint`, `npm run typecheck`, `npm run build`, `git diff --check`, and
-  root/production/API high-severity audits passed.
-- Build output: 36,612-byte JS (11,882 gzip) and 17,547-byte CSS (4,954 gzip),
-  well below the static-product budgets.
-- Local Lighthouse: Performance 100, Accessibility 100, Best Practices 100,
-  SEO 100; LCP 1.425 s, TBT 45 ms, CLS 0.
-- Live Lighthouse: Performance 100, Accessibility 100, Best Practices 100,
-  SEO 100; LCP 1.211 s, TBT 0 ms, CLS 0.
-- Local and live route matrices each covered 16 route/viewport combinations:
-  zero serious/critical Axe findings, valid-route console/page errors,
-  horizontal overflows, or undersized controls.
-- The live cold flow verified one-click `?demo=1`, the persistent banner,
-  real-data sentinels, Reset/Start cleanup, 1-hour/24-hour/7-day links,
-  revocation, offline reopen, route titles, legal pages, and HTTP 404.
-- The deployment check matched `/build-info.json` and `/api/health`, confirmed
-  snapshot storage, and proved forged address headers cannot bypass the shared
-  request limit.
+Clean clone at `cba3093b91d900517df4fd739813e2d34782650c`:
 
-Evidence is indexed in [.factory/polish-7.md](polish-7.md). The complete clean
-run is [clean-verification.txt](evidence/polish-7/clean-verification.txt), the
-live cold result is
-[cold-browser-check.json](evidence/polish-7/live/browser/cold-browser-check.json),
-and the live phone capture is
-[screenshot-mobile.png](evidence/polish-7/live/root/screenshot-mobile.png).
+- 28/28 exact `.factory/claims.json` commands passed.
+- `npm test` passed: 15 API tests and 34 Playwright tests.
+- `npm run lint`, `npm run typecheck`, and `npm run build` passed.
+- Root and API high-severity dependency audits passed with zero findings.
+- Build output was 36.61 kB JavaScript raw / 11.92 kB gzip and 17.55 kB CSS
+  raw / 4.95 kB gzip.
 
-## Run and deploy
+Live verification:
 
-```bash
-npm ci
-npm test
-npm run lint
-npm run build
-npm run deploy
-```
-
-`npm run deploy` requires a clean committed checkout. It builds `dist/`, deploys
-the server functions in `api/`, and verifies the committed build identity and
-live rate-limit behavior.
+- Twenty-four route/viewport scans had zero serious or critical Axe findings,
+  valid-route errors, missing alt text, or horizontal overflow.
+- All crawled links were live or explicit `mailto:`/fragment links.
+- Demo Reset and Start preserved real sentinels, removed demo keys, and revoked
+  their `d_` links from HTTP 200 to 410.
+- The visited demo reopened offline with three cards and the persistent banner.
+- All observed requests stayed on the product origin.
+- `/build-info.json` and `/api/health` both reported build
+  `22cb671252954e59ac26369452f6a29b2e4bb53a`.
+- Clean-build JavaScript and CSS hashes matched the live assets.
 
 ## Known gaps and next steps
 
-No release-blocking gaps. At mobile widths the demo intentionally hides **Add a
-question**, although the real workspace retains it; see
-[verification-14.md](verification-14.md) for the verified scope and suggested
-follow-up. No AI feature was added because the brief explicitly prohibits
-generated explanations; CSV import/export and expiring links already complete
-the job.
+None for the reviewed contract. The brief prohibits generated explanations, so
+no AI feature is warranted. Sync would conflict with the browser-storage
+boundary. No deployment was requested or performed.
